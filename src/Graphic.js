@@ -41,4 +41,4 @@ class Graphic extends Component {
   }
 }
 
-export default App;
+export default injectSheet(styles)(Graphic);
