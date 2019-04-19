@@ -1,20 +1,14 @@
 import React, { Component } from 'react';
 import { Scrollama, Step } from 'react-scrollama';
 import injectSheet from 'react-jss';
+import ScatterPlot from './ScatterPlot';
 
 const styles = {
-  Graphic: {
-    margin: 0,
+  stickyFigure: {
+    position: 'sticky',
   },
-  steps: {
-    padding: 0,
-  },
-  step: {
-    padding: 0,
-  },
-  stepText: {
-    padding: 0,
-  },
+  step: {},
+  stepText: {},
 };
 
 class Graphic extends Component {
@@ -22,15 +16,19 @@ class Graphic extends Component {
     const { classes, steps } = this.props;
 
     return (
-      <div className={classes.Graphic}>
+      <div>
         <figure className={classes.stickyFigure}>
+          <ScatterPlot dataName="Mechanical engineering" />
         </figure>
         <article className={classes.stepsContainer}>
           <Scrollama offset={0.4} onStepEnter={this.onStepEnter}>
             {steps.map(step => (
               <Step data={step} key={step}>
                 <div className={classes.step}>
-                  <p className={classes.stepText} dangerouslySetInnerHTML={{ __html: step }}/>
+                  <p
+                    className={classes.stepText}
+                    dangerouslySetInnerHTML={{ __html: step }}
+                  />
                 </div>
               </Step>
             ))}

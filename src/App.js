@@ -5,7 +5,7 @@ class App extends Component {
   render() {
     return (
       <div>
-        <Graphic steps={[1, 2, 3]} />
+        <Graphic steps={[]} />
       </div>
     );
   }
