@@ -6,9 +6,11 @@
 
 `<Graphic/>` implements `react-scrollama` and controls whether `<PercentGraph/>` or `<ScatterPlot/>` is visible. It sends numerical data and high-level instructions to these graphs.
 
-`<ScatterPlot/>` contains the graph framework and animates in data.
+`<ScatterPlot/>` contains the graph framework and animates in data. It controls the placement of `<Line/>`'s and `<Point/>`'s.
 
-`<PercentGraph />` renders lines according to data from `<Graphic/>`
+`<PercentGraph/>` renders lines according to data from `<Graphic/>`.
+
+`<Point/>` can also render a `<PointLabel/>`. The label can respect the space of another point.
 
 ## Notes
 
