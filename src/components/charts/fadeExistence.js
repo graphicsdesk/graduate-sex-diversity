@@ -1,17 +1,12 @@
 import React, { Component } from 'react';
 import injectSheet from 'react-jss';
 
-const ANIM_DURATION = '0.4s';
-const DELAY_BETWEEN = 120;
+const ANIM_DURATION = 400;
+const DELAY_BETWEEN = 140;
 
 const styles = {
-  show: {
-    transitionDuration: ANIM_DURATION,
-    opacity: 1,
-  },
-  hide: {
-    transitionDuration: ANIM_DURATION,
-    opacity: 0,
+  transition: {
+    transitionDuration: `${ANIM_DURATION}ms`,
   },
 };
 
@@ -58,7 +53,7 @@ const fadeExistence = WrappedComponent => {
       const { classes, isVisible, queuePosition, ...otherProps } = this.props;
 
       return (
-        <g className={fadeIn ? classes.show : classes.hide}>
+        <g opacity={fadeIn ? 1 : 0} className={classes.transition}>
           <WrappedComponent {...otherProps} />
         </g>
       );

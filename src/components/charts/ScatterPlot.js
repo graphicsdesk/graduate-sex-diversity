@@ -82,7 +82,6 @@ class ScatterPlot extends Component {
   }
 
   static getDerivedStateFromProps = (nextProps, prevState) => {
-    console.log(nextProps.maxYear, prevState.maxYear);
     if (nextProps.maxYear !== prevState.maxYear) {
       return {
         maxYear: nextProps.maxYear,
