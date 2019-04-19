@@ -6,7 +6,7 @@ import { axisBottom, axisLeft } from 'd3-axis';
 import { select as d3Select } from 'd3-selection';
 
 import { maxCoord } from '../../utils';
-import { START_YEAR, END_YEAR } from '../../constants';
+import { START_YEAR } from '../../constants';
 import DATA from '../../data';
 import Point from './Point';
 
@@ -78,7 +78,7 @@ class ScatterPlot extends Component {
 
   render() {
     const { width, height, gHeight, xScale, yScale, xAxis, yAxis } = this.state;
-    const { classes } = this.props;
+    const { classes, maxYear } = this.props;
 
     const lineGenerator = d3Line()
       .x(d => xScale(d[0]))
@@ -104,7 +104,7 @@ class ScatterPlot extends Component {
               key={x + '-' + y}
               x={xScale(x)}
               y={yScale(y)}
-              isVisible={START_YEAR + i < END_YEAR}
+              isVisible={START_YEAR + i <= maxYear}
             />
           ))}
         </g>

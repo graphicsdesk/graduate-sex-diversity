@@ -20,22 +20,29 @@ const styles = {
 };
 
 class Graphic extends Component {
+  state = { stepIndex: 0 };
+
+  onStepEnter = ({ data: stepIndex }) => {
+    this.setState({ stepIndex });
+  }
+
   render() {
     const { classes, steps } = this.props;
+    const step = steps[this.state.stepIndex];
 
     return (
       <div className={classes.Graphic}>
         <figure className={classes.stickyFigure}>
-          <ScatterPlot dataName="Mechanical engineering" />
+          <ScatterPlot dataName="Mechanical engineering" maxYear={step.maxYear}/>
         </figure>
         <article className={classes.stepsContainer}>
-          <Scrollama offset={0.4} onStepEnter={this.onStepEnter}>
-            {steps.map(step => (
-              <Step data={step} key={step}>
+          <Scrollama offset={0.4} onStepEnter={this.onStepEnter} debug>
+            {steps.map((step, i) => (
+              <Step data={i} key={step.maxYear}>
                 <div className={classes.step}>
                   <p
                     className={classes.stepText}
-                    dangerouslySetInnerHTML={{ __html: step }}
+                    dangerouslySetInnerHTML={{ __html: step.maxYear }}
                   />
                 </div>
               </Step>

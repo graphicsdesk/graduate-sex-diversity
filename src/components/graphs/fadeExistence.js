@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
 import injectSheet from 'react-jss';
 
 const ANIM_DURATION = '0.3s';
@@ -28,12 +27,13 @@ const fadeExistence = WrappedComponent => {
     }
 
     componentDidUpdate(prevProps) {
-      const { fadeIn } = this.state;
       const { isVisible } = this.props;
       const { isVisible: prevIsVisible } = prevProps;
 
-      if (isVisible && !fadeIn) {
+      if (!prevIsVisible && isVisible) {
         this.setState({ fadeIn: true });
+      } else if (prevIsVisible && !isVisible) {
+        this.setState({ fadeIn: false });
       }
     }
 
