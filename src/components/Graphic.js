@@ -5,7 +5,7 @@ import { ScatterPlot } from './charts';
 
 const styles = {
   Graphic: {
-    height: '200vh',
+    marginBottom: '1.7rem',
   },
   stickyFigure: {
     height: '100vh',
@@ -14,9 +14,27 @@ const styles = {
     display: 'flex',
     justifyContent: 'center',
   },
-  stepsContainer: {},
-  step: {},
-  stepText: {},
+  stepsContainer: {
+    overflow: 'auto',
+    padding: '0 5vw 30vh 5vw',
+  },
+  step: {
+    position: 'relative',
+    margin: '0 auto 80vh auto',
+    display: 'flex',
+    justifyContent: 'center',
+    backgroundColor: 'rgba(255, 255, 255, 0.8)',
+    maxWidth: '510px',
+    padding: '1rem',
+  },
+  stepText: {
+    textAlign: 'center',
+    color: '#222',
+    fontSize: '1.1rem',
+    fontFamily: 'Merriweather',
+    fontWeight: 400,
+    lineHeight: '1.9rem',
+  },
 };
 
 class Graphic extends Component {
@@ -38,7 +56,7 @@ class Graphic extends Component {
             maxYear={step.maxYear}
           />
         </figure>
-        <article className={classes.stepsContainer}>
+        <div className={classes.stepsContainer}>
           <Scrollama offset={0.4} onStepEnter={this.onStepEnter} debug>
             {steps.map((step, i) => (
               <Step data={i} key={step.maxYear}>
@@ -51,7 +69,7 @@ class Graphic extends Component {
               </Step>
             ))}
           </Scrollama>
-        </article>
+        </div>
       </div>
     );
   }
