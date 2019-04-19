@@ -24,7 +24,7 @@ class Graphic extends Component {
 
   onStepEnter = ({ data: stepIndex }) => {
     this.setState({ stepIndex });
-  }
+  };
 
   render() {
     const { classes, steps } = this.props;
@@ -33,7 +33,10 @@ class Graphic extends Component {
     return (
       <div className={classes.Graphic}>
         <figure className={classes.stickyFigure}>
-          <ScatterPlot dataName="Mechanical engineering" maxYear={step.maxYear}/>
+          <ScatterPlot
+            dataName="Mechanical engineering"
+            maxYear={step.maxYear}
+          />
         </figure>
         <article className={classes.stepsContainer}>
           <Scrollama offset={0.4} onStepEnter={this.onStepEnter} debug>

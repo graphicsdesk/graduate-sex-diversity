@@ -6,7 +6,7 @@ const steps = [
   { maxYear: 1994 },
   { maxYear: 2000 },
   { maxYear: 2016 },
-]
+];
 
 class App extends Component {
   render() {

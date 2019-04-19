@@ -5,9 +5,9 @@ import { line as d3Line } from 'd3-shape';
 import { axisBottom, axisLeft } from 'd3-axis';
 import { select as d3Select } from 'd3-selection';
 
+import DATA from '../../data';
 import { maxCoord } from '../../utils';
 import { START_YEAR } from '../../constants';
-import DATA from '../../data';
 import Point from './Point';
 
 const styles = {
