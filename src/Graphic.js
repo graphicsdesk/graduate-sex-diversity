@@ -4,8 +4,15 @@ import injectSheet from 'react-jss';
 import ScatterPlot from './ScatterPlot';
 
 const styles = {
+  Graphic: {
+    height: '200vh',
+  },
   stickyFigure: {
+    height: '100vh',
+    top: 0,
     position: 'sticky',
+    display: 'flex',
+    justifyContent: 'center',
   },
   step: {},
   stepText: {},
@@ -16,7 +23,7 @@ class Graphic extends Component {
     const { classes, steps } = this.props;
 
     return (
-      <div>
+      <div className={classes.Graphic}>
         <figure className={classes.stickyFigure}>
           <ScatterPlot dataName="Mechanical engineering" />
         </figure>
