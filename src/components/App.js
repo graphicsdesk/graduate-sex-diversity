@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import Graphic from './Graphic';
 
 const steps = [
-  { maxYear: -1 },
+  { maxYear: 1993 },
   { maxYear: 1994 },
   { maxYear: 2000 },
   { maxYear: 2016 },

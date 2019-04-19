@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Scrollama, Step } from 'react-scrollama';
 import injectSheet from 'react-jss';
-import { ScatterPlot } from './graphs';
+import { ScatterPlot } from './charts';
 
 const styles = {
   Graphic: {

@@ -39,12 +39,13 @@ const margin = { top: 60, right: 60, bottom: 60, left: 60 };
 class ScatterPlot extends Component {
   constructor(props) {
     super(props);
+
     const { dataName } = props;
     this.data = DATA[dataName];
 
     const height = window.innerHeight;
-    const gHeight = height - margin.top - margin.bottom;
     const width = height;
+    const gHeight = height - margin.top - margin.bottom;
     const gWidth = width - margin.left - margin.right;
 
     const upperLimit = maxCoord(this.data);
@@ -69,16 +70,42 @@ class ScatterPlot extends Component {
       height,
       gWidth,
       gHeight,
+
       xScale,
       yScale,
       xAxis,
       yAxis,
+
+      maxYear: this.props.maxYear,
+      previousMaxYear: START_YEAR,
     };
   }
 
+  static getDerivedStateFromProps = (nextProps, prevState) => {
+    console.log(nextProps.maxYear, prevState.maxYear);
+    if (nextProps.maxYear !== prevState.maxYear) {
+      return {
+        maxYear: nextProps.maxYear,
+        previousMaxYear: prevState.maxYear,
+      };
+    }
+
+    return null;
+  };
+
   render() {
-    const { width, height, gHeight, xScale, yScale, xAxis, yAxis } = this.state;
-    const { classes, maxYear } = this.props;
+    const {
+      width,
+      height,
+      gHeight,
+      xScale,
+      yScale,
+      xAxis,
+      yAxis,
+      maxYear,
+      previousMaxYear,
+    } = this.state;
+    const { classes } = this.props;
 
     const lineGenerator = d3Line()
       .x(d => xScale(d[0]))
@@ -105,6 +132,11 @@ class ScatterPlot extends Component {
               x={xScale(x)}
               y={yScale(y)}
               isVisible={START_YEAR + i <= maxYear}
+              queuePosition={
+                START_YEAR +
+                i -
+                (previousMaxYear < START_YEAR ? START_YEAR : previousMaxYear)
+              }
             />
           ))}
         </g>
