@@ -4,8 +4,11 @@ import { scaleLinear } from 'd3-scale';
 import { line as d3Line } from 'd3-shape';
 import { axisBottom, axisLeft } from 'd3-axis';
 import { select as d3Select } from 'd3-selection';
-import { maxCoord } from './utils';
-import DATA from './data';
+
+import { maxCoord } from '../../utils';
+import { START_YEAR, END_YEAR } from '../../constants';
+import DATA from '../../data';
+import Point from './Point';
 
 const styles = {
   line: {
@@ -95,6 +98,15 @@ class ScatterPlot extends Component {
           />
 
           <path d={lineGenerator(this.data)} className={classes.line} />
+
+          {this.data.map(([x, y], i) => (
+            <Point
+              key={x + '-' + y}
+              x={xScale(x)}
+              y={yScale(y)}
+              isVisible={START_YEAR + i < END_YEAR}
+            />
+          ))}
         </g>
       </svg>
     );
