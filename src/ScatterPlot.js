@@ -4,7 +4,6 @@ import { scaleLinear } from 'd3-scale';
 import { line as d3Line } from 'd3-shape';
 import { axisBottom, axisLeft } from 'd3-axis';
 import { select as d3Select } from 'd3-selection';
-import { START_YEAR, END_YEAR } from './constants';
 import { maxCoord } from './utils';
 import DATA from './data';
 
@@ -22,7 +21,7 @@ const styles = {
     '& text': {
       fontFamily: 'Roboto',
       fontSize: '0.9rem',
-      color: '#999',
+      color: '#333',
     },
     '& > g.tick line': {
       stroke: '#ddd',
@@ -30,7 +29,8 @@ const styles = {
   },
 };
 
-const NUM_TICKS = 5;
+const NUM_TICKS = 6;
+const TICK_PADDING = 14;
 const margin = { top: 60, right: 60, bottom: 60, left: 60 };
 
 class ScatterPlot extends Component {
@@ -54,9 +54,11 @@ class ScatterPlot extends Component {
 
     const xAxis = axisBottom(xScale)
       .tickSize(-gHeight)
+      .tickPadding(TICK_PADDING)
       .ticks(NUM_TICKS);
     const yAxis = axisLeft(yScale)
       .tickSize(-gWidth)
+      .tickPadding(TICK_PADDING)
       .ticks(NUM_TICKS);
 
     this.state = {
@@ -73,7 +75,7 @@ class ScatterPlot extends Component {
 
   render() {
     const { width, height, gHeight, xScale, yScale, xAxis, yAxis } = this.state;
-    const { classes, steps } = this.props;
+    const { classes } = this.props;
 
     const lineGenerator = d3Line()
       .x(d => xScale(d[0]))
