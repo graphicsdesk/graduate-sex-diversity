@@ -6,7 +6,12 @@ import { START_YEAR, END_YEAR } from './constants';
 import { maxCoord } from './utils';
 import DATA from './data';
 
-const styles = {};
+const styles = {
+  line: {
+    fill: 'none',
+    stroke: '#333',
+  }
+};
 
 const margin = { top: 20, right: 20, bottom: 20, left: 20 };
 
@@ -20,27 +25,30 @@ class ScatterPlot extends Component {
     const width = height;
 
     const upperLimit = maxCoord(this.data);
-    const scale = scaleLinear()
+    const xScale = scaleLinear()
           .domain([0, upperLimit]).range([0, width]);
+    const yScale = scaleLinear()
+          .domain([0, upperLimit])
+          .range([height, 0]);
 
     this.state = {
       width: height,
       height,
-      scale,
+      xScale,
+      yScale,
     };
   }
 
   render() {
-    const { width, height, scale } = this.state;
+    const { width, height, xScale, yScale } = this.state;
     const { classes, steps } = this.props;
 
-    const lineGenerator = d3Line().x(d => scale(console.log(d[0]))).y(d => scale(d[1]));
-    console.log(lineGenerator(this.data));
+    const lineGenerator = d3Line().x(d => xScale(d[0])).y(d => yScale(d[1]));
 
     return (
       <svg width={width} height={height}>
         <g transform={`translate(0, ${margin.top})`}>
-          <path d={lineGenerator(this.data)} />
+          <path d={lineGenerator(this.data)} className={classes.line}/>
         </g>
       </svg>
     );

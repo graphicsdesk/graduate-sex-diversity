@@ -4,5 +4,5 @@ export const maxCoord = array => {
     values.push(coordinate[0]);
     values.push(coordinate[1]);
   });
-  return Math.max(values);
+  return Math.max(...values);
 };
