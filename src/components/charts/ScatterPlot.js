@@ -124,6 +124,8 @@ class ScatterPlot extends Component {
             className={classes.axis}
           />
 
+          <path d={lineGenerator([[0, 0], [1000, 1000]])} fill="black" />
+
           <path d={lineGenerator(this.data)} className={classes.line} />
 
           {this.data.map(([x, y], i) => (
