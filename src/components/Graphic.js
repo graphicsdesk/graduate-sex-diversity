@@ -5,32 +5,35 @@ import { ScatterPlot } from './charts';
 
 const styles = {
   Graphic: {
-    marginBottom: '1.7rem',
+    margin: '50vh 0',
+    display: 'flex',
+    justifyContent: 'space-between',
   },
   stickyFigure: {
+    flexBasis: '55%',
     height: '100vh',
     top: 0,
     position: 'sticky',
     display: 'flex',
     justifyContent: 'center',
+    margin: 0,
   },
   stepsContainer: {
-    overflow: 'auto',
-    padding: '0 5vw 30vh 5vw',
+    flexBasis: '40%',
+    padding: '50vh 5vw',
   },
   step: {
-    position: 'relative',
-    margin: '0 auto 80vh auto',
     display: 'flex',
     justifyContent: 'center',
     backgroundColor: 'rgba(255, 255, 255, 0.8)',
-    maxWidth: '510px',
-    padding: '1rem',
+    maxWidth: '350px',
+    margin: '0 auto',
+    paddingBottom: '130px',
+    color: '#aaa',
+    transitionDuration: '0.3s',
   },
   stepText: {
-    textAlign: 'center',
-    color: '#222',
-    fontSize: '1.1rem',
+    fontSize: '1.06rem',
     fontFamily: 'Merriweather',
     fontWeight: 400,
     lineHeight: '1.9rem',
@@ -40,9 +43,12 @@ const styles = {
 class Graphic extends Component {
   state = { stepIndex: 0 };
 
-  onStepEnter = ({ data: stepIndex }) => {
+  onStepEnter = ({ element, data: stepIndex }) => {
     this.setState({ stepIndex });
+    element.style.color = '#222';
   };
+
+  onStepExit = ({ element }) => (element.style.color = '#aaa');
 
   render() {
     const { classes, steps } = this.props;
@@ -50,26 +56,31 @@ class Graphic extends Component {
 
     return (
       <div className={classes.Graphic}>
-        <figure className={classes.stickyFigure}>
-          <ScatterPlot
-            dataName="Mechanical engineering"
-            maxYear={step.maxYear}
-          />
-        </figure>
         <div className={classes.stepsContainer}>
-          <Scrollama offset={0.4} onStepEnter={this.onStepEnter} debug>
+          <Scrollama
+            offset={0.4}
+            onStepEnter={this.onStepEnter}
+            onStepExit={this.onStepExit}
+          >
             {steps.map((step, i) => (
-              <Step data={i} key={step.maxYear}>
+              <Step data={i} key={step.text}>
                 <div className={classes.step}>
                   <p
                     className={classes.stepText}
-                    dangerouslySetInnerHTML={{ __html: step.maxYear }}
+                    dangerouslySetInnerHTML={{ __html: step.text }}
                   />
                 </div>
               </Step>
             ))}
           </Scrollama>
         </div>
+        <figure className={classes.stickyFigure}>
+          <ScatterPlot
+            dataName="Mechanical engineering"
+            maxYear={step.maxYear}
+            isLineVisible={step.isLineVisible}
+          />
+        </figure>
       </div>
     );
   }

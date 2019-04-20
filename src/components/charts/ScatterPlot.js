@@ -6,7 +6,7 @@ import { axisBottom, axisLeft } from 'd3-axis';
 import { select as d3Select } from 'd3-selection';
 
 import DATA from '../../data';
-import { maxCoord } from '../../utils';
+import { maxCoord, colorScale } from '../../utils';
 import { START_YEAR } from '../../constants';
 import Point from './Point';
 
@@ -23,18 +23,19 @@ const styles = {
     },
     '& text': {
       fontFamily: 'Roboto',
-      fontSize: '0.9rem',
-      color: '#333',
+      fontSize: '0.93rem',
+      color: '#888',
     },
     '& > g.tick line': {
-      stroke: '#ddd',
+      stroke: '#ccc',
+      strokeWidth: 0.6,
     },
   },
 };
 
 const NUM_TICKS = 6;
-const TICK_PADDING = 14;
-const margin = { top: 60, right: 60, bottom: 60, left: 60 };
+const TICK_PADDING = 9;
+const margin = { top: 60, right: 60, bottom: 100, left: 60 };
 
 class ScatterPlot extends Component {
   constructor(props) {
@@ -43,12 +44,12 @@ class ScatterPlot extends Component {
     const { dataName } = props;
     this.data = DATA[dataName];
 
-    const height = window.innerHeight;
-    const width = height;
-    const gHeight = height - margin.top - margin.bottom;
+    const width = window.innerWidth * 0.54;
+    const height = width;
     const gWidth = width - margin.left - margin.right;
+    const gHeight = height - margin.top - margin.bottom;
 
-    const upperLimit = maxCoord(this.data);
+    const upperLimit = maxCoord(this.data) * 1.02;
     const xScale = scaleLinear()
       .domain([0, upperLimit])
       .range([0, gWidth]);
@@ -131,6 +132,7 @@ class ScatterPlot extends Component {
               x={xScale(x)}
               y={yScale(y)}
               isVisible={START_YEAR + i <= maxYear}
+              fill={colorScale[i]}
               queuePosition={
                 START_YEAR +
                 i -

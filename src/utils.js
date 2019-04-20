@@ -1,3 +1,11 @@
+import chroma from 'chroma-js';
+import { START_YEAR, END_YEAR } from './constants';
+
+export const colorScale = chroma
+  .scale(['#2A4858', '#fafa6e'])
+  .mode('lch')
+  .colors(END_YEAR - START_YEAR + 1);
+
 export const maxCoord = array => {
   const values = [];
   array.forEach(coordinate => {

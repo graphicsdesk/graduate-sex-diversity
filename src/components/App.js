@@ -2,10 +2,27 @@ import React, { Component } from 'react';
 import Graphic from './Graphic';
 
 const steps = [
-  { maxYear: 1993 },
-  { maxYear: 1994 },
-  { maxYear: 2000 },
-  { maxYear: 2016 },
+  {
+    maxYear: 1994,
+    text:
+      'In 1994, there were eighty male and eight female graduate students in Mechanical Engineering.',
+  },
+  {
+    maxYear: 2000,
+    text:
+      'In the next couple of years, the department neared gender parity due to a shrinking male population.',
+  },
+  {
+    maxYear: 2016,
+    text:
+      'However, for the next decade, the male population would grow at a much faster rate than the female population...',
+  },
+  {
+    maxYear: 2016,
+    isLineVisible: true,
+    text:
+      '...driving Mechanical Engineering away from the gender equality line.',
+  },
 ];
 
 class App extends Component {
