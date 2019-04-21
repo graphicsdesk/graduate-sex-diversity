@@ -160,15 +160,15 @@ class ScatterPlot extends Component {
           </text>
 
           <ArrowLine
-            originX={xScale(upperLimit * 0.65)}
-            originY={yScale(upperLimit * 0.65)}
+            x={xScale(upperLimit * 0.65)}
+            y={yScale(upperLimit * 0.65)}
             gHeight={gHeight}
             orient={-1}
             label="MORE MEN"
           />
           <ArrowLine
-            originX={xScale(upperLimit * 0.65)}
-            originY={yScale(upperLimit * 0.65)}
+            x={xScale(upperLimit * 0.65)}
+            y={yScale(upperLimit * 0.65)}
             gHeight={gHeight}
             orient={1}
             label="MORE WOMEN"
