@@ -1,4 +1,5 @@
 import React from 'react';
+import injectSheet from 'react-jss';
 import { ARROW_ID } from '../../constants';
 
 const ARROW_SIZE = 28;
@@ -9,7 +10,7 @@ const lineStyles = {
   strokeWidth: 1.8,
 };
 
-export const Arrow = () => (
+export const ArrowHead = () => (
   <marker
     id={ARROW_ID}
     markerWidth={ARROW_SIZE + 5}
@@ -26,6 +27,40 @@ export const Arrow = () => (
   </marker>
 );
 
-export const ArrowLine = props => (
-  <line {...props} {...lineStyles} markerEnd={`url(#${ARROW_ID})`} />
-);
+const styles = {
+  label: {
+    fontFamily: 'Roboto',
+    fontSize: '.97rem',
+    fontWeight: 700,
+    textAnchor: 'middle',
+  },
+};
+
+const UnstyledArrowLine = ({ classes, x, y, gHeight, orient, label }) => {
+  const arrowLength = Math.min(32, gHeight / 10);
+  let labelPadding = 7;
+  if (orient < 0) labelPadding += 8;
+
+  const x1 = x + orient * gHeight / 8;
+  const y1 = y + orient * gHeight / 8;
+  const lineCoords = {
+    x1,
+    y1,
+    x2: x1 + orient * arrowLength,
+    y2: y1 + orient * arrowLength,
+  };
+
+  return (
+    <g>
+      <line {...lineCoords} {...lineStyles} markerEnd={`url(#${ARROW_ID})`} />
+      <text
+        className={classes.label}
+        transform={`translate(${x1 - orient * labelPadding}, ${y1 -
+          orient * labelPadding}) rotate(-45)`}
+      >
+        {label}
+      </text>
+    </g>
+  );
+};
+export const ArrowLine = injectSheet(styles)(UnstyledArrowLine);

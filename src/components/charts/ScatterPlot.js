@@ -8,7 +8,7 @@ import { select as d3Select } from 'd3-selection';
 import DATA from '../../data';
 import { maxCoord, colorScale } from '../../utils';
 import { START_YEAR, EQUALITY_LINE_ID } from '../../constants';
-import { Arrow, ArrowLine } from '../svg';
+import { ArrowHead, ArrowLine } from '../svg';
 import Point from './Point';
 
 const styles = {
@@ -127,7 +127,7 @@ class ScatterPlot extends Component {
     return (
       <svg width={width} height={height}>
         <defs>
-          <Arrow />
+          <ArrowHead />
         </defs>
 
         <g transform={`translate(${margin.left}, ${margin.top})`}>
@@ -160,11 +160,18 @@ class ScatterPlot extends Component {
           </text>
 
           <ArrowLine
-            x1={xScale(upperLimit * 0.65)}
-            y1={yScale(upperLimit * 0.65)}
-            x2={xScale(upperLimit * 0.65) - 32}
-            y2={yScale(upperLimit * 0.65) - 32}
-            transform={`translate(-${gHeight / 6}, -${gHeight / 6})`}
+            originX={xScale(upperLimit * 0.65)}
+            originY={yScale(upperLimit * 0.65)}
+            gHeight={gHeight}
+            orient={-1}
+            label="MORE MEN"
+          />
+          <ArrowLine
+            originX={xScale(upperLimit * 0.65)}
+            originY={yScale(upperLimit * 0.65)}
+            gHeight={gHeight}
+            orient={1}
+            label="MORE WOMEN"
           />
 
           <path d={lineGenerator(this.data)} className={classes.line} />
