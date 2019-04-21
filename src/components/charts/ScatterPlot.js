@@ -7,13 +7,28 @@ import { select as d3Select } from 'd3-selection';
 
 import DATA from '../../data';
 import { maxCoord, colorScale } from '../../utils';
-import { START_YEAR } from '../../constants';
+import { START_YEAR, EQUALITY_LINE_ID, ARROW_ID } from '../../constants';
 import Point from './Point';
 
 const styles = {
   line: {
     fill: 'none',
     stroke: '#333',
+  },
+  parityLine: {
+    strokeWidth: 1.8,
+    stroke: '#555',
+    strokeDasharray: '5',
+  },
+  parityLineLabel: {
+    fontFamily: 'Roboto',
+    fontSize: '.85rem',
+    color: '#111',
+  },
+  arrowLine: {
+    strokeWidth: 1.8,
+    stroke: '#111',
+    fill: 'none',
   },
   axis: {
     '& path.domain': { display: 'none' },
@@ -35,7 +50,8 @@ const styles = {
 
 const NUM_TICKS = 6;
 const TICK_PADDING = 9;
-const margin = { top: 60, right: 60, bottom: 100, left: 60 };
+const ARROW_SIZE = 28;
+const margin = { top: 60, right: 100, bottom: 100, left: 60 };
 
 class ScatterPlot extends Component {
   constructor(props) {
@@ -72,6 +88,7 @@ class ScatterPlot extends Component {
       gWidth,
       gHeight,
 
+      upperLimit,
       xScale,
       yScale,
       xAxis,
@@ -98,6 +115,7 @@ class ScatterPlot extends Component {
       width,
       height,
       gHeight,
+      upperLimit,
       xScale,
       yScale,
       xAxis,
@@ -113,6 +131,24 @@ class ScatterPlot extends Component {
 
     return (
       <svg width={width} height={height}>
+        <defs>
+          <marker
+            id={ARROW_ID}
+            markerWidth={ARROW_SIZE + 5}
+            markerHeight={ARROW_SIZE + 5}
+            refX={ARROW_SIZE / 2}
+            refY={ARROW_SIZE / 2}
+            orient="auto"
+            markerUnits="userSpaceOnUse"
+          >
+            <path
+              d={`M1 1 L${ARROW_SIZE / 2} ${ARROW_SIZE / 2} L1 ${ARROW_SIZE -
+                1}`}
+              className={classes.arrowLine}
+            />
+          </marker>
+        </defs>
+
         <g transform={`translate(${margin.left}, ${margin.top})`}>
           <g
             ref={node => d3Select(node).call(xAxis)}
@@ -124,7 +160,32 @@ class ScatterPlot extends Component {
             className={classes.axis}
           />
 
-          <path d={lineGenerator([[0, 0], [1000, 1000]])} fill="black" />
+          <path
+            d={lineGenerator([[0, 0], [upperLimit, upperLimit]])}
+            className={classes.parityLine}
+            id={EQUALITY_LINE_ID}
+          />
+          <text
+            className={classes.parityLineLabel}
+            transform="translate(14, 14)"
+          >
+            <textPath
+              href={`#${EQUALITY_LINE_ID}`}
+              startOffset="50%"
+              textAnchor="middle"
+            >
+              EQUAL NUMBER OF MEN AND WOMEN
+            </textPath>
+          </text>
+
+          <line
+            x1={200}
+            y1={200}
+            x2={150}
+            y2={150}
+            markerEnd={`url(#${ARROW_ID})`}
+            className={classes.arrowLine}
+          />
 
           <path d={lineGenerator(this.data)} className={classes.line} />
 
