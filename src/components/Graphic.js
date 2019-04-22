@@ -55,7 +55,6 @@ class Graphic extends Component {
       showLine,
       showAxesIndicators,
       showParityIndicators,
-      showYearPercentage,
     } = steps[this.state.stepIndex];
     return (
       <div className={classes.Graphic}>
@@ -84,7 +83,6 @@ class Graphic extends Component {
             showLine={showLine}
             showAxesIndicators={showAxesIndicators}
             showParityIndicators={showParityIndicators}
-            showYearPercentage={showYearPercentage}
           />
         </figure>
       </div>

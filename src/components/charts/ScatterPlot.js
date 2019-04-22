@@ -137,7 +137,6 @@ class ScatterPlot extends Component {
       showLine,
       showAxesIndicators,
       showParityIndicators,
-      showYearPercentage,
     } = this.props;
 
     const axisLabelSpacing = 45;
@@ -204,14 +203,6 @@ class ScatterPlot extends Component {
               proportion={0.75}
               id="75-pct-guide"
             />
-            {showYearPercentage && (
-              <Guide
-                line={lineGenerator}
-                upperLimit={upperLimit}
-                proportion={this.data[showYearPercentage - START_YEAR]}
-                id="custom-year-pct-guide"
-              />
-            )}
 
             <SkinnyArrow
               x={xScale(upperLimit * 0.65)}

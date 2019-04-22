@@ -14,7 +14,6 @@ const copy = {
     },
     {
       maxYear: 1994,
-      showYearPercentage: 1994,
       showParityIndicators: true,
       text: '6.7% of the department was female.',
     },
