@@ -10,6 +10,7 @@ for (let i = START_YEAR; i < END_YEAR + 1; i++)
 /* ID constants */
 
 export const EQUALITY_LINE_ID = 'equality-line';
-export const ARROW_ID = 'pointy-pointy';
+export const SKINNY_ARROW_ID = 'skinny-pointy-pointy';
+export const FULL_ARROW_ID = 'full-pointy-pointy';
 
 

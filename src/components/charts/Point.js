@@ -57,7 +57,8 @@ const Point = ({
   let direction = Math.PI - Math.atan((avoidY - labelY) / (avoidX - labelX));
   if (direction < -quartPi) direction += 2 * Math.PI;
 
-  if (
+  if (label === 2000) labelX -= HORI_SPACING;
+  else if (
     -quartPi <= direction &&
     direction < quartPi // place left
   )
@@ -84,7 +85,7 @@ const Point = ({
         className={isPulsing ? classes.pulsingCircle : undefined}
         cx={x}
         cy={y}
-        r={7.2}
+        r={7}
         fill={fill}
         stroke={isPulsing ? fill : '#fff'}
         strokeWidth={1.5}
