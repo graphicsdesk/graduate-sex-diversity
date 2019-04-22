@@ -46,12 +46,16 @@ class Graphic extends Component {
 
   onStepExit = ({ element }) => {
     element.style.color = '#aaa';
-  }
+  };
 
   render() {
     const { classes, steps } = this.props;
-    const step = steps[this.state.stepIndex];
-
+    const {
+      maxYear,
+      showLine,
+      showAxesIndicators,
+      showParityIndicators,
+    } = steps[this.state.stepIndex];
     return (
       <div className={classes.Graphic}>
         <div className={classes.stepsContainer}>
@@ -75,8 +79,10 @@ class Graphic extends Component {
         <figure className={classes.stickyFigure}>
           <ScatterPlot
             dataName="Mechanical engineering"
-            maxYear={step.maxYear}
-            isLineVisible={step.isLineVisible}
+            maxYear={maxYear}
+            showLine={showLine}
+            showAxesIndicators={showAxesIndicators}
+            showParityIndicators={showParityIndicators}
           />
         </figure>
       </div>

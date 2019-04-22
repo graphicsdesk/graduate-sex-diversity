@@ -34,9 +34,7 @@ const fadeExistence = WrappedComponent => {
       if (!prevIsVisible && isVisible) {
         // Schedule visibility according to queue position
         this.timeoutID = setTimeout(() => {
-          if (this.props.isVisible) {
-            this.setState({ fadeIn: true });
-          }
+          this.setState({ fadeIn: true });
         }, queuePosition * DELAY_BETWEEN);
       }
 

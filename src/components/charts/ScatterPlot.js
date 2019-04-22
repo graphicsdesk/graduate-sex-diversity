@@ -8,7 +8,13 @@ import { select as d3Select } from 'd3-selection';
 import DATA from '../../data';
 import { maxCoord, colorScale } from '../../utils';
 import { START_YEAR, EQUALITY_LINE_ID } from '../../constants';
-import { ArrowHead, ArrowLine } from '../svg';
+import {
+  FadeWrapper,
+  FullArrowHead,
+  SkinnyArrowHead,
+  FullArrow,
+  SkinnyArrow,
+} from '../svg';
 import Point from './Point';
 import Line from './Line';
 
@@ -135,7 +141,12 @@ class ScatterPlot extends Component {
       previousMaxYear,
       markedYears,
     } = this.state;
-    const { classes, isLineVisible } = this.props;
+    const {
+      classes,
+      showLine,
+      showAxesIndicators,
+      showParityIndicators,
+    } = this.props;
 
     const axisLabelSpacing = 45;
 
@@ -146,7 +157,8 @@ class ScatterPlot extends Component {
     return (
       <svg width={width} height={height}>
         <defs>
-          <ArrowHead />
+          <FullArrowHead />
+          <SkinnyArrowHead />
         </defs>
 
         <g transform={`translate(${margin.left}, ${margin.top})`}>
@@ -175,43 +187,72 @@ class ScatterPlot extends Component {
             Number of men
           </text>
 
-          <path
-            d={lineGenerator([[0, 0], [upperLimit, upperLimit]])}
-            className={classes.parityLine}
-            id={EQUALITY_LINE_ID}
-          />
-          <text
-            className={classes.parityLineLabel}
-            transform="translate(14, 14)"
+          <FadeWrapper
+            isVisible={showParityIndicators}
+            queuePosition={
+              maxYear -
+              (previousMaxYear < START_YEAR ? START_YEAR : previousMaxYear)
+            }
           >
-            <textPath
-              href={`#${EQUALITY_LINE_ID}`}
-              startOffset="50%"
-              textAnchor="middle"
+            <path
+              d={lineGenerator([[0, 0], [upperLimit, upperLimit]])}
+              className={classes.parityLine}
+              id={EQUALITY_LINE_ID}
+            />
+            <text
+              className={classes.parityLineLabel}
+              transform="translate(14, 14)"
             >
-              EQUAL NUMBER OF MEN AND WOMEN
-            </textPath>
-          </text>
+              <textPath
+                href={`#${EQUALITY_LINE_ID}`}
+                startOffset="50%"
+                textAnchor="middle"
+              >
+                EQUAL NUMBER OF MEN AND WOMEN
+              </textPath>
+            </text>
 
-          <ArrowLine
-            x={xScale(upperLimit * 0.65)}
-            y={yScale(upperLimit * 0.65)}
-            gHeight={gHeight}
-            orient={-1}
-            label="MORE MEN"
-          />
-          <ArrowLine
-            x={xScale(upperLimit * 0.65)}
-            y={yScale(upperLimit * 0.65)}
-            gHeight={gHeight}
-            orient={1}
-            label="MORE WOMEN"
-          />
+            <SkinnyArrow
+              x={xScale(upperLimit * 0.65)}
+              y={yScale(upperLimit * 0.65)}
+              gHeight={gHeight}
+              orient={-1}
+              label="MORE MEN"
+            />
+            <SkinnyArrow
+              x={xScale(upperLimit * 0.65)}
+              y={yScale(upperLimit * 0.65)}
+              gHeight={gHeight}
+              orient={1}
+              label="MORE WOMEN"
+            />
+          </FadeWrapper>
+
+          <FadeWrapper isVisible={showAxesIndicators}>
+            <FullArrow
+              x={xScale(upperLimit / 15)}
+              y={yScale(this.data[0][1] + upperLimit / 6)}
+              gHeight={gHeight}
+              orient="up"
+              line1="NUMBER"
+              line2="OF MEN"
+              isVisible={showAxesIndicators}
+            />
+            <FullArrow
+              x={xScale(upperLimit * 3 / 10)}
+              y={yScale(this.data[0][1])}
+              gHeight={gHeight}
+              orient="right"
+              line1="NUMBER"
+              line2="OF WOMEN"
+              isVisible={showAxesIndicators}
+            />
+          </FadeWrapper>
 
           <Line
             d={lineGenerator(this.data)}
             className={classes.line}
-            isVisible={isLineVisible}
+            isVisible={showLine}
           />
 
           {this.data.map((point, i) => {
