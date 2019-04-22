@@ -51,7 +51,7 @@ const Point = ({
   let labelY = y;
 
   const VERT_SPACING = 24;
-  const HORI_SPACING = 30;
+  const HORI_SPACING = 36;
 
   const quartPi = Math.PI / 4;
   let direction = Math.PI - Math.atan((avoidY - labelY) / (avoidX - labelX));

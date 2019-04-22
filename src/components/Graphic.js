@@ -7,7 +7,7 @@ const styles = {
   Graphic: {
     margin: '50vh 0',
     display: 'flex',
-    justifyContent: 'space-between',
+    justifyContent: 'space-evenly',
   },
   stickyFigure: {
     height: '100vh',
@@ -19,7 +19,7 @@ const styles = {
     alignItems: 'center',
   },
   stepsContainer: {
-    padding: '50vh 5vw',
+    margin: '50vh 0',
   },
   step: {
     maxWidth: '350px',

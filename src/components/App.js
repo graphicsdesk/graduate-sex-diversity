@@ -5,7 +5,7 @@ const steps = [
   {
     maxYear: 1994,
     text:
-      'In 1994, there were eighty male and eight female graduate students in Mechanical Engineering.',
+      'In 1994, there were eighty male and eight female graduate students in the mechanical engineering department.',
   },
   {
     maxYear: 2000,
