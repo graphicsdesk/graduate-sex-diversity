@@ -175,6 +175,7 @@ class ScatterPlot extends Component {
 
           {POSSIBLE_GUIDES.map(proportion => (
             <Guide
+              key={proportion}
               line={lineGenerator}
               upperLimit={upperLimit}
               proportion={proportion}

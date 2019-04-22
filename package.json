@@ -4,6 +4,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "archieml": "^0.4.2",
     "chroma-js": "^2.0.3",
     "d3-axis": "^1.0.12",
     "d3-scale": "^3.0.0",
