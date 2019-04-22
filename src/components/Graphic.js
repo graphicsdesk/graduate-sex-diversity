@@ -10,16 +10,15 @@ const styles = {
     justifyContent: 'space-between',
   },
   stickyFigure: {
-    flexBasis: '55%',
     height: '100vh',
     top: 0,
+    margin: 0,
     position: 'sticky',
     display: 'flex',
     justifyContent: 'center',
-    margin: 0,
+    alignItems: 'center',
   },
   stepsContainer: {
-    flexBasis: '40%',
     padding: '50vh 5vw',
   },
   step: {
