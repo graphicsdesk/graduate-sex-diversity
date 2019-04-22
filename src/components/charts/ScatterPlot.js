@@ -8,8 +8,9 @@ import { select as d3Select } from 'd3-selection';
 import DATA from '../../data';
 import { maxCoord, colorScale } from '../../utils';
 import { START_YEAR, EQUALITY_LINE_ID } from '../../constants';
-import { Line, ArrowHead, ArrowLine } from '../svg';
+import { ArrowHead, ArrowLine } from '../svg';
 import Point from './Point';
+import Line from './Line';
 
 const styles = {
   graphTitle: {
@@ -17,7 +18,7 @@ const styles = {
     fontSize: '1.2rem',
     fontWeight: 500,
     fill: '#111',
-    textAnchor: 'middle'
+    textAnchor: 'middle',
   },
   line: {
     fill: 'none',
@@ -167,7 +168,8 @@ class ScatterPlot extends Component {
           />
           <text
             className={classes.axisLabel}
-            transform={`translate(${gWidth / 2}, ${gHeight + axisLabelSpacing})`}
+            transform={`translate(${gWidth / 2}, ${gHeight +
+              axisLabelSpacing})`}
           >
             Number of women
           </text>
@@ -178,7 +180,8 @@ class ScatterPlot extends Component {
           />
           <text
             className={classes.axisLabel}
-            transform={`translate(${-axisLabelSpacing}, ${gHeight / 2}) rotate(-90)`}
+            transform={`translate(${-axisLabelSpacing}, ${gHeight /
+              2}) rotate(-90)`}
           >
             Number of men
           </text>
@@ -234,10 +237,11 @@ class ScatterPlot extends Component {
                 x={xScale(x)}
                 y={yScale(y)}
                 fill={colorScale[i]}
+                isPulsing={year === maxYear}
                 label={year}
+                isLabelVisible={markedYears.includes(year)}
                 avoidX={xScale(avoidPoint[0])}
                 avoidY={yScale(avoidPoint[1])}
-                isLabelVisible={markedYears.includes(year)}
                 isVisible={START_YEAR + i <= maxYear}
                 queuePosition={
                   START_YEAR +
