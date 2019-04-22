@@ -8,18 +8,19 @@ import { select as d3Select } from 'd3-selection';
 import DATA from '../../data';
 import { maxCoord, colorScale } from '../../utils';
 import { START_YEAR, EQUALITY_LINE_ID } from '../../constants';
-import { ArrowHead, ArrowLine } from '../svg';
+import { Line, ArrowHead, ArrowLine } from '../svg';
 import Point from './Point';
 
 const styles = {
   line: {
     fill: 'none',
     stroke: '#333',
+    strokeWidth: 1.3,
   },
   parityLine: {
     strokeWidth: 1.8,
     stroke: '#555',
-    strokeDasharray: '5',
+    strokeDasharray: '5 4',
   },
   parityLineLabel: {
     fontFamily: 'Roboto',
@@ -95,10 +96,12 @@ class ScatterPlot extends Component {
   }
 
   static getDerivedStateFromProps = (nextProps, prevState) => {
-    if (nextProps.maxYear !== prevState.maxYear) {
+    const { maxYear: nextMax } = nextProps;
+    const { maxYear: prevMax } = prevState;
+    if (nextMax !== prevMax) {
       return {
-        maxYear: nextProps.maxYear,
-        previousMaxYear: prevState.maxYear,
+        maxYear: nextMax,
+        previousMaxYear: prevMax,
       };
     }
 
@@ -118,7 +121,7 @@ class ScatterPlot extends Component {
       maxYear,
       previousMaxYear,
     } = this.state;
-    const { classes } = this.props;
+    const { classes, isLineVisible } = this.props;
 
     const lineGenerator = d3Line()
       .x(d => xScale(d[0]))
@@ -174,22 +177,39 @@ class ScatterPlot extends Component {
             label="MORE WOMEN"
           />
 
-          <path d={lineGenerator(this.data)} className={classes.line} />
+          <Line
+            d={lineGenerator(this.data)}
+            className={classes.line}
+            isVisible={isLineVisible}
+          />
 
-          {this.data.map(([x, y], i) => (
-            <Point
-              key={x + '-' + y}
-              x={xScale(x)}
-              y={yScale(y)}
-              isVisible={START_YEAR + i <= maxYear}
-              fill={colorScale[i]}
-              queuePosition={
-                START_YEAR +
-                i -
-                (previousMaxYear < START_YEAR ? START_YEAR : previousMaxYear)
-              }
-            />
-          ))}
+          {this.data.map((point, i) => {
+            const [x, y] = point;
+            const year = START_YEAR + i;
+            const isMarkedYear = previousMaxYear === year || maxYear === year;
+            let avoidPoint = this.data[
+              i >= this.data.length - 1 ? i - 1 : i + 1
+            ];
+            if (isMarkedYear && i > 0 && false) avoidPoint = this.data[i - 1];
+            return (
+              <Point
+                key={x + '-' + y}
+                x={xScale(x)}
+                y={yScale(y)}
+                fill={colorScale[i]}
+                label={year}
+                avoidX={xScale(avoidPoint[0])}
+                avoidY={yScale(avoidPoint[1])}
+                isLabelVisible={isMarkedYear}
+                isVisible={START_YEAR + i <= maxYear}
+                queuePosition={
+                  START_YEAR +
+                  i -
+                  (previousMaxYear < START_YEAR ? START_YEAR : previousMaxYear)
+                }
+              />
+            );
+          })}
         </g>
       </svg>
     );

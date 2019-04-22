@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import injectSheet from 'react-jss';
 
-const ANIM_DURATION = 400;
-const DELAY_BETWEEN = 140;
+const ANIM_DURATION = 420;
+const DELAY_BETWEEN = ANIM_DURATION / 3;
 
 const styles = {
   transition: {
@@ -59,6 +59,11 @@ const fadeExistence = WrappedComponent => {
       );
     }
   }
+
+  FadeComponent.defaultProps = {
+    queuePosition: 0,
+  };
+
   return injectSheet(styles)(FadeComponent);
 };
 

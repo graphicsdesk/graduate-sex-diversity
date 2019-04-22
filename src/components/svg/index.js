@@ -2,6 +2,8 @@ import React from 'react';
 import injectSheet from 'react-jss';
 import { ARROW_ID } from '../../constants';
 
+export { default as Line } from './Line';
+
 const ARROW_SIZE = 28;
 
 const lineStyles = {

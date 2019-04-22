@@ -30,7 +30,7 @@ const styles = {
     margin: '0 auto',
     paddingBottom: '130px',
     color: '#aaa',
-    transitionDuration: '0.3s',
+    transitionDuration: '0.2s',
   },
   stepText: {
     fontSize: '1.06rem',
