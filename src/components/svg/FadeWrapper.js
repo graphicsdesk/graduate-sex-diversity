@@ -50,8 +50,8 @@ class FadeWrapper extends Component {
       ...otherProps
     } = this.props;
 
-    const childrenWithProps = React.Children.map(children, child =>
-      React.cloneElement(child, otherProps),
+    const childrenWithProps = React.Children.map(children, child => child ?
+      React.cloneElement(child, otherProps) : null,
     );
 
     return (

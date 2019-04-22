@@ -7,7 +7,7 @@ import { select as d3Select } from 'd3-selection';
 
 import DATA from '../../data';
 import { maxCoord, colorScale } from '../../utils';
-import { START_YEAR, EQUALITY_LINE_ID } from '../../constants';
+import { START_YEAR } from '../../constants';
 import {
   FadeWrapper,
   FullArrowHead,
@@ -17,22 +17,13 @@ import {
 } from '../svg';
 import Point from './Point';
 import Line from './Line';
+import Guide from './Guide';
 
 const styles = {
   line: {
     fill: 'none',
     stroke: '#333',
     strokeWidth: 1.5,
-  },
-  parityLine: {
-    strokeWidth: 1.8,
-    stroke: '#555',
-    strokeDasharray: '5 4',
-  },
-  parityLineLabel: {
-    fontFamily: 'Roboto',
-    fontSize: '.85rem',
-    color: '#111',
   },
   axis: {
     '& path.domain': { display: 'none' },
@@ -146,6 +137,7 @@ class ScatterPlot extends Component {
       showLine,
       showAxesIndicators,
       showParityIndicators,
+      showYearPercentage,
     } = this.props;
 
     const axisLabelSpacing = 45;
@@ -194,23 +186,32 @@ class ScatterPlot extends Component {
               (previousMaxYear < START_YEAR ? START_YEAR : previousMaxYear)
             }
           >
-            <path
-              d={lineGenerator([[0, 0], [upperLimit, upperLimit]])}
-              className={classes.parityLine}
-              id={EQUALITY_LINE_ID}
+            <Guide
+              line={lineGenerator}
+              upperLimit={upperLimit}
+              proportion={0.25}
+              id="25-pct-guide"
             />
-            <text
-              className={classes.parityLineLabel}
-              transform="translate(14, 14)"
-            >
-              <textPath
-                href={`#${EQUALITY_LINE_ID}`}
-                startOffset="50%"
-                textAnchor="middle"
-              >
-                EQUAL NUMBER OF MEN AND WOMEN
-              </textPath>
-            </text>
+            <Guide
+              line={lineGenerator}
+              upperLimit={upperLimit}
+              proportion={0.5}
+              id="50-pct-guide"
+            />
+            <Guide
+              line={lineGenerator}
+              upperLimit={upperLimit}
+              proportion={0.75}
+              id="75-pct-guide"
+            />
+            {showYearPercentage && (
+              <Guide
+                line={lineGenerator}
+                upperLimit={upperLimit}
+                proportion={this.data[showYearPercentage - START_YEAR]}
+                id="custom-year-pct-guide"
+              />
+            )}
 
             <SkinnyArrow
               x={xScale(upperLimit * 0.65)}
