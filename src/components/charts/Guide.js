@@ -19,14 +19,6 @@ const styles = {
 
 // proportion = proportion female
 const Guide = ({ classes, line, upperLimit, proportion, id }) => {
-  if (proportion instanceof Array) {
-    if (proportion.length !== 2) {
-      console.error('Proportion array in Guide must be of length 2.');
-      return null;
-    }
-
-    proportion = proportion[0] / (proportion[0] + proportion[1]);
-  }
   if (proportion < 0 || proportion > 1) {
     console.error('Proportion in guide must be between 0 and 1.');
     return null;
@@ -36,8 +28,12 @@ const Guide = ({ classes, line, upperLimit, proportion, id }) => {
   let text = `${(proportion * 100).toFixed(proportion < 0.1 ? 1 : 0)}% FEMALE`;
   let x2 = upperLimit;
   let y2 = upperLimit;
-  if (proportion > 0.5) x2 = y2 / slope;
-  else if (proportion < 0.5) y2 = x2 * slope;
+
+  if (proportion < 0.5) {
+    x2 = y2 / slope;
+  } else if (proportion > 0.5) {
+    y2 = x2 * slope;
+  }
   else text = 'EQUAL NUMBER OF MEN AND WOMEN';
 
   return (
@@ -52,7 +48,7 @@ const Guide = ({ classes, line, upperLimit, proportion, id }) => {
       <text className={classes.label} transform="translate(14, 14)" fill="#111">
         <textPath
           href={`#${id}`}
-          startOffset={proportion === 0.5 ? '50%' : '22%'}
+          startOffset="50%"
           textAnchor="middle"
         >
           {text}

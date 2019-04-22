@@ -57,7 +57,7 @@ class Graphic extends Component {
       <div className={classes.Graphic}>
         <div className={classes.stepsContainer}>
           <Scrollama
-            offset={0.4}
+            offset={0.45}
             onStepEnter={this.onStepEnter}
             onStepExit={this.onStepExit}
           >

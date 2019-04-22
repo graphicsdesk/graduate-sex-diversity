@@ -1,7 +1,12 @@
 export default `
-This document is written in the markup language ArchieML (AML). AML makes it a lot easier to write structured text (text that can be directly copied and used in code). Text that is not bolded can be ignored.
+This document is written in the markup language ArchieML (AML). AML makes it a lot easier to write and edit text that can be directly structured and used in code.
 
-headline: Gender representation among graduate students in science and engineering
+headline: Female representation among graduate students in science and engineering
+
+[.body]
+* Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam mauris odio, tempor in consectetur non, molestie nec tellus. Sed eu efficitur mauris. Phasellus luctus nulla quam. Nam id dictum nunc. Suspendisse potenti. Cras at nisi ante.
+* Praesent convallis odio turpis, in feugiat felis sollicitudin nec. Fusce in pharetra est. Phasellus fringilla tempor ornare. Ut augue diam, viverra at vulputate eu, eleifend a diam.
+[]
 
 {scatter_plots}
 
@@ -11,9 +16,9 @@ text: In 1994, there were six female and eighty three male graduate students in 
 maxYear: 1994
 showAxesIndicators: true
 
-text: 6.7% of the department was female.
+text: 6.7% of students in the department was female.
 maxYear: 1994
-[.showGuides]
+[.showGuides] 
 * 0.25
 * 0.5
 * 0.75
@@ -30,12 +35,10 @@ maxYear: 2000
 text: However, during the next decade, the male population would grow at a much faster rate than the female population...
 maxYear: 2016
 [.showGuides]
-* 0.25
 * 0.5
-* 0.75
 []
 
-text: ..driving Mechanical Engineering away from the gender equality line.
+text: ...driving Mechanical Engineering away from the gender equality line.
 maxYear: 2016
 showLine: true
 [.showGuides]
@@ -44,4 +47,5 @@ showLine: true
 
 []
 
+{}
 `;

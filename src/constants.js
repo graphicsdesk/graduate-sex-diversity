@@ -14,6 +14,6 @@ export const FULL_ARROW_ID = 'full-pointy-pointy';
 
 /* Value constants */
 
-export const POSSIBLE_GUIDES = [0.25, 0.5, 0.75];
+export const POSSIBLE_GUIDES = [0.1, 0.25, 0.3, 0.5, 0.7, 0.75, 0.9];
 
 
