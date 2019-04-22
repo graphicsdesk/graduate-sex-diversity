@@ -13,6 +13,11 @@ const copy = {
         'In 1994, there were eighty male and eight female graduate students in the mechanical engineering department.',
     },
     {
+      maxYear: 1994,
+      showParityIndicators: true,
+      text: '6.7% of the department was female.',
+    },
+    {
       maxYear: 2000,
       showParityIndicators: true,
       text:
