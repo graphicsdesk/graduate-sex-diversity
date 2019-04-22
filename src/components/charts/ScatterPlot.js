@@ -20,6 +20,13 @@ import Line from './Line';
 import Guide from './Guide';
 
 const styles = {
+  graphTitle: {
+    fontFamily: 'Roboto',
+    fontSize: '1.2rem',
+    fontWeight: 500,
+    fill: '#111',
+    textAnchor: 'middle',
+  },
   line: {
     fill: 'none',
     stroke: '#333',
@@ -146,6 +153,10 @@ class ScatterPlot extends Component {
           <FullArrowHead />
           <SkinnyArrowHead />
         </defs>
+
+        <text className={classes.graphTitle} x={gWidth / 2} y={23}>
+          {this.props.dataName}
+        </text>
 
         <g transform={`translate(${margin.left}, ${margin.top})`}>
           <g
