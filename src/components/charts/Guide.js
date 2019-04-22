@@ -1,5 +1,6 @@
 import React from 'react';
 import injectSheet from 'react-jss';
+import fadeExistence from './fadeExistence';
 
 const styles = {
   strongLine: {
@@ -20,11 +21,11 @@ const styles = {
 const Guide = ({ classes, line, upperLimit, proportion, id }) => {
   if (proportion instanceof Array) {
     if (proportion.length !== 2) {
-      console.error('Proportion array in Guide must be of length 2.')
+      console.error('Proportion array in Guide must be of length 2.');
       return null;
     }
 
-    proportion = proportion[0] / (proportion[0] + proportion[1])
+    proportion = proportion[0] / (proportion[0] + proportion[1]);
   }
   if (proportion < 0 || proportion > 1) {
     console.error('Proportion in guide must be between 0 and 1.');
@@ -48,12 +49,12 @@ const Guide = ({ classes, line, upperLimit, proportion, id }) => {
         fill="none"
         strokeDasharray={proportion === 0.5 ? '5 4' : '4 4'}
       />
-      <text
-        className={classes.label}
-        transform="translate(14, 14)"
-        fill='#111'
-      >
-        <textPath href={`#${id}`} startOffset={proportion === 0.5 ? '50%' : '22%'} textAnchor="middle">
+      <text className={classes.label} transform="translate(14, 14)" fill="#111">
+        <textPath
+          href={`#${id}`}
+          startOffset={proportion === 0.5 ? '50%' : '22%'}
+          textAnchor="middle"
+        >
           {text}
         </textPath>
       </text>
@@ -61,4 +62,4 @@ const Guide = ({ classes, line, upperLimit, proportion, id }) => {
   );
 };
 
-export default injectSheet(styles)(Guide);
+export default fadeExistence(injectSheet(styles)(Guide));

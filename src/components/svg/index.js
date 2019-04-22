@@ -39,15 +39,7 @@ const fullStyles = {
   },
 };
 
-const UnstyledFullArrow = ({
-  classes,
-  x,
-  y,
-  gHeight,
-  orient,
-  line1,
-  line2,
-}) => {
+const UnstyledFullArrow = ({ classes, x, y, orient, line1, line2 }) => {
   const arrowLength = 55;
 
   let labelPadding = 7;

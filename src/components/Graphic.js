@@ -50,12 +50,9 @@ class Graphic extends Component {
 
   render() {
     const { classes, steps } = this.props;
-    const {
-      maxYear,
-      showLine,
-      showAxesIndicators,
-      showParityIndicators,
-    } = steps[this.state.stepIndex];
+    const { maxYear, showLine, showAxesIndicators, showGuides } = steps[
+      this.state.stepIndex
+    ];
     return (
       <div className={classes.Graphic}>
         <div className={classes.stepsContainer}>
@@ -82,7 +79,7 @@ class Graphic extends Component {
             maxYear={maxYear}
             showLine={showLine}
             showAxesIndicators={showAxesIndicators}
-            showParityIndicators={showParityIndicators}
+            showGuides={showGuides}
           />
         </figure>
       </div>

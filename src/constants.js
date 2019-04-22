@@ -12,4 +12,8 @@ for (let i = START_YEAR; i < END_YEAR + 1; i++)
 export const SKINNY_ARROW_ID = 'skinny-pointy-pointy';
 export const FULL_ARROW_ID = 'full-pointy-pointy';
 
+/* Value constants */
+
+export const POSSIBLE_GUIDES = [0.25, 0.5, 0.75];
+
 

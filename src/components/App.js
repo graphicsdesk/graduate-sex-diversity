@@ -14,25 +14,25 @@ const copy = {
     },
     {
       maxYear: 1994,
-      showParityIndicators: true,
+      showGuides: [0.25, 0.5, 0.75],
       text: '6.7% of the department was female.',
     },
     {
       maxYear: 2000,
-      showParityIndicators: true,
+      showGuides: [0.25, 0.5, 0.75],
       text:
         'In the next couple of years, the department neared gender parity due to a shrinking male population.',
     },
     {
       maxYear: 2016,
-      showParityIndicators: true,
+      showGuides: [0.25, 0.5, 0.75],
       text:
         'However, for the next decade, the male population would grow at a much faster rate than the female population...',
     },
     {
       maxYear: 2016,
       showLine: true,
-      showParityIndicators: true,
+      showGuides: [0.5],
       text:
         '...driving Mechanical Engineering away from the gender equality line.',
     },

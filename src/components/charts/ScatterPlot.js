@@ -7,7 +7,7 @@ import { select as d3Select } from 'd3-selection';
 
 import DATA from '../../data';
 import { maxCoord, colorScale } from '../../utils';
-import { START_YEAR } from '../../constants';
+import { POSSIBLE_GUIDES, START_YEAR } from '../../constants';
 import {
   FadeWrapper,
   FullArrowHead,
@@ -132,12 +132,7 @@ class ScatterPlot extends Component {
       previousMaxYear,
       markedYears,
     } = this.state;
-    const {
-      classes,
-      showLine,
-      showAxesIndicators,
-      showParityIndicators,
-    } = this.props;
+    const { classes, showLine, showAxesIndicators, showGuides } = this.props;
 
     const axisLabelSpacing = 45;
 
@@ -178,32 +173,17 @@ class ScatterPlot extends Component {
             Number of men
           </text>
 
-          <FadeWrapper
-            isVisible={showParityIndicators}
-            queuePosition={
-              maxYear -
-              (previousMaxYear < START_YEAR ? START_YEAR : previousMaxYear)
-            }
-          >
+          {POSSIBLE_GUIDES.map(proportion => (
             <Guide
               line={lineGenerator}
               upperLimit={upperLimit}
-              proportion={0.25}
-              id="25-pct-guide"
+              proportion={proportion}
+              id={proportion + '-representation-guide'}
+              isVisible={showGuides.includes(proportion)}
             />
-            <Guide
-              line={lineGenerator}
-              upperLimit={upperLimit}
-              proportion={0.5}
-              id="50-pct-guide"
-            />
-            <Guide
-              line={lineGenerator}
-              upperLimit={upperLimit}
-              proportion={0.75}
-              id="75-pct-guide"
-            />
+          ))}
 
+          <FadeWrapper isVisible={showGuides.length > 0}>
             <SkinnyArrow
               x={xScale(upperLimit * 0.65)}
               y={yScale(upperLimit * 0.65)}
@@ -228,7 +208,6 @@ class ScatterPlot extends Component {
               orient="up"
               line1="NUMBER"
               line2="OF MEN"
-              isVisible={showAxesIndicators}
             />
             <FullArrow
               x={xScale(upperLimit * 3 / 10)}
@@ -237,7 +216,6 @@ class ScatterPlot extends Component {
               orient="right"
               line1="NUMBER"
               line2="OF WOMEN"
-              isVisible={showAxesIndicators}
             />
           </FadeWrapper>
 
@@ -278,5 +256,9 @@ class ScatterPlot extends Component {
     );
   }
 }
+
+ScatterPlot.defaultProps = {
+  showGuides: [],
+};
 
 export default injectSheet(styles)(ScatterPlot);
