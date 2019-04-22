@@ -22,9 +22,6 @@ const styles = {
     padding: '50vh 5vw',
   },
   step: {
-    display: 'flex',
-    justifyContent: 'center',
-    backgroundColor: 'rgba(255, 255, 255, 0.8)',
     maxWidth: '350px',
     margin: '0 auto',
     paddingBottom: '130px',

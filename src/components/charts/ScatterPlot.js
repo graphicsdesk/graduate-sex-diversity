@@ -15,7 +15,7 @@ const styles = {
   line: {
     fill: 'none',
     stroke: '#333',
-    strokeWidth: 1.3,
+    strokeWidth: 1.5,
   },
   parityLine: {
     strokeWidth: 1.8,
@@ -92,16 +92,19 @@ class ScatterPlot extends Component {
 
       maxYear: this.props.maxYear,
       previousMaxYear: START_YEAR,
+      markedYears: [START_YEAR],
     };
   }
 
   static getDerivedStateFromProps = (nextProps, prevState) => {
     const { maxYear: nextMax } = nextProps;
-    const { maxYear: prevMax } = prevState;
+    const { maxYear: prevMax, markedYears } = prevState;
     if (nextMax !== prevMax) {
+      if (!markedYears.includes(nextMax)) markedYears.push(nextMax);
       return {
         maxYear: nextMax,
         previousMaxYear: prevMax,
+        markedYears,
       };
     }
 
@@ -113,13 +116,16 @@ class ScatterPlot extends Component {
       width,
       height,
       gHeight,
+
       upperLimit,
       xScale,
       yScale,
       xAxis,
       yAxis,
+
       maxYear,
       previousMaxYear,
+      markedYears,
     } = this.state;
     const { classes, isLineVisible } = this.props;
 
@@ -186,11 +192,9 @@ class ScatterPlot extends Component {
           {this.data.map((point, i) => {
             const [x, y] = point;
             const year = START_YEAR + i;
-            const isMarkedYear = previousMaxYear === year || maxYear === year;
             let avoidPoint = this.data[
               i >= this.data.length - 1 ? i - 1 : i + 1
             ];
-            if (isMarkedYear && i > 0 && false) avoidPoint = this.data[i - 1];
             return (
               <Point
                 key={x + '-' + y}
@@ -200,7 +204,7 @@ class ScatterPlot extends Component {
                 label={year}
                 avoidX={xScale(avoidPoint[0])}
                 avoidY={yScale(avoidPoint[1])}
-                isLabelVisible={isMarkedYear}
+                isLabelVisible={markedYears.includes(year)}
                 isVisible={START_YEAR + i <= maxYear}
                 queuePosition={
                   START_YEAR +
