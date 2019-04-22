@@ -37,7 +37,7 @@ const styles = {
     '& text': {
       fontFamily: 'Roboto',
       fontSize: '0.93rem',
-      color: '#888',
+      color: '#999',
     },
     '& > g.tick line': {
       stroke: '#ccc',
