@@ -7,19 +7,20 @@ class Line extends Component {
 
   componentDidUpdate(prevProps) {
     const { current: node } = this.ref;
-    if (!node)
-      return;
+    if (!node) return;
 
     if (!prevProps.isVisible && this.props.isVisible) {
-      // Animate in line
+      // Animate in
       const length = node.getTotalLength();
       d3Select(node)
+        .attr('opacity', 1)
         .attr('stroke-dasharray', length)
         .attr('stroke-dashoffset', length)
         .transition()
         .duration(2000)
         .attr('stroke-dashoffset', 0);
     } else if (prevProps.isVisible && !this.props.isVisible) {
+      // Animate out
       d3Select(node)
         .attr('opacity', 1)
         .transition()
@@ -35,6 +36,7 @@ class Line extends Component {
         fill="none"
         stroke="#333"
         strokeWidth={1.2}
+        opacity={0}
       />
     );
   }
