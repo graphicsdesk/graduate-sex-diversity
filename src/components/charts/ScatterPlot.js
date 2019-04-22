@@ -12,6 +12,13 @@ import { Line, ArrowHead, ArrowLine } from '../svg';
 import Point from './Point';
 
 const styles = {
+  graphTitle: {
+    fontFamily: 'Roboto',
+    fontSize: '1.2rem',
+    fontWeight: 500,
+    fill: '#111',
+    textAnchor: 'middle'
+  },
   line: {
     fill: 'none',
     stroke: '#333',
@@ -43,11 +50,17 @@ const styles = {
       strokeWidth: 0.6,
     },
   },
+  axisLabel: {
+    fontFamily: 'Roboto',
+    fontSize: '1rem',
+    fill: '#999',
+    textAnchor: 'middle',
+  },
 };
 
 const NUM_TICKS = 6;
 const TICK_PADDING = 9;
-const margin = { top: 60, right: 100, bottom: 100, left: 60 };
+const margin = { top: 40, right: 20, bottom: 50, left: 60 };
 
 class ScatterPlot extends Component {
   constructor(props) {
@@ -56,7 +69,7 @@ class ScatterPlot extends Component {
     const { dataName } = props;
     this.data = DATA[dataName];
 
-    const width = window.innerWidth * 0.54;
+    const width = window.innerWidth * 0.5;
     const height = width;
     const gWidth = width - margin.left - margin.right;
     const gHeight = height - margin.top - margin.bottom;
@@ -115,6 +128,7 @@ class ScatterPlot extends Component {
     const {
       width,
       height,
+      gWidth,
       gHeight,
 
       upperLimit,
@@ -129,6 +143,8 @@ class ScatterPlot extends Component {
     } = this.state;
     const { classes, isLineVisible } = this.props;
 
+    const axisLabelSpacing = 45;
+
     const lineGenerator = d3Line()
       .x(d => xScale(d[0]))
       .y(d => yScale(d[1]));
@@ -139,16 +155,33 @@ class ScatterPlot extends Component {
           <ArrowHead />
         </defs>
 
+        <text className={classes.graphTitle} x={gWidth / 2} y={23}>
+          {this.props.dataName}
+        </text>
+
         <g transform={`translate(${margin.left}, ${margin.top})`}>
           <g
             ref={node => d3Select(node).call(xAxis)}
             className={classes.axis}
             transform={`translate(0, ${gHeight})`}
           />
+          <text
+            className={classes.axisLabel}
+            transform={`translate(${gWidth / 2}, ${gHeight + axisLabelSpacing})`}
+          >
+            Number of women
+          </text>
+
           <g
             ref={node => d3Select(node).call(yAxis)}
             className={classes.axis}
           />
+          <text
+            className={classes.axisLabel}
+            transform={`translate(${-axisLabelSpacing}, ${gHeight / 2}) rotate(-90)`}
+          >
+            Number of men
+          </text>
 
           <path
             d={lineGenerator([[0, 0], [upperLimit, upperLimit]])}
