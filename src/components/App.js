@@ -10,7 +10,7 @@ const copy = {
       maxYear: 1994,
       showAxesIndicators: true,
       text:
-        'In 1994, there were eighty male and eight female graduate students in the mechanical engineering department.',
+        'In 1994, there were six female and eighty three male graduate students in the mechanical engineering department.',
     },
     {
       maxYear: 1994,
@@ -27,7 +27,7 @@ const copy = {
       maxYear: 2016,
       showGuides: [0.25, 0.5, 0.75],
       text:
-        'However, for the next decade, the male population would grow at a much faster rate than the female population...',
+        'However, during the next decade, the male population would grow at a much faster rate than the female population...',
     },
     {
       maxYear: 2016,
