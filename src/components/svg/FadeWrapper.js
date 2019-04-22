@@ -7,7 +7,7 @@ const DELAY_BETWEEN = ANIM_DURATION / 3;
 
 const styles = {
   transition: {
-    transitionDuration: `${ANIM_DURATION}ms`,
+    transitionDuration: `${ANIM_DURATION * 1.5}ms`,
   },
 };
 
