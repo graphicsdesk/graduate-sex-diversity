@@ -5,7 +5,7 @@ import { ScatterPlot } from './charts';
 
 const styles = {
   Graphic: {
-    margin: '50vh 0',
+    margin: '1.5rem 0',
     display: 'flex',
     justifyContent: 'space-evenly',
   },
@@ -24,7 +24,7 @@ const styles = {
   step: {
     maxWidth: '350px',
     margin: '0 auto',
-    paddingBottom: '130px',
+    paddingBottom: '200px',
     color: '#aaa',
     transitionDuration: '0.2s',
   },
@@ -39,12 +39,14 @@ const styles = {
 class Graphic extends Component {
   state = { stepIndex: 0 };
 
-  onStepEnter = ({ element, data: stepIndex }) => {
+  onStepEnter = ({ data: stepIndex, element }) => {
     this.setState({ stepIndex });
     element.style.color = '#222';
   };
 
-  onStepExit = ({ element }) => (element.style.color = '#aaa');
+  onStepExit = ({ element }) => {
+    element.style.color = '#aaa';
+  }
 
   render() {
     const { classes, steps } = this.props;
