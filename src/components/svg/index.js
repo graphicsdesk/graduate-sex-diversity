@@ -42,7 +42,7 @@ const fullStyles = {
 const UnstyledFullArrow = ({ classes, x, y, orient, line1, line2 }) => {
   const arrowLength = 55;
 
-  let labelPadding = 7;
+  let labelPadding = null;
   let dx = 0;
   let dy = 0;
   if (orient === 'right') {
@@ -50,6 +50,7 @@ const UnstyledFullArrow = ({ classes, x, y, orient, line1, line2 }) => {
     labelPadding = 45;
   } else if (orient === 'up') {
     dy = -arrowLength;
+    labelPadding = 21;
   }
 
   const x1 = x;
@@ -61,6 +62,7 @@ const UnstyledFullArrow = ({ classes, x, y, orient, line1, line2 }) => {
     y2: y1 + dy,
   };
 
+  const lineHeight = 21;
   return (
     <g>
       <line
@@ -75,10 +77,10 @@ const UnstyledFullArrow = ({ classes, x, y, orient, line1, line2 }) => {
         transform={`translate(${x1 + (dx ? -labelPadding : 0)}, ${y1 +
           (dy ? labelPadding : 0)})`}
       >
-        <tspan x={0} dy={dy ? '1.3rem' : 0}>
+        <tspan x={0} y={0}>
           {line1}
         </tspan>
-        <tspan x={0} dy="1.3rem">
+        <tspan x={0} y={lineHeight}>
           {line2}
         </tspan>
       </text>
