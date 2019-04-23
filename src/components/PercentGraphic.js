@@ -49,7 +49,12 @@ class PercentGraphic extends Component {
 
     // Keeping track of how the line is divided
     this.partitions = [];
-    steps.forEach(({ maxYear }) => maxYear && this.partitions.push(maxYear));
+    steps.forEach(
+      ({ maxYear }) =>
+        maxYear &&
+        !this.partitions.includes(maxYear) &&
+        this.partitions.push(maxYear),
+    );
   }
 
   onStepEnter = ({ data: stepIndex }) => {
@@ -61,6 +66,7 @@ class PercentGraphic extends Component {
     const { classes, steps } = this.props;
     let step = {
       maxYear: 1993,
+      showPeers: false,
     };
     if (stepIndex >= 0) step = steps[stepIndex];
     const { maxYear, showPeers } = step;
