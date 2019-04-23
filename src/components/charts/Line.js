@@ -33,14 +33,14 @@ class Line extends Component {
   }
 
   render() {
-    const { strokeWidth } = this.props;
+    const { stroke, strokeWidth } = this.props;
     return (
       <path
         ref={this.ref}
         d={this.props.d}
         fill="none"
-        stroke="#333"
-        strokeWidth={strokeWidth || 1.2}
+        stroke={stroke}
+        strokeWidth={strokeWidth}
         opacity={0}
       />
     );

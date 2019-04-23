@@ -12,11 +12,6 @@ import Line from './Line';
 import { partitionYears } from '../../utils';
 
 const styles = {
-  line: {
-    fill: 'none',
-    stroke: '#333',
-    strokeWidth: 1.5,
-  },
   xAxis: {
     '& path.domain': { display: 'none' },
     '& text': {
@@ -109,7 +104,7 @@ class PercentGraph extends Component {
       xAxis,
       yAxis,
     } = this.state;
-    const { classes, partitions, maxYear } = this.props;
+    const { classes, partitions, maxYear, showPeers } = this.props;
 
     const lineGenerator = d3Line()
       .x((_, i) => xScale(START_YEAR + i))
@@ -131,6 +126,20 @@ class PercentGraph extends Component {
             className={classes.yAxis}
           />
 
+          {Object.keys(this.data).map(inst => {
+            if (inst === COLUMBIA_NAME) return null;
+
+            return (
+              <Line
+                key={inst}
+                d={lineGenerator(this.data[inst])}
+                isVisible={showPeers}
+                stroke="#bbb"
+                strokeWidth={1.2}
+              />
+            );
+          })}
+
           {partitions.map((year, i) => {
             const previousMaxYear = i > 0 ? partitions[i - 1] : START_YEAR;
             return (
@@ -143,9 +152,9 @@ class PercentGraph extends Component {
                     year,
                   ),
                 )}
-                className={classes.line}
-                strokeWidth={3}
                 isVisible={year <= maxYear}
+                stroke="#333"
+                strokeWidth={3}
               />
             );
           })}
