@@ -36,7 +36,7 @@ const styles = {
   },
 };
 
-class Graphic extends Component {
+class ScatterGraphic extends Component {
   state = { stepIndex: -1 };
 
   onStepEnter = ({ data: stepIndex, element }) => {
@@ -93,4 +93,4 @@ class Graphic extends Component {
   }
 }
 
-export default injectSheet(styles)(Graphic);
+export default injectSheet(styles)(ScatterGraphic);

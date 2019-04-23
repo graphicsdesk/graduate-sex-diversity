@@ -61,6 +61,10 @@ class PercentGraphic extends Component {
     this.setState({ stepIndex });
   };
 
+  onStepExit = ({ data: stepIndex, direction }) => {
+    if (direction === 'up' && stepIndex === 0) this.setState({ stepIndex: -1 });
+  };
+
   render() {
     const { stepIndex } = this.state;
     const { classes, steps } = this.props;
@@ -82,7 +86,11 @@ class PercentGraphic extends Component {
           />
         </figure>
         <div className={classes.stepsContainer}>
-          <Scrollama offset={0.45} onStepEnter={this.onStepEnter}>
+          <Scrollama
+            offset={0.45}
+            onStepEnter={this.onStepEnter}
+            onStepExit={this.onStepExit}
+          >
             {steps.map(({ text }, i) => (
               <Step data={i} key={text}>
                 <div className={classes.step}>
