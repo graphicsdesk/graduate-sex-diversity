@@ -44,7 +44,8 @@ class Graphic extends Component {
     element.style.color = '#222';
   };
 
-  onStepExit = ({ element }) => {
+  onStepExit = ({ data: stepIndex, direction, element }) => {
+    if (direction === 'up' && stepIndex === 0) this.setState({ stepIndex: -1 });
     element.style.color = '#aaa';
   };
 
@@ -55,8 +56,7 @@ class Graphic extends Component {
       maxYear: 1993,
       showAxesIndicators: true,
     };
-    if (stepIndex >= 0)
-      step = steps[stepIndex];
+    if (stepIndex >= 0) step = steps[stepIndex];
     const { maxYear, showLine, showAxesIndicators, showGuides } = step;
 
     return (
