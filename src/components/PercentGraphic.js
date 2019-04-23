@@ -17,15 +17,18 @@ const styles = {
     justifyContent: 'center',
     alignItems: 'center',
   },
-  stepsContainer: {},
+  stepsContainer: {
+    overflow: 'auto',
+    paddingBottom: '20vh',
+  },
   step: {
-    paddingBottom: '70vh',
-    boxSizing: 'border-box',
+    position: 'relative',
+    marginBottom: '80vh',
     display: 'flex',
     justifyContent: 'center',
   },
   stepText: {
-    backgroundColor: '#fff',
+    backgroundColor: 'rgba(255, 255, 255, 0.9)',
     boxShadow: '0 5px 15px 0 rgba(0,0,0,0.41)',
     maxWidth: '510px',
     textAlign: 'center',
