@@ -34,13 +34,11 @@ const styles = {
   pulsingCircle: {
     animation: 'infinite 1s pulse',
     '&:hover + text': {
-      cursor: 'pointer',
       opacity: 1,
     },
   },
   circle: {
     '&:hover + text': {
-      cursor: 'pointer',
       opacity: 1,
     },
   },
