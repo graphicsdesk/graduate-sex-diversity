@@ -126,6 +126,7 @@ class PercentGraph extends Component {
             className={classes.yAxis}
           />
 
+          {/* Render the lines of all peers */}
           {Object.keys(this.data).map(inst => {
             if (inst === COLUMBIA_NAME) return null;
 
@@ -134,27 +135,31 @@ class PercentGraph extends Component {
                 key={inst}
                 d={lineGenerator(this.data[inst])}
                 isVisible={showPeers}
-                stroke="#bbb"
+                color="#bbb"
                 strokeWidth={1.2}
               />
             );
           })}
 
-          {partitions.map((year, i) => {
+          {/* Render the lines of all Columbia's partitions */}
+          {partitions.map((upToYear, i) => {
             const previousMaxYear = i > 0 ? partitions[i - 1] : START_YEAR;
+            const data = this.data[COLUMBIA_NAME];
+
             return (
               <Line
-                key={year}
+                key={upToYear}
                 d={lineGenerator(
-                  partitionYears(
-                    this.data[COLUMBIA_NAME],
-                    previousMaxYear,
-                    year,
-                  ),
+                  partitionYears(data, previousMaxYear, upToYear),
                 )}
-                isVisible={year <= maxYear}
-                stroke="#333"
+                isVisible={upToYear <= maxYear}
+                color="#333"
                 strokeWidth={3}
+                showEndpoint={upToYear === maxYear}
+                endpoint={[
+                  xScale(upToYear),
+                  yScale(data[upToYear - START_YEAR]),
+                ]}
               />
             );
           })}
