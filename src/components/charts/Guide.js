@@ -33,8 +33,7 @@ const Guide = ({ classes, line, upperLimit, proportion, id }) => {
     x2 = y2 / slope;
   } else if (proportion > 0.5) {
     y2 = x2 * slope;
-  }
-  else text = 'EQUAL NUMBER OF MEN AND WOMEN';
+  } else text = 'EQUAL NUMBER OF MEN AND WOMEN';
 
   return (
     <g>
@@ -46,11 +45,7 @@ const Guide = ({ classes, line, upperLimit, proportion, id }) => {
         strokeDasharray={proportion === 0.5 ? '5 4' : '4 4'}
       />
       <text className={classes.label} transform="translate(14, 14)" fill="#111">
-        <textPath
-          href={`#${id}`}
-          startOffset="50%"
-          textAnchor="middle"
-        >
+        <textPath href={`#${id}`} startOffset="50%" textAnchor="middle">
           {text}
         </textPath>
       </text>

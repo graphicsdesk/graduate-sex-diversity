@@ -17,8 +17,7 @@ const styles = {
     justifyContent: 'center',
     alignItems: 'center',
   },
-  stepsContainer: {
-  },
+  stepsContainer: {},
   step: {
     paddingBottom: '70vh',
     boxSizing: 'border-box',
@@ -49,12 +48,7 @@ class Graphic extends Component {
   render() {
     const { classes } = this.props;
 
-    const steps = [
-      '1',
-      '2',
-      '3',
-      '4',
-    ];
+    const steps = ['1', '2', '3', '4'];
 
     return (
       <div className={classes.Graphic}>
@@ -62,10 +56,7 @@ class Graphic extends Component {
           <PercentGraph dataName="Overall" />
         </figure>
         <div className={classes.stepsContainer}>
-          <Scrollama
-            offset={0.45}
-            onStepEnter={this.onStepEnter}
-          >
+          <Scrollama offset={0.45} onStepEnter={this.onStepEnter}>
             {steps.map((text, i) => (
               <Step data={i} key={text}>
                 <div className={classes.step}>

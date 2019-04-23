@@ -13,9 +13,7 @@ const styles = {
 };
 
 const Paragraph = ({ classes, text }) => (
-  <p className={classes.Paragraph}>
-    {text}
-  </p>
+  <p className={classes.Paragraph}>{text}</p>
 );
 
 export default injectSheet(styles)(Paragraph);

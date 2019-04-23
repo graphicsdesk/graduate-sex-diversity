@@ -6,8 +6,7 @@ class Line extends Component {
   ref = React.createRef();
 
   componentDidMount() {
-    if (this.props.isVisible)
-      d3Select(this.ref.current).attr('opacity', 1);
+    if (this.props.isVisible) d3Select(this.ref.current).attr('opacity', 1);
   }
 
   componentDidUpdate(prevProps) {
