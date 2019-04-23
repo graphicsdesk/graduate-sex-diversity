@@ -3,6 +3,14 @@ import injectSheet from 'react-jss';
 import fadeExistence from './fadeExistence';
 
 const styles = {
+  visibleLabel: {
+    opacity: 1,
+    transitionDuration: '.3s',
+  },
+  hiddenLabel: {
+    opacity: 0,
+    transitionDuration: '.3s',
+  },
   backgroundText: {
     stroke: '#fff',
     strokeWidth: 2,
@@ -13,6 +21,7 @@ const styles = {
     fontSize: '1rem',
     textAnchor: 'middle',
     alignmentBaseline: 'middle',
+    pointerEvents: 'none',
   },
   text: {
     fontFamily: 'Roboto',
@@ -20,9 +29,20 @@ const styles = {
     color: '#111',
     textAnchor: 'middle',
     alignmentBaseline: 'middle',
+    pointerEvents: 'none',
   },
   pulsingCircle: {
     animation: 'infinite 1s pulse',
+    '&:hover + text': {
+      cursor: 'pointer',
+      opacity: 1,
+    },
+  },
+  circle: {
+    '&:hover + text': {
+      cursor: 'pointer',
+      opacity: 1,
+    },
   },
   '@keyframes pulse': {
     from: {
@@ -83,7 +103,7 @@ const Point = ({
   return (
     <g>
       <circle
-        className={isPulsing ? classes.pulsingCircle : undefined}
+        className={isPulsing ? classes.pulsingCircle : classes.circle}
         cx={x}
         cy={y}
         r={7}
@@ -91,16 +111,16 @@ const Point = ({
         stroke={isPulsing ? fill : '#fff'}
         strokeWidth={1.5}
       />
-      {isLabelVisible && (
-        <text>
-          <tspan x={labelX} y={labelY} className={classes.backgroundText}>
-            {label}
-          </tspan>
-          <tspan x={labelX} y={labelY} className={classes.text}>
-            {label}
-          </tspan>
-        </text>
-      )}
+      <text
+        className={isLabelVisible ? classes.visibleLabel : classes.hiddenLabel}
+      >
+        <tspan x={labelX} y={labelY} className={classes.backgroundText}>
+          {label}
+        </tspan>
+        <tspan x={labelX} y={labelY} className={classes.text}>
+          {label}
+        </tspan>
+      </text>
     </g>
   );
 };
