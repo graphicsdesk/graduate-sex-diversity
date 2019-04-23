@@ -159,6 +159,7 @@ class ScatterPlot extends Component {
             Female representation in {this.props.dataName}
           </text>
 
+          {/* X-axis and axis label */}
           <g
             ref={node => d3Select(node).call(xAxis)}
             className={classes.axis}
@@ -172,6 +173,7 @@ class ScatterPlot extends Component {
             Number of women
           </text>
 
+          {/* Y-axis and axis label */}
           <g
             ref={node => d3Select(node).call(yAxis)}
             className={classes.axis}
@@ -184,6 +186,7 @@ class ScatterPlot extends Component {
             Number of men
           </text>
 
+          {/* Proportion guides */}
           {POSSIBLE_GUIDES.map(proportion => (
             <Guide
               key={proportion}

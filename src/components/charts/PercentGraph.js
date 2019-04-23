@@ -46,10 +46,22 @@ const styles = {
     fill: '#999',
     textAnchor: 'middle',
   },
+  equalityLine: {
+    fill: 'none',
+    strokeDasharray: '5 4',
+    stroke: '#555',
+    strokeWidth: 1.8,
+  },
+  equalityLabel: {
+    fontFamily: 'Roboto',
+    fontSize: '.78rem',
+  },
 };
 
 const TICK_PADDING = 9;
 const margin = { top: 10, right: 20, bottom: 30, left: 45 };
+
+const EQUALITY_LINE_ID = 'equality-liney';
 
 class PercentGraph extends Component {
   constructor(props) {
@@ -111,16 +123,19 @@ class PercentGraph extends Component {
       .y(yScale)
       .curve(curveCardinal.tension(0.5))
       .defined(d => d);
+    const yearLineGenerator = d3Line()
+      .x(d => xScale(d[0]))
+      .y(d => yScale(d[1]));
 
     return (
       <svg width={width} height={height}>
         <g transform={`translate(${margin.left}, ${margin.top})`}>
+          {/* X- and y- axes */}
           <g
             ref={node => d3Select(node).call(xAxis)}
             className={classes.xAxis}
             transform={`translate(0, ${gHeight})`}
           />
-
           <g
             ref={node => d3Select(node).call(yAxis)}
             className={classes.yAxis}
@@ -141,6 +156,22 @@ class PercentGraph extends Component {
             );
           })}
 
+          {/* Equality guide line */}
+          <path
+            className={classes.equalityLine}
+            d={yearLineGenerator([[START_YEAR, 0.5], [END_YEAR, 0.5]])}
+            id={EQUALITY_LINE_ID}
+          />
+          <text className={classes.equalityLabel} transform="translate(0, -7)">
+            <textPath
+              href={`#${EQUALITY_LINE_ID}`}
+              startOffset="50%"
+              textAnchor="middle"
+            >
+              EQUAL NUMBER OF MEN AND WOMEN
+            </textPath>
+          </text>
+
           {/* Render the lines of all Columbia's partitions */}
           {partitions.map((upToYear, i) => {
             const previousMaxYear = i > 0 ? partitions[i - 1] : START_YEAR;
@@ -155,11 +186,14 @@ class PercentGraph extends Component {
                 isVisible={upToYear <= maxYear}
                 color="#333"
                 strokeWidth={3}
-                showEndpoint={upToYear === maxYear}
+                showEndpoint
                 endpoint={[
                   xScale(upToYear),
                   yScale(data[upToYear - START_YEAR]),
                 ]}
+                endpointLabel={
+                  Math.round(data[upToYear - START_YEAR] * 100) + '%'
+                }
               />
             );
           })}

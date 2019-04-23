@@ -8,13 +8,19 @@ const styles = {
   pulse: {
     animation: 'infinite 1s pulse',
   },
+  pointLabel: {
+    fontSize: '1rem',
+    fontFamily: 'Roboto',
+    fontWeight: 500,
+    textAnchor: 'middle',
+  },
   '@keyframes pulse': {
     from: {
       strokeWidth: 0,
       strokeOpacity: 1,
     },
     to: {
-      strokeWidth: 19,
+      strokeWidth: 18,
       strokeOpacity: 0,
     },
   },
@@ -61,8 +67,9 @@ class Line extends Component {
       d,
       color,
       strokeWidth,
-      endpoint = [],
       showEndpoint,
+      endpoint = [],
+      endpointLabel,
     } = this.props;
 
     return (
@@ -81,10 +88,18 @@ class Line extends Component {
               className={classes.pulse}
               cx={endpoint[0]}
               cy={endpoint[1]}
-              r={6}
+              r={7}
               fill={color}
               stroke={color}
             />
+            <text
+              className={classes.pointLabel}
+              x={endpoint[0]}
+              y={endpoint[1] + 28}
+              fill={color}
+            >
+              {endpointLabel}
+            </text>
           </FadeWrapper>
         )}
       </Fragment>

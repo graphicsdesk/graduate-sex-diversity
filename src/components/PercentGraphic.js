@@ -87,7 +87,7 @@ class PercentGraphic extends Component {
         </figure>
         <div className={classes.stepsContainer}>
           <Scrollama
-            offset={0.45}
+            offset={0.4}
             onStepEnter={this.onStepEnter}
             onStepExit={this.onStepExit}
           >
