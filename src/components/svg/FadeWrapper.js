@@ -42,22 +42,11 @@ class FadeWrapper extends Component {
 
   render() {
     const { fadeIn } = this.state;
-    const {
-      classes,
-      isVisible,
-      queuePosition,
-      children,
-      ...otherProps
-    } = this.props;
-
-    const childrenWithProps = React.Children.map(
-      children,
-      child => (child ? React.cloneElement(child, otherProps) : null),
-    );
+    const { classes, children } = this.props;
 
     return (
       <g opacity={fadeIn ? 1 : 0} className={classes.transition}>
-        {childrenWithProps}
+        {children}
       </g>
     );
   }
