@@ -1,14 +1,34 @@
 export default `
 This document is written in the markup language ArchieML (AML). AML makes it a lot easier to write and edit text that can be directly structured and used in code.
 
-headline: Female representation among graduate students in science and engineering
+headline: In a Fat Survey, a New Look at Graduate Student Sex Diversity in Science and Engineering
 
-[.body]
-* The Eye has done an analysis, nutgraf, Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam mauris odio, tempor in consectetur non, molestie nec tellus. Sed eu efficitur mauris. Phasellus luctus nulla quam. Nam id dictum nunc. Suspendisse potenti. Cras at nisi ante.
-* Praesent convallis odio turpis, in feugiat felis sollicitudin nec. Fusce in pharetra est. Phasellus fringilla tempor ornare. Ut augue diam, viverra at vulputate eu, eleifend a diam.
+[overall]
+
+text: From 1994 to 2005, female representation among graduate students in science and engineering rose by 10 percentage points.
+maxYear: 2005
+
+text: However, in the last decade, it declined to 40 again. It's since stagnated.
+maxYear: 2016
+
+text: Among peer institutions, Columbia went from above average to middle of the pack.
+maxYear: 2016
+showPeers: true
+
+text: Which fields are contributing to this lag in diversity?
+maxYear: 2016
+showPeers: true
+
 []
 
-{scatter_plots}
+[body]
+
+* The Eye analyzed a fuck ton of data from the National Science Foundation, nutgraf, Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam mauris odio, tempor in consectetur non, molestie nec tellus. Sed eu efficitur mauris. Phasellus luctus nulla quam. Nam id dictum nunc. Suspendisse potenti.
+* Broader trends, Advancement of Women, Praesent convallis odio turpis, in feugiat felis sollicitudin nec. Fusce in pharetra est. Phasellus fringilla tempor ornare. Ut augue diam, viverra at vulputate eu, eleifend a diam.
+
+[]
+
+{scatters}
 
 [.mechanical_engineering]
 

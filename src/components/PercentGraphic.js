@@ -29,7 +29,6 @@ const styles = {
   },
   stepText: {
     backgroundColor: 'rgba(255, 255, 255, 0.9)',
-    boxShadow: '0 5px 15px 0 rgba(0,0,0,0.41)',
     maxWidth: '510px',
     textAlign: 'center',
     color: '#222',
@@ -41,26 +40,44 @@ const styles = {
   },
 };
 
-class Graphic extends Component {
+class PercentGraphic extends Component {
   state = { stepIndex: -1 };
+
+  constructor(props) {
+    super(props);
+    const { steps } = this.props;
+
+    // Keeping track of how the line is divided
+    this.partitions = [];
+    steps.forEach(({ maxYear }) => maxYear && this.partitions.push(maxYear));
+  }
 
   onStepEnter = ({ data: stepIndex }) => {
     this.setState({ stepIndex });
   };
 
   render() {
-    const { classes } = this.props;
-
-    const steps = ['1', '2', '3', '4'];
+    const { stepIndex } = this.state;
+    const { classes, steps } = this.props;
+    let step = {
+      maxYear: 1993,
+    };
+    if (stepIndex >= 0) step = steps[stepIndex];
+    const { maxYear, showPeers } = step;
 
     return (
       <div className={classes.Graphic}>
         <figure className={classes.stickyFigure}>
-          <PercentGraph dataName="Overall" />
+          <PercentGraph
+            dataName="overall"
+            maxYear={maxYear}
+            showPeers={showPeers}
+            partitions={this.partitions}
+          />
         </figure>
         <div className={classes.stepsContainer}>
           <Scrollama offset={0.45} onStepEnter={this.onStepEnter}>
-            {steps.map((text, i) => (
+            {steps.map(({ text }, i) => (
               <Step data={i} key={text}>
                 <div className={classes.step}>
                   <p
@@ -77,4 +94,4 @@ class Graphic extends Component {
   }
 }
 
-export default injectSheet(styles)(Graphic);
+export default injectSheet(styles)(PercentGraphic);

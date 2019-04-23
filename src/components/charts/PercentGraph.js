@@ -7,17 +7,11 @@ import { select as d3Select } from 'd3-selection';
 import { format as d3Format } from 'd3-format';
 
 import DATA from '../../data';
-import { END_YEAR, START_YEAR, years } from '../../constants';
+import { COLUMBIA_NAME, END_YEAR, START_YEAR, years } from '../../constants';
 import Line from './Line';
+import { partitionYears } from '../../utils';
 
 const styles = {
-  graphTitle: {
-    fontFamily: 'Roboto',
-    fontSize: '1.2rem',
-    fontWeight: 500,
-    fill: '#111',
-    textAnchor: 'start',
-  },
   line: {
     fill: 'none',
     stroke: '#333',
@@ -108,7 +102,6 @@ class PercentGraph extends Component {
     const {
       width,
       height,
-      gWidth,
       gHeight,
 
       xScale,
@@ -116,22 +109,17 @@ class PercentGraph extends Component {
       xAxis,
       yAxis,
     } = this.state;
-    const { classes } = this.props;
-
-    const axisLabelSpacing = 45;
+    const { classes, partitions, maxYear } = this.props;
 
     const lineGenerator = d3Line()
       .x((_, i) => xScale(START_YEAR + i))
       .y(yScale)
-      .curve(curveCardinal);
+      .curve(curveCardinal.tension(0.5))
+      .defined(d => d);
 
     return (
       <svg width={width} height={height}>
         <g transform={`translate(${margin.left}, ${margin.top})`}>
-          <text className={classes.graphTitle} x={xScale(0)} y={-20}>
-            Female representation in {this.props.dataName}
-          </text>
-
           <g
             ref={node => d3Select(node).call(xAxis)}
             className={classes.xAxis}
@@ -143,12 +131,24 @@ class PercentGraph extends Component {
             className={classes.yAxis}
           />
 
-          <Line
-            d={lineGenerator(this.data)}
-            className={classes.line}
-            strokeWidth={3}
-            isVisible
-          />
+          {partitions.map((year, i) => {
+            const previousMaxYear = i > 0 ? partitions[i - 1] : START_YEAR;
+            return (
+              <Line
+                key={year}
+                d={lineGenerator(
+                  partitionYears(
+                    this.data[COLUMBIA_NAME],
+                    previousMaxYear,
+                    year,
+                  ),
+                )}
+                className={classes.line}
+                strokeWidth={3}
+                isVisible={year <= maxYear}
+              />
+            );
+          })}
         </g>
       </svg>
     );

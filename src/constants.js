@@ -1,3 +1,7 @@
+/* Name constants */
+
+export const COLUMBIA_NAME = 'Columbia University in the City of New York';
+
 /* Time constants */
 
 export const START_YEAR = 1994;
