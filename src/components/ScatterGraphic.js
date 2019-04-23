@@ -37,7 +37,7 @@ const styles = {
 };
 
 class Graphic extends Component {
-  state = { stepIndex: 0 };
+  state = { stepIndex: -1 };
 
   onStepEnter = ({ data: stepIndex, element }) => {
     this.setState({ stepIndex });
@@ -49,10 +49,16 @@ class Graphic extends Component {
   };
 
   render() {
+    const { stepIndex } = this.state;
     const { classes, steps } = this.props;
-    const { maxYear, showLine, showAxesIndicators, showGuides } = steps[
-      this.state.stepIndex
-    ];
+    let step = {
+      maxYear: 1993,
+      showAxesIndicators: true,
+    };
+    if (stepIndex >= 0)
+      step = steps[stepIndex];
+    const { maxYear, showLine, showAxesIndicators, showGuides } = step;
+
     return (
       <div className={classes.Graphic}>
         <div className={classes.stepsContainer}>

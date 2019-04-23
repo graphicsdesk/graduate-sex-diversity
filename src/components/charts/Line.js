@@ -5,6 +5,11 @@ import 'd3-transition';
 class Line extends Component {
   ref = React.createRef();
 
+  componentDidMount() {
+    if (this.props.isVisible)
+      d3Select(this.ref.current).attr('opacity', 1);
+  }
+
   componentDidUpdate(prevProps) {
     const { current: node } = this.ref;
     if (!node) return;
@@ -29,13 +34,14 @@ class Line extends Component {
   }
 
   render() {
+    const { strokeWidth } = this.props;
     return (
       <path
         ref={this.ref}
         d={this.props.d}
         fill="none"
         stroke="#333"
-        strokeWidth={1.2}
+        strokeWidth={strokeWidth || 1.2}
         opacity={0}
       />
     );

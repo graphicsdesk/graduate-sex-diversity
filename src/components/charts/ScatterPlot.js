@@ -25,7 +25,7 @@ const styles = {
     fontSize: '1.2rem',
     fontWeight: 500,
     fill: '#111',
-    textAnchor: 'middle',
+    textAnchor: 'start',
   },
   line: {
     fill: 'none',
@@ -154,11 +154,11 @@ class ScatterPlot extends Component {
           <SkinnyArrowHead />
         </defs>
 
-        <text className={classes.graphTitle} x={gWidth / 2} y={23}>
-          {this.props.dataName}
-        </text>
-
         <g transform={`translate(${margin.left}, ${margin.top})`}>
+          <text className={classes.graphTitle} x={xScale(0)} y={-20}>
+            Female representation in {this.props.dataName}
+          </text>
+
           <g
             ref={node => d3Select(node).call(xAxis)}
             className={classes.axis}
