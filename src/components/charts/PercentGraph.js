@@ -55,13 +55,12 @@ const styles = {
   equalityLabel: {
     fontFamily: 'Roboto',
     fontSize: '.78rem',
+    textAnchor: 'middle',
   },
 };
 
 const TICK_PADDING = 9;
 const margin = { top: 10, right: 20, bottom: 30, left: 80 };
-
-const EQUALITY_LINE_ID = 'equality-liney';
 
 class PercentGraph extends Component {
   constructor(props) {
@@ -113,6 +112,7 @@ class PercentGraph extends Component {
     const {
       width,
       height,
+      gWidth,
       gHeight,
 
       xScale,
@@ -170,16 +170,13 @@ class PercentGraph extends Component {
           <path
             className={classes.equalityLine}
             d={yearLineGenerator([[START_YEAR, 0.5], [END_YEAR, 0.5]])}
-            id={EQUALITY_LINE_ID}
           />
-          <text className={classes.equalityLabel} transform="translate(0, -7)">
-            <textPath
-              href={`#${EQUALITY_LINE_ID}`}
-              startOffset="50%"
-              textAnchor="middle"
-            >
-              EQUAL NUMBER OF MEN AND WOMEN
-            </textPath>
+          <text
+            className={classes.equalityLabel}
+            x={xScale((START_YEAR + END_YEAR) / 2)}
+            y={yScale(0.5) - 10}
+          >
+            EQUAL NUMBER OF MEN AND WOMEN
           </text>
 
           {/* Render the lines of all Columbia's partitions */}
