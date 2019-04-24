@@ -33,7 +33,20 @@ class Line extends Component {
   };
 
   componentDidMount() {
-    if (this.props.isVisible) d3Select(this.ref.current).attr('opacity', 1);
+    const { current: node } = this.ref;
+    if (!node) return;
+    
+    if (this.props.isVisible) {
+      const length = node.getTotalLength();
+      d3Select(node)
+        .attr('opacity', 1)
+        .attr('stroke-dasharray', length)
+        .attr('stroke-dashoffset', length)
+        .transition()
+        .duration(2000)
+        .attr('stroke-dashoffset', 0)
+        .on('end', () => this.setState({ isEndpointVisible: true }));
+    }
   }
 
   componentDidUpdate(prevProps) {

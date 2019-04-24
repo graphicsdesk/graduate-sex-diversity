@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Scrollama, Step } from 'react-scrollama';
 import injectSheet from 'react-jss';
-import { ScatterPlot } from './charts';
+import { ScatterPlot, PercentGraph } from './charts';
 
 const styles = {
   Graphic: {
@@ -52,13 +52,20 @@ class ScatterGraphic extends Component {
 
   render() {
     const { stepIndex } = this.state;
-    const { classes, steps } = this.props;
+    const { classes, steps, dataName } = this.props;
     let step = {
       maxYear: 1993,
       showAxesIndicators: true,
     };
     if (stepIndex >= 0) step = steps[stepIndex];
-    const { maxYear, showLine, showAxesIndicators, showGuides } = step;
+    const {
+      maxYear,
+      showLine,
+      showAxesIndicators,
+      showGuides,
+      showPercentGraph,
+      showPeers,
+    } = step;
 
     return (
       <div className={classes.Graphic}>
@@ -81,13 +88,17 @@ class ScatterGraphic extends Component {
           </Scrollama>
         </div>
         <figure className={classes.stickyFigure}>
-          <ScatterPlot
-            dataName="Mechanical engineering"
-            maxYear={maxYear}
-            showLine={showLine}
-            showAxesIndicators={showAxesIndicators}
-            showGuides={showGuides}
-          />
+          {showPercentGraph ? (
+            <PercentGraph dataName={dataName} showPeers={showPeers} isSquare />
+          ) : (
+            <ScatterPlot
+              dataName={dataName}
+              maxYear={maxYear}
+              showLine={showLine}
+              showAxesIndicators={showAxesIndicators}
+              showGuides={showGuides}
+            />
+          )}
         </figure>
       </div>
     );

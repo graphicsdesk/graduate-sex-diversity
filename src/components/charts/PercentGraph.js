@@ -1,12 +1,12 @@
 import React, { Component } from 'react';
 import injectSheet from 'react-jss';
 import { scaleLinear } from 'd3-scale';
-import { line as d3Line, area as d3Area, curveCardinal } from 'd3-shape';
+import { line as d3Line, curveCardinal } from 'd3-shape';
 import { axisBottom, axisLeft } from 'd3-axis';
 import { select as d3Select } from 'd3-selection';
 import { format as d3Format } from 'd3-format';
 
-import DATA from '../../data';
+import { PERCENTS } from '../../data';
 import { COLUMBIA_NAME, END_YEAR, START_YEAR, years } from '../../constants';
 import Line from './Line';
 import { partitionYears } from '../../utils';
@@ -59,7 +59,7 @@ const styles = {
 };
 
 const TICK_PADDING = 9;
-const margin = { top: 10, right: 20, bottom: 30, left: 45 };
+const margin = { top: 10, right: 20, bottom: 30, left: 80 };
 
 const EQUALITY_LINE_ID = 'equality-liney';
 
@@ -67,11 +67,15 @@ class PercentGraph extends Component {
   constructor(props) {
     super(props);
 
-    const { dataName } = props;
-    this.data = DATA[dataName];
+    const { dataName, isSquare } = props;
+    this.data = PERCENTS[dataName];
 
-    const height = window.innerHeight * 0.85;
-    const width = window.innerWidth * 0.7;
+    let height = window.innerHeight * 0.85;
+    let width = window.innerWidth * 0.7;
+
+    if (isSquare) {
+      height = width = window.innerWidth * 0.5;
+    }
     const gWidth = width - margin.left - margin.right;
     const gHeight = height - margin.top - margin.bottom;
 
@@ -140,6 +144,12 @@ class PercentGraph extends Component {
             ref={node => d3Select(node).call(yAxis)}
             className={classes.yAxis}
           />
+          <text
+            className={classes.axisLabel}
+            transform={`translate(${-50}, ${gHeight / 2}) rotate(-90)`}
+          >
+            Percent female
+          </text>
 
           {/* Render the lines of all peers */}
           {Object.keys(this.data).map(inst => {
@@ -204,7 +214,8 @@ class PercentGraph extends Component {
 }
 
 PercentGraph.defaultProps = {
-  showGuides: [],
+  maxYear: END_YEAR,
+  partitions: [END_YEAR],
 };
 
 export default injectSheet(styles)(PercentGraph);

@@ -5,9 +5,9 @@ import { line as d3Line } from 'd3-shape';
 import { axisBottom, axisLeft } from 'd3-axis';
 import { select as d3Select } from 'd3-selection';
 
-import DATA from '../../data';
+import { COUNTS } from '../../data';
 import { maxCoord, colorScale } from '../../utils';
-import { POSSIBLE_GUIDES, START_YEAR } from '../../constants';
+import { COLUMBIA_NAME, POSSIBLE_GUIDES, START_YEAR } from '../../constants';
 import {
   FadeWrapper,
   FullArrowHead,
@@ -65,7 +65,7 @@ class ScatterPlot extends Component {
     super(props);
 
     const { dataName } = props;
-    this.data = DATA[dataName];
+    this.data = COUNTS[dataName][COLUMBIA_NAME];
 
     const width = window.innerWidth * 0.5;
     const height = width;

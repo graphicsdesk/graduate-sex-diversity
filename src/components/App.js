@@ -25,7 +25,7 @@ class App extends Component {
             if (step.maxYear) step.maxYear = +step.maxYear;
             return step;
           });
-          return <ScatterGraphic key={key} steps={steps} />;
+          return <ScatterGraphic key={key} steps={steps} dataName={key} />;
         })}
       </div>
     );

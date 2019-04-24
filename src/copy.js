@@ -5,7 +5,7 @@ headline: In a Fat Survey, a New Look at Graduate Student Sex Diversity in Scien
 
 [overall]
 
-text: From 1994 to 2005, female representation among graduate students in science and engineering rose by 10 percentage points.
+text: From 1994 to 2005, female representation among graduate students in science and engineering rose by almost 10 percentage points.
 maxYear: 2005
 
 text: However, in the last decade, it declined to 40 again. It's since stagnated.
@@ -69,6 +69,13 @@ showLine: true
 [.showGuides]
 * 0.5
 []
+
+text: Looking at percentage representation of female students in Mechanical Engineering, Columbia has increased a couple of percentage points.
+showPercentGraph: true
+
+text: However, Columbia still lags behind its peers in this department.
+showPercentGraph: true
+showPeers: true
 
 []
 
