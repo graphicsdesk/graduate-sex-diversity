@@ -14,15 +14,15 @@ import {
   TITLES,
 } from '../../constants';
 import {
+  Point,
+  Line,
+  Guide,
   FadeWrapper,
   FullArrowHead,
   SkinnyArrowHead,
   FullArrow,
   SkinnyArrow,
 } from '../svg';
-import Point from '../svg/Point';
-import Line from '../svg/Line';
-import Guide from '../svg/Guide';
 
 const styles = {
   graphTitle: {

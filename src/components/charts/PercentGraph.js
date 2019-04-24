@@ -14,8 +14,8 @@ import {
   TITLES,
   years,
 } from '../../constants';
-import Line from '../svg/Line';
 import { partitionYears } from '../../utils';
+import { Line } from '../svg';
 
 const styles = {
   graphTitle: {
