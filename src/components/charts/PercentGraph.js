@@ -60,7 +60,7 @@ const styles = {
 };
 
 const TICK_PADDING = 9;
-const margin = { top: 10, right: 20, bottom: 30, left: 80 };
+const margin = { top: 40, right: 20, bottom: 50, left: 80 };
 
 class PercentGraph extends Component {
   constructor(props) {

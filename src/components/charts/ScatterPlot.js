@@ -7,7 +7,12 @@ import { select as d3Select } from 'd3-selection';
 
 import { COUNTS } from '../../data';
 import { maxCoord, colorScale } from '../../utils';
-import { COLUMBIA_NAME, POSSIBLE_GUIDES, START_YEAR } from '../../constants';
+import {
+  COLUMBIA_NAME,
+  POSSIBLE_GUIDES,
+  START_YEAR,
+  TITLES,
+} from '../../constants';
 import {
   FadeWrapper,
   FullArrowHead,
@@ -156,7 +161,7 @@ class ScatterPlot extends Component {
 
         <g transform={`translate(${margin.left}, ${margin.top})`}>
           <text className={classes.graphTitle} x={xScale(0)} y={-20}>
-            Female representation in {this.props.dataName}
+            Female representation in {TITLES[this.props.dataName]}
           </text>
 
           {/* X-axis and axis label */}
