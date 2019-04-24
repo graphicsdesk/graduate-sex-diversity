@@ -112,7 +112,6 @@ class PercentGraph extends Component {
     const {
       width,
       height,
-      gWidth,
       gHeight,
 
       xScale,
