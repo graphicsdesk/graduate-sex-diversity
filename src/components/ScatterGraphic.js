@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Scrollama, Step } from 'react-scrollama';
 import injectSheet from 'react-jss';
 import { ScatterPlot, PercentGraph } from './charts';
-import FadeDivWrapper from './FadeDivWrapper';
+import { FadeWrapper } from './svg';
 import { END_YEAR, START_YEAR } from '../constants';
 
 const styles = {
@@ -90,7 +90,7 @@ class ScatterGraphic extends Component {
           </Scrollama>
         </div>
         <figure className={classes.stickyFigure}>
-          <FadeDivWrapper isVisible={!showPercentGraph} positionAbsolute>
+          <FadeWrapper isVisible={!showPercentGraph} positionAbsolute useDiv>
             <ScatterPlot
               dataName={dataName}
               maxYear={maxYear}
@@ -98,15 +98,15 @@ class ScatterGraphic extends Component {
               showAxesIndicators={showAxesIndicators}
               showGuides={showGuides}
             />
-          </FadeDivWrapper>
-          <FadeDivWrapper isVisible={showPercentGraph}>
+          </FadeWrapper>
+          <FadeWrapper isVisible={showPercentGraph} useDiv>
             <PercentGraph
               dataName={dataName}
               showPeers={showPeers}
               isSquare
               maxYear={showPercentGraph ? END_YEAR : START_YEAR}
             />
-          </FadeDivWrapper>
+          </FadeWrapper>
         </figure>
       </div>
     );

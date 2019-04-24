@@ -38,7 +38,7 @@ const styles = {
     },
     '&:hover': {
       stroke: '#333',
-    }
+    },
   },
   circle: {
     '&:hover + text': {
@@ -46,7 +46,7 @@ const styles = {
     },
     '&:hover': {
       stroke: '#333',
-    }
+    },
   },
   '@keyframes pulse': {
     from: {

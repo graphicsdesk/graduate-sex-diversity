@@ -15,7 +15,7 @@ const SkinnyArrowHead = () => (
   >
     <path
       d={`M1 1 L${SKINNY_ARROW_SIZE / 2} ${SKINNY_ARROW_SIZE /
-      2} L1 ${SKINNY_ARROW_SIZE - 1}`}
+        2} L1 ${SKINNY_ARROW_SIZE - 1}`}
       stroke="#111"
       fill="none"
       strokeWidth={1.8}

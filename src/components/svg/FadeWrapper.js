@@ -6,6 +6,20 @@ const styles = {
   transition: {
     transitionDuration: `${LINE_ANIM_DURATION * 1.5}ms`,
   },
+  invisible: {
+    transitionDuration: `${LINE_ANIM_DURATION * 1.5}ms`,
+    opacity: 0,
+    visibility: 'hidden',
+    position: ({ positionAbsolute }) =>
+      positionAbsolute ? 'absolute' : 'static',
+  },
+  visible: {
+    transitionDuration: `${LINE_ANIM_DURATION * 1.5}ms`,
+    opacity: 1,
+    visibility: 'visible',
+    position: ({ positionAbsolute }) =>
+      positionAbsolute ? 'absolute' : 'static',
+  },
 };
 
 class FadeWrapper extends Component {
@@ -39,7 +53,14 @@ class FadeWrapper extends Component {
 
   render() {
     const { fadeIn } = this.state;
-    const { classes, children } = this.props;
+    const { classes, children, useDiv } = this.props;
+
+    if (useDiv)
+      return (
+        <div className={fadeIn ? classes.visible : classes.invisible}>
+          {children}
+        </div>
+      );
 
     return (
       <g opacity={fadeIn ? 1 : 0} className={classes.transition}>
@@ -51,6 +72,7 @@ class FadeWrapper extends Component {
 
 FadeWrapper.defaultProps = {
   queuePosition: 0,
+  isVisible: false,
 };
 
 export default injectSheet(styles)(FadeWrapper);

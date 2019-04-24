@@ -37,7 +37,7 @@ const SkinnyArrow = ({ classes, x, y, gHeight, orient, label }) => {
       <text
         className={classes.label}
         transform={`translate(${x1 - orient * labelPadding}, ${y1 -
-        orient * labelPadding}) rotate(-45)`}
+          orient * labelPadding}) rotate(-45)`}
       >
         {label}
       </text>

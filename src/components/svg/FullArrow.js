@@ -49,7 +49,7 @@ const FullArrow = ({ classes, x, y, orient, line1, line2 }) => {
         x={0}
         y={0}
         transform={`translate(${x1 + (dx ? -labelPadding : 0)}, ${y1 +
-        (dy ? labelPadding : 0)})`}
+          (dy ? labelPadding : 0)})`}
       >
         <tspan x={0} y={0}>
           {line1}

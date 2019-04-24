@@ -15,7 +15,7 @@ export const FullArrowHead = () => (
   >
     <path
       d={`M0 0 L${FULL_ARROW_SIZE} ${FULL_ARROW_SIZE /
-      2} L0 ${FULL_ARROW_SIZE} z`}
+        2} L0 ${FULL_ARROW_SIZE} z`}
       fill="#111"
     />
   </marker>
