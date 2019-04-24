@@ -4,6 +4,7 @@ export const COLUMBIA_NAME = 'Columbia University in the City of New York';
 
 export const TITLES = {
   mechanical_engineering: 'Mechanical engineering',
+  overall: 'science and engineering',
 };
 
 /* Time constants */

@@ -28,9 +28,12 @@ const styles = {
   graphTitle: {
     fontFamily: 'Roboto',
     fontSize: '1.2rem',
-    fontWeight: 500,
+    fontWeight: 400,
     fill: '#111',
     textAnchor: 'start',
+  },
+  bold: {
+    fontWeight: 600,
   },
   line: {
     fill: 'none',
@@ -161,7 +164,9 @@ class ScatterPlot extends Component {
 
         <g transform={`translate(${margin.left}, ${margin.top})`}>
           <text className={classes.graphTitle} x={xScale(0)} y={-20}>
-            Female representation in {TITLES[this.props.dataName]}
+            <tspan className={classes.bold}>
+              {TITLES[this.props.dataName]}
+            </tspan>, male vs. female
           </text>
 
           {/* X-axis and axis label */}

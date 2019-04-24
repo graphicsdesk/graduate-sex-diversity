@@ -3,6 +3,7 @@ import { Scrollama, Step } from 'react-scrollama';
 import injectSheet from 'react-jss';
 import { ScatterPlot, PercentGraph } from './charts';
 import FadeDivWrapper from './FadeDivWrapper';
+import { END_YEAR, START_YEAR } from '../constants';
 
 const styles = {
   Graphic: {
@@ -20,7 +21,7 @@ const styles = {
     alignItems: 'center',
   },
   stepsContainer: {
-    margin: '50vh 0',
+    margin: '60vh 0',
   },
   step: {
     maxWidth: '350px',
@@ -99,7 +100,12 @@ class ScatterGraphic extends Component {
             />
           </FadeDivWrapper>
           <FadeDivWrapper isVisible={showPercentGraph}>
-            <PercentGraph dataName={dataName} showPeers={showPeers} isSquare />
+            <PercentGraph
+              dataName={dataName}
+              showPeers={showPeers}
+              isSquare
+              maxYear={showPercentGraph ? END_YEAR : START_YEAR}
+            />
           </FadeDivWrapper>
         </figure>
       </div>

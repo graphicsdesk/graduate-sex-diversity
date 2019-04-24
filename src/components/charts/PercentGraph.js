@@ -7,11 +7,27 @@ import { select as d3Select } from 'd3-selection';
 import { format as d3Format } from 'd3-format';
 
 import { PERCENTS } from '../../data';
-import { COLUMBIA_NAME, END_YEAR, START_YEAR, years } from '../../constants';
+import {
+  COLUMBIA_NAME,
+  END_YEAR,
+  START_YEAR,
+  TITLES,
+  years,
+} from '../../constants';
 import Line from './Line';
 import { partitionYears } from '../../utils';
 
 const styles = {
+  graphTitle: {
+    fontFamily: 'Roboto',
+    fontSize: '1.2rem',
+    fontWeight: 400,
+    fill: '#111',
+    textAnchor: 'start',
+  },
+  bold: {
+    fontWeight: 500,
+  },
   xAxis: {
     '& path.domain': { display: 'none' },
     '& text': {
@@ -133,6 +149,12 @@ class PercentGraph extends Component {
     return (
       <svg width={width} height={height}>
         <g transform={`translate(${margin.left}, ${margin.top})`}>
+          <text className={classes.graphTitle} x={0} y={-20}>
+            <tspan className={classes.bold}>
+              Female representation in {TITLES[this.props.dataName]}
+            </tspan>
+          </text>
+
           {/* X- and y- axes */}
           <g
             ref={node => d3Select(node).call(xAxis)}
@@ -173,7 +195,7 @@ class PercentGraph extends Component {
           <text
             className={classes.equalityLabel}
             x={xScale((START_YEAR + END_YEAR) / 2)}
-            y={yScale(0.5) - 10}
+            y={yScale(0.5) - 7}
           >
             EQUAL NUMBER OF MEN AND WOMEN
           </text>

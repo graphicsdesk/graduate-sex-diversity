@@ -37,6 +37,9 @@ const styles = {
     fontFamily: 'Merriweather',
     fontWeight: 400,
     lineHeight: '1.9rem',
+
+    // Fixes a problem in Safari where background color is transparent
+    transform: 'translate3d(0, 0, 0)',
   },
 };
 
