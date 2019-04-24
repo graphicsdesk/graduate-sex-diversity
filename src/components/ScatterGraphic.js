@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Scrollama, Step } from 'react-scrollama';
 import injectSheet from 'react-jss';
 import { ScatterPlot, PercentGraph } from './charts';
-import FadeDivWrapper  from './FadeDivWrapper';
+import FadeDivWrapper from './FadeDivWrapper';
 
 const styles = {
   Graphic: {

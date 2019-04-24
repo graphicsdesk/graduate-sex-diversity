@@ -35,7 +35,7 @@ class Line extends Component {
   componentDidMount() {
     const { current: node } = this.ref;
     if (!node) return;
-    
+
     if (this.props.isVisible) {
       const length = node.getTotalLength();
       d3Select(node)

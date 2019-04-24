@@ -9,12 +9,14 @@ const styles = {
   hide: {
     transitionDuration: `${ANIM_DURATION * 1.5}ms`,
     opacity: 0,
-    position: ({ positionAbsolute }) => positionAbsolute ? 'absolute' : 'static',
+    position: ({ positionAbsolute }) =>
+      positionAbsolute ? 'absolute' : 'static',
   },
   show: {
     transitionDuration: `${ANIM_DURATION * 1.5}ms`,
     opacity: 1,
-    position: ({ positionAbsolute }) => positionAbsolute ? 'absolute' : 'static',
+    position: ({ positionAbsolute }) =>
+      positionAbsolute ? 'absolute' : 'static',
   },
 };
 
@@ -52,9 +54,7 @@ class FadeDivWrapper extends Component {
     const { classes, children } = this.props;
 
     return (
-      <div className={fadeIn ? classes.show : classes.hide}>
-        {children}
-      </div>
+      <div className={fadeIn ? classes.show : classes.hide}>{children}</div>
     );
   }
 }
