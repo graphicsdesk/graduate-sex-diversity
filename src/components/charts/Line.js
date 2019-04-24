@@ -25,6 +25,7 @@ const styles = {
     },
   },
 };
+
 class Line extends Component {
   ref = React.createRef();
   state = {

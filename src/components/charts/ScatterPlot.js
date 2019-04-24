@@ -238,6 +238,8 @@ class ScatterPlot extends Component {
             d={lineGenerator(this.data)}
             className={classes.line}
             isVisible={showLine}
+            color="#333"
+            strokeWidth={1.2}
           />
 
           {this.data.map((point, i) => {

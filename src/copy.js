@@ -23,8 +23,13 @@ showPeers: true
 
 [body]
 
-* The Eye analyzed a fuck ton of data from the National Science Foundation, nutgraf, Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam mauris odio, tempor in consectetur non, molestie nec tellus. Sed eu efficitur mauris. Phasellus luctus nulla quam. Nam id dictum nunc. Suspendisse potenti.
+* The Eye analyzed a shit ton of data from the National Science Foundation, nutgraf, Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam mauris odio, tempor in consectetur non, molestie nec tellus. Sed eu efficitur mauris. Phasellus luctus nulla quam. Nam id dictum nunc. Suspendisse potenti.
+
 * Broader trends, Advancement of Women, Praesent convallis odio turpis, in feugiat felis sollicitudin nec. Fusce in pharetra est. Phasellus fringilla tempor ornare. Ut augue diam, viverra at vulputate eu, eleifend a diam.
+
+* We’ve found that while the representation of women has continued to be much more pronounced in medicinal and social science fields, the representation of women in many engineering and physical sciences fields has made little, no, or, even backwards progress.
+
+* One such field is mechanical engineering.
 
 []
 

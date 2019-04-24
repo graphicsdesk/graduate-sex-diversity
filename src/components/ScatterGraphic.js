@@ -32,6 +32,7 @@ const styles = {
     fontSize: '1.06rem',
     fontFamily: 'Merriweather',
     fontWeight: 400,
+    margin: 0,
     lineHeight: '1.9rem',
   },
 };
