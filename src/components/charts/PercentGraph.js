@@ -180,6 +180,7 @@ class PercentGraph extends Component {
               <Line
                 key={inst}
                 d={lineGenerator(this.data[inst])}
+                name={inst}
                 isVisible={showPeers}
                 color="#bbb"
                 strokeWidth={1.2}

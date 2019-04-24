@@ -1,5 +1,6 @@
 import React, { Component, Fragment } from 'react';
 import injectSheet from 'react-jss';
+import nanoid from 'nanoid';
 import { select as d3Select } from 'd3-selection';
 import 'd3-transition';
 import { FadeWrapper } from './index';
@@ -8,6 +9,19 @@ import { QUEUE_DELAY } from '../../constants';
 const styles = {
   pulse: {
     animation: 'infinite 1s pulse',
+  },
+  hoverForName: {
+    '&:hover + text': {
+      opacity: 1,
+    },
+  },
+  lineName: {
+    fontSize: '1rem',
+    fontFamily: 'Roboto',
+    fill: '#333',
+    opacity: 0,
+    transitionDuration: '.3s',
+    pointerEvents: 'none',
   },
   pointLabel: {
     fontSize: '1rem',
@@ -29,6 +43,7 @@ const styles = {
 
 class Line extends Component {
   ref = React.createRef();
+  pathId = nanoid();
   state = {
     isEndpointVisible: false,
   };
@@ -78,6 +93,7 @@ class Line extends Component {
   }
 
   render() {
+    const { isEndpointVisible } = this.state;
     const {
       classes,
       d,
@@ -86,20 +102,29 @@ class Line extends Component {
       showEndpoint,
       endpoint = [],
       endpointLabel,
+      name,
     } = this.props;
 
     return (
       <Fragment>
         <path
           ref={this.ref}
+          className={classes.hoverForName}
           d={d}
           fill="none"
           stroke={color}
           strokeWidth={strokeWidth}
           opacity={0}
+          id={this.pathId}
         />
+        {name &&
+        isEndpointVisible && (
+          <text className={classes.lineName}>
+            <textPath href={'#' + this.pathId}>{name}</textPath>
+          </text>
+        )}
         {endpoint.length === 2 && (
-          <FadeWrapper isVisible={showEndpoint && this.state.isEndpointVisible}>
+          <FadeWrapper isVisible={showEndpoint && isEndpointVisible}>
             <circle
               className={classes.pulse}
               cx={endpoint[0]}
