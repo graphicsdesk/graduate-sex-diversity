@@ -20,9 +20,9 @@ import {
   FullArrow,
   SkinnyArrow,
 } from '../svg';
-import Point from './Point';
-import Line from './Line';
-import Guide from './Guide';
+import Point from '../svg/Point';
+import Line from '../svg/Line';
+import Guide from '../svg/Guide';
 
 const styles = {
   graphTitle: {

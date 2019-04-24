@@ -2,7 +2,8 @@ import React, { Component, Fragment } from 'react';
 import injectSheet from 'react-jss';
 import { select as d3Select } from 'd3-selection';
 import 'd3-transition';
-import { FadeWrapper } from '../svg';
+import { FadeWrapper } from './index';
+import { QUEUE_DELAY } from '../../constants';
 
 const styles = {
   pulse: {
@@ -50,7 +51,7 @@ class Line extends Component {
   }
 
   componentDidUpdate(prevProps) {
-    const { isVisible } = this.props;
+    const { isVisible, queuePosition } = this.props;
     const { current: node } = this.ref;
     if (!node) return;
 
@@ -62,6 +63,7 @@ class Line extends Component {
         .attr('stroke-dasharray', length)
         .attr('stroke-dashoffset', length)
         .transition()
+        .delay(queuePosition * QUEUE_DELAY)
         .duration(2000)
         .attr('stroke-dashoffset', 0)
         .on('end', () => this.setState({ isEndpointVisible: true }));
@@ -120,5 +122,9 @@ class Line extends Component {
     );
   }
 }
+
+Line.defaultProps = {
+  queuePosition: 0,
+};
 
 export default injectSheet(styles)(Line);

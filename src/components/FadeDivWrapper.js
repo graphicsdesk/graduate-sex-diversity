@@ -1,20 +1,19 @@
 import React, { Component } from 'react';
 import injectSheet from 'react-jss';
-
-/* TODO: SET THESE CONSTANTS IN CONSTANTS FILE */
-const ANIM_DURATION = 420;
-const DELAY_BETWEEN = ANIM_DURATION / 3;
+import { LINE_ANIM_DURATION, QUEUE_DELAY } from '../constants';
 
 const styles = {
   hide: {
-    transitionDuration: `${ANIM_DURATION * 1.5}ms`,
+    transitionDuration: `${LINE_ANIM_DURATION * 1.5}ms`,
     opacity: 0,
+    visibility: 'hidden',
     position: ({ positionAbsolute }) =>
       positionAbsolute ? 'absolute' : 'static',
   },
   show: {
-    transitionDuration: `${ANIM_DURATION * 1.5}ms`,
+    transitionDuration: `${LINE_ANIM_DURATION * 1.5}ms`,
     opacity: 1,
+    visibility: 'visible',
     position: ({ positionAbsolute }) =>
       positionAbsolute ? 'absolute' : 'static',
   },
@@ -40,7 +39,7 @@ class FadeDivWrapper extends Component {
     if (!prevIsVisible && isVisible) {
       this.timeoutID = setTimeout(() => {
         this.setState({ fadeIn: true });
-      }, queuePosition * DELAY_BETWEEN);
+      }, queuePosition * QUEUE_DELAY);
     }
 
     if (prevIsVisible && !isVisible) {

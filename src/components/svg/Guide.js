@@ -1,6 +1,6 @@
 import React from 'react';
 import injectSheet from 'react-jss';
-import fadeExistence from './fadeExistence';
+import fade from './fade';
 
 const styles = {
   strongLine: {
@@ -19,11 +19,6 @@ const styles = {
 
 // proportion = proportion female
 const Guide = ({ classes, line, upperLimit, proportion, id }) => {
-  if (proportion < 0 || proportion > 1) {
-    console.error('Proportion in guide must be between 0 and 1.');
-    return null;
-  }
-
   const slope = (1 - proportion) / proportion;
   let text = `${(proportion * 100).toFixed(proportion < 0.1 ? 1 : 0)}% FEMALE`;
   let x2 = upperLimit;
@@ -53,4 +48,4 @@ const Guide = ({ classes, line, upperLimit, proportion, id }) => {
   );
 };
 
-export default fadeExistence(injectSheet(styles)(Guide));
+export default fade(injectSheet(styles)(Guide));

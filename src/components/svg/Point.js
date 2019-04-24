@@ -1,6 +1,6 @@
 import React from 'react';
 import injectSheet from 'react-jss';
-import fadeExistence from './fadeExistence';
+import fade from './fade';
 
 const styles = {
   visibleLabel: {
@@ -36,11 +36,17 @@ const styles = {
     '&:hover + text': {
       opacity: 1,
     },
+    '&:hover': {
+      stroke: '#333',
+    }
   },
   circle: {
     '&:hover + text': {
       opacity: 1,
     },
+    '&:hover': {
+      stroke: '#333',
+    }
   },
   '@keyframes pulse': {
     from: {
@@ -123,4 +129,4 @@ const Point = ({
   );
 };
 
-export default fadeExistence(injectSheet(styles)(Point));
+export default fade(injectSheet(styles)(Point));

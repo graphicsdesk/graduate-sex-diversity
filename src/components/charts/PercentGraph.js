@@ -14,7 +14,7 @@ import {
   TITLES,
   years,
 } from '../../constants';
-import Line from './Line';
+import Line from '../svg/Line';
 import { partitionYears } from '../../utils';
 
 const styles = {
@@ -104,7 +104,7 @@ class PercentGraph extends Component {
     const xAxis = axisBottom(xScale)
       .tickSize(-gHeight)
       .tickPadding(TICK_PADDING)
-      .tickFormat(x => x)
+      .tickFormat(x => x) // remove thousands commas
       .ticks(years.length / 2);
     const yAxis = axisLeft(yScale)
       .tickSize(-gWidth)
@@ -173,7 +173,7 @@ class PercentGraph extends Component {
           </text>
 
           {/* Render the lines of all peers */}
-          {Object.keys(this.data).map(inst => {
+          {Object.keys(this.data).map((inst, i) => {
             if (inst === COLUMBIA_NAME) return null;
 
             return (
@@ -183,6 +183,7 @@ class PercentGraph extends Component {
                 isVisible={showPeers}
                 color="#bbb"
                 strokeWidth={1.2}
+                queuePosition={i}
               />
             );
           })}

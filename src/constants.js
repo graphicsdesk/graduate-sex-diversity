@@ -16,6 +16,9 @@ export const years = [];
 for (let i = START_YEAR; i < END_YEAR + 1; i++)
   years.push(i);
 
+export const LINE_ANIM_DURATION = 420;
+export const QUEUE_DELAY = LINE_ANIM_DURATION / 3;
+
 /* ID constants */
 
 export const SKINNY_ARROW_ID = 'skinny-pointy-pointy';

@@ -10,7 +10,7 @@ const styles = {
   },
 };
 
-const fadeExistence = WrappedComponent => {
+const fade = WrappedComponent => {
   class FadeComponent extends Component {
     state = {
       fadeIn: false,
@@ -65,4 +65,4 @@ const fadeExistence = WrappedComponent => {
   return injectSheet(styles)(FadeComponent);
 };
 
-export default fadeExistence;
+export default fade;
