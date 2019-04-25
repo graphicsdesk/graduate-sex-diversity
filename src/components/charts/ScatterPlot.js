@@ -69,48 +69,20 @@ class ScatterPlot extends Component {
   constructor(props) {
     super(props);
     const { discipline, field } = this.props;
+
     if (discipline) this.data = DISCIPLINE_COUNTS[discipline];
     else this.data = FIELD_COUNTS[field];
 
-    const width = window.innerWidth * 0.5;
-    const height = width;
-    const gWidth = width - margin.left - margin.right;
-    const gHeight = height - margin.top - margin.bottom;
-
-    const upperLimit = maxCoord(this.data) * 1.02;
-    const xScale = scaleLinear()
-      .domain([0, upperLimit])
-      .range([0, gWidth]);
-    const yScale = scaleLinear()
-      .domain([0, upperLimit])
-      .range([gHeight, 0]);
-
-    const xAxis = axisBottom(xScale)
-      .tickSize(-gHeight)
-      .tickPadding(TICK_PADDING)
-      .ticks(NUM_TICKS);
-    const yAxis = axisLeft(yScale)
-      .tickSize(-gWidth)
-      .tickPadding(TICK_PADDING)
-      .ticks(NUM_TICKS);
-
-    this.state = {
-      width,
-      height,
-      gWidth,
-      gHeight,
-
-      upperLimit,
-      xScale,
-      yScale,
-      xAxis,
-      yAxis,
-
-      maxYear: this.props.maxYear,
-      previousMaxYear: START_YEAR,
-      markedYears: [START_YEAR],
-    };
+    this.state = this.resetState();
   }
+
+  resetState = () => ({
+    ...this.calculateSVGDimensions(),
+
+    maxYear: this.props.maxYear,
+    previousMaxYear: START_YEAR,
+    markedYears: [START_YEAR, END_YEAR],
+  });
 
   calculateSVGDimensions = () => {
     const { discipline, field } = this.props;
@@ -139,7 +111,7 @@ class ScatterPlot extends Component {
       .tickPadding(TICK_PADDING)
       .ticks(NUM_TICKS);
 
-    this.setState({
+    return {
       width,
       height,
       gWidth,
@@ -150,11 +122,7 @@ class ScatterPlot extends Component {
       yScale,
       xAxis,
       yAxis,
-
-      maxYear: this.props.maxYear,
-      previousMaxYear: START_YEAR,
-      markedYears: [START_YEAR, END_YEAR],
-    });
+    };
   };
 
   componentDidUpdate(prevProps) {
@@ -162,7 +130,7 @@ class ScatterPlot extends Component {
     const name = this.props.discipline || this.props.field;
 
     if (name !== prevName) {
-      this.calculateSVGDimensions();
+      this.setState(this.resetState());
     }
   }
 
@@ -198,7 +166,13 @@ class ScatterPlot extends Component {
       previousMaxYear,
       markedYears,
     } = this.state;
-    const { classes, showLine, showAxesIndicators, showGuides } = this.props;
+    const {
+      classes,
+      dataName,
+      showLine,
+      showAxesIndicators,
+      showGuides,
+    } = this.props;
     const axisLabelSpacing = 45;
 
     const lineGenerator = d3Line()
@@ -213,10 +187,12 @@ class ScatterPlot extends Component {
         </defs>
 
         <g transform={`translate(${margin.left}, ${margin.top})`}>
-          <text className={classes.graphTitle} x={xScale(0)} y={-20}>
-            <tspan className={classes.bold}>{this.props.dataName}</tspan>, male
-            vs. female
-          </text>
+          {dataName && (
+            <text className={classes.graphTitle} x={xScale(0)} y={-20}>
+              <tspan className={classes.bold}>{dataName}</tspan>, male vs.
+              female
+            </text>
+          )}
 
           {/* X-axis and axis label */}
           <g
@@ -309,7 +285,7 @@ class ScatterPlot extends Component {
             ];
             return (
               <Point
-                key={x + '-' + y}
+                key={x + '-' + y + '-' + i}
                 x={xScale(x)}
                 y={yScale(y)}
                 fill={colorScale[i]}

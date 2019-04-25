@@ -4,7 +4,7 @@ import COPY from '../copy';
 import LedeGraphic from './LedeGraphic';
 import { Header, Paragraph } from './content';
 
-const { headline, lede, body } = archieml.load(COPY);
+const { headline, lede, nutgraf } = archieml.load(COPY);
 
 const ledeSteps = lede.map(step => {
   const { showGuides, maxYear } = step;
@@ -21,7 +21,7 @@ class App extends Component {
 
         <LedeGraphic steps={ledeSteps} />
 
-        {body.map(text => <Paragraph key={text} text={text} />)}
+        {nutgraf.map(text => <Paragraph key={text} text={text} />)}
       </div>
     );
   }

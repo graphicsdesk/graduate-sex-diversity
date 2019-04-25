@@ -53,6 +53,8 @@ const styles = {
 
 const LABEL_SPACING = 15;
 
+const LINE_ANIM_TIME = 2000;
+
 class Line extends Component {
   ref = React.createRef();
   pathId = nanoid();
@@ -63,7 +65,7 @@ class Line extends Component {
   componentDidMount() {
     const { current: node } = this.ref;
     if (!node) return;
-
+    console.log(this.props.isVisible);
     if (this.props.isVisible) {
       const length = node.getTotalLength();
       d3Select(node)
@@ -71,7 +73,7 @@ class Line extends Component {
         .attr('stroke-dasharray', length)
         .attr('stroke-dashoffset', length)
         .transition()
-        .duration(2000)
+        .duration(LINE_ANIM_TIME)
         .attr('stroke-dashoffset', 0)
         .on('end', () => this.setState({ isEndpointVisible: true }));
     }
@@ -82,7 +84,12 @@ class Line extends Component {
     const { current: node } = this.ref;
     if (!node) return;
 
-    if ((!prevProps.isVisible && isVisible) || prevProps.d !== d) {
+    if (d && d.substr(0, 6) === 'M36.78')
+      console.log(prevProps.isVisible, isVisible);
+    if (
+      (!prevProps.isVisible && isVisible) ||
+      (isVisible && prevProps.d !== d)
+    ) {
       // Animate in
       const length = node.getTotalLength();
       d3Select(node)
@@ -91,7 +98,7 @@ class Line extends Component {
         .attr('stroke-dashoffset', length)
         .transition()
         .delay(queuePosition * QUEUE_DELAY)
-        .duration(2000)
+        .duration(LINE_ANIM_TIME)
         .attr('stroke-dashoffset', 0)
         .on('end', () => this.setState({ isEndpointVisible: true }));
     } else if (prevProps.isVisible && !isVisible) {

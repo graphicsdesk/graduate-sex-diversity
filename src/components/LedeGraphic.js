@@ -21,7 +21,7 @@ const styles = {
     alignItems: 'center',
   },
   stepsContainer: {
-    margin: '60vh 0',
+    margin: '50vh 0 ',
   },
   step: {
     maxWidth: '350px',
@@ -70,7 +70,8 @@ class LedeGraphic extends Component {
       showPercentGraph,
       discipline, // discipline shown in connected scatter plot
       disciplines, // disciplines shown in percent graph
-      fields,
+      field, // field shown in connected scatter plot
+      fields, // fields shown in percent graph
     } = step;
 
     return (
@@ -97,7 +98,8 @@ class LedeGraphic extends Component {
           <FadeWrapper isVisible={!showPercentGraph} positionAbsolute useDiv>
             <ScatterPlot
               discipline={discipline}
-              dataName={discipline + ' fields'}
+              field={field}
+              dataName={discipline ? discipline + ' fields' : field}
               maxYear={maxYear}
               showLine={showLine}
               showAxesIndicators={showAxesIndicators}

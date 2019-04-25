@@ -66,21 +66,47 @@ name: Science
 showPeers: true
 []
 
+text: But, every field has its own story.
+field: Statistics
+maxYear: 1993
+
+text: Within statistics, despite seeing 10x growth, the department has maintained near gender parity.
+field: Statistics
+maxYear: 2016
+showLine: true
+[.showGuides]
+* 0.25
+* 0.5
+* 0.75
+[]
+
+text: But CS, despite also experiencing major growth, has furthered from gender parity due to uneven growth rates in male and female populations.
+field: Computer sciences
+maxYear: 2016
+showLine: true
+[.showGuides]
+* 0.25
+* 0.5
+* 0.75
+[]
+
+[]
+
+[nutgraf]
+
+* The Eye analyzed a ton of data from the National Science Foundation, nutgraf, Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam mauris odio, tempor in consectetur non, molestie nec tellus. Sed eu efficitur mauris. Phasellus luctus nulla quam. Nam id dictum nunc. Suspendisse potenti.
+
+* Broader trends, Advancement of Women, pipeline Praesent convallis odio turpis, in feugiat felis sollicitudin nec. Fusce in pharetra est. Phasellus fringilla tempor ornare. Ut augue diam, viverra at vulputate eu, eleifend a diam. (For details on how we did this analysis, see the note at the end of this article.)
+
 []
 
 [body]
 
-* The Eye analyzed a shit ton of data from the National Science Foundation, nutgraf, Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam mauris odio, tempor in consectetur non, molestie nec tellus. Sed eu efficitur mauris. Phasellus luctus nulla quam. Nam id dictum nunc. Suspendisse potenti.
-
-* Broader trends, Advancement of Women, Praesent convallis odio turpis, in feugiat felis sollicitudin nec. Fusce in pharetra est. Phasellus fringilla tempor ornare. Ut augue diam, viverra at vulputate eu, eleifend a diam. (For details on how we did this analysis, see the note at the end of this article.)
-
-* We’ve found that while the representation of women has continued to be much more pronounced in medicinal and social science fields, the representation of women in many engineering and physical sciences fields has made little, no, or, even backwards progress.
-
-* One such field is mechanical engineering.
-
-[]
+heading: In male-dominated engineering fields, disparate rates of population growth
 
 [methodology]
 
 * Data was exported from the NSF’s new interactive tool.
+
+[]
 `;

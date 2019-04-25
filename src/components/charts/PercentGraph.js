@@ -19,6 +19,7 @@ import { Line } from '../svg';
 import { flattenFields } from '../../utils';
 
 const { DISCIPLINE_PROPORTIONS, FIELD_PROPORTIONS } = DATA;
+
 const styles = {
   graphTitle: {
     fontFamily: 'Roboto',
@@ -78,7 +79,7 @@ const styles = {
 };
 
 const TICK_PADDING = 9;
-const margin = { top: 40, right: 20, bottom: 50, left: 80 };
+const margin = { top: 40, right: 20, bottom: 50, left: 70 };
 
 class PercentGraph extends Component {
   constructor(props) {
