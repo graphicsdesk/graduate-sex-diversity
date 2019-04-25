@@ -24,10 +24,17 @@ const { DISCIPLINE_COUNTS, FIELD_COUNTS } = DATA;
 const styles = {
   graphTitle: {
     fontFamily: 'Roboto',
-    fontSize: '1.2rem',
+    fontSize: '1.1rem',
     fontWeight: 400,
     fill: '#111',
     textAnchor: 'start',
+  },
+  smallGraphTitle: {
+    fontFamily: 'Roboto',
+    fontSize: '1.05rem',
+    fontWeight: 500,
+    textAnchor: 'middle',
+    fill: '#111',
   },
   bold: {
     fontWeight: 600,
@@ -61,7 +68,6 @@ const styles = {
   },
 };
 
-const NUM_TICKS = 8;
 const TICK_PADDING = 9;
 const margin = { top: 40, right: 20, bottom: 50, left: 70 };
 
@@ -85,11 +91,18 @@ class ScatterPlot extends Component {
   });
 
   calculateSVGDimensions = () => {
-    const { discipline, field } = this.props;
+    const { discipline, field, inRow } = this.props;
     if (discipline) this.data = DISCIPLINE_COUNTS[discipline];
     else this.data = FIELD_COUNTS[field];
 
-    const width = window.innerWidth * 0.5;
+    let NUM_TICKS = 8;
+
+    let width = window.innerWidth * 0.5;
+    if (inRow) {
+      width = 400;
+      NUM_TICKS = 4;
+    }
+
     const height = width;
     const gWidth = width - margin.left - margin.right;
     const gHeight = height - margin.top - margin.bottom;
@@ -172,6 +185,8 @@ class ScatterPlot extends Component {
       showLine,
       showAxesIndicators,
       showGuides,
+      inRow,
+      noArrows,
     } = this.props;
     const axisLabelSpacing = 45;
 
@@ -187,12 +202,17 @@ class ScatterPlot extends Component {
         </defs>
 
         <g transform={`translate(${margin.left}, ${margin.top})`}>
-          {dataName && (
-            <text className={classes.graphTitle} x={xScale(0)} y={-20}>
-              <tspan className={classes.bold}>{dataName}</tspan>, male vs.
-              female
-            </text>
-          )}
+          {dataName &&
+            (inRow ? (
+              <text className={classes.smallGraphTitle} x={gWidth / 2} y={-20}>
+                {dataName}
+              </text>
+            ) : (
+              <text className={classes.graphTitle} x={xScale(0)} y={-20}>
+                <tspan className={classes.bold}>{dataName}</tspan>, male vs.
+                female
+              </text>
+            ))}
 
           {/* X-axis and axis label */}
           <g
@@ -215,8 +235,8 @@ class ScatterPlot extends Component {
           />
           <text
             className={classes.axisLabel}
-            transform={`translate(${-axisLabelSpacing - 13}, ${gHeight /
-              2}) rotate(-90)`}
+            transform={`translate(${-axisLabelSpacing -
+              (inRow ? 4 : 13)}, ${gHeight / 2}) rotate(-90)`}
           >
             Number of men
           </text>
@@ -230,10 +250,11 @@ class ScatterPlot extends Component {
               proportion={proportion}
               id={proportion + '-representation-guide'}
               isVisible={showGuides.includes(proportion)}
+              small={inRow}
             />
           ))}
 
-          <FadeWrapper isVisible={showGuides.length > 0}>
+          <FadeWrapper isVisible={!noArrows && showGuides.length > 0}>
             <SkinnyArrow
               x={xScale(upperLimit * 0.65)}
               y={yScale(upperLimit * 0.65)}
@@ -250,7 +271,7 @@ class ScatterPlot extends Component {
             />
           </FadeWrapper>
 
-          <FadeWrapper isVisible={showAxesIndicators}>
+          <FadeWrapper isVisible={!noArrows && showAxesIndicators}>
             <FullArrow
               x={xScale(upperLimit / 15)}
               y={yScale(this.data[0][1] + upperLimit / 6)}

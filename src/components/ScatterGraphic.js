@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import { Scrollama, Step } from 'react-scrollama';
 import injectSheet from 'react-jss';
-import { ScatterPlot, PercentGraph } from './charts';
 import { FadeWrapper } from './svg';
+import { PercentGraph, ScatterPlot } from './charts';
 import { END_YEAR, START_YEAR } from '../constants';
 
 const styles = {
@@ -21,7 +21,7 @@ const styles = {
     alignItems: 'center',
   },
   stepsContainer: {
-    margin: '60vh 0',
+    margin: '50vh 0 ',
   },
   step: {
     maxWidth: '350px',
@@ -31,7 +31,7 @@ const styles = {
     transitionDuration: '0.2s',
   },
   stepText: {
-    fontSize: '1.06rem',
+    fontSize: '1.05rem',
     fontFamily: 'Merriweather',
     fontWeight: 400,
     margin: 0,
@@ -39,7 +39,7 @@ const styles = {
   },
 };
 
-class ScatterGraphic extends Component {
+class LedeGraphic extends Component {
   state = { stepIndex: -1 };
 
   onStepEnter = ({ data: stepIndex, element }) => {
@@ -54,19 +54,24 @@ class ScatterGraphic extends Component {
 
   render() {
     const { stepIndex } = this.state;
-    const { classes, steps, dataName } = this.props;
+    const { classes, steps } = this.props;
     let step = {
+      discipline: 'Engineering',
+      disciplines: [],
       maxYear: 1993,
       showAxesIndicators: true,
     };
     if (stepIndex >= 0) step = steps[stepIndex];
     const {
       maxYear,
-      showLine,
       showAxesIndicators,
       showGuides,
+      showLine,
       showPercentGraph,
-      fields,
+      discipline, // discipline shown in connected scatter plot
+      disciplines, // disciplines shown in percent graph
+      field, // field shown in connected scatter plot
+      fields, // fields shown in percent graph
     } = step;
 
     return (
@@ -77,12 +82,12 @@ class ScatterGraphic extends Component {
             onStepEnter={this.onStepEnter}
             onStepExit={this.onStepExit}
           >
-            {steps.map((step, i) => (
-              <Step data={i} key={step.text}>
+            {steps.map(({ text }, i) => (
+              <Step data={i} key={text}>
                 <div className={classes.step}>
                   <p
                     className={classes.stepText}
-                    dangerouslySetInnerHTML={{ __html: step.text }}
+                    dangerouslySetInnerHTML={{ __html: text }}
                   />
                 </div>
               </Step>
@@ -92,7 +97,9 @@ class ScatterGraphic extends Component {
         <figure className={classes.stickyFigure}>
           <FadeWrapper isVisible={!showPercentGraph} positionAbsolute useDiv>
             <ScatterPlot
-              dataName={dataName}
+              discipline={discipline}
+              field={field}
+              dataName={discipline ? discipline + ' fields' : field}
               maxYear={maxYear}
               showLine={showLine}
               showAxesIndicators={showAxesIndicators}
@@ -101,7 +108,8 @@ class ScatterGraphic extends Component {
           </FadeWrapper>
           <FadeWrapper isVisible={showPercentGraph} useDiv>
             <PercentGraph
-              dataName={dataName}
+              dataName={discipline}
+              disciplines={disciplines}
               fields={fields}
               maxYear={showPercentGraph ? END_YEAR : START_YEAR}
               isSquare
@@ -113,4 +121,4 @@ class ScatterGraphic extends Component {
   }
 }
 
-export default injectSheet(styles)(ScatterGraphic);
+export default injectSheet(styles)(LedeGraphic);

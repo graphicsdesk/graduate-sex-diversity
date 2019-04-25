@@ -38,6 +38,17 @@ const COLORS = {
     primary: '#BA3063',
     secondary: '#FEABC5',
   },
+  'Biology': {
+    primary: '#1E7D68',
+    secondary: '#99D9C9',
+  },
+  'Mathematics and applied mathematics': {
+    primary: '#1E7D68',
+  },
+  'Physics': {
+    primary: '#BA3063',
+    secondary: '#FEABC5',
+  },
 };
 
 export const primaryColor = disc => COLORS[disc] ? COLORS[disc].primary : 'red';

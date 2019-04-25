@@ -263,7 +263,7 @@ class PercentGraph extends Component {
                 d={lineGenerator(data)}
                 isVisible={fieldNames.includes(field)}
                 color={primaryColor(field)}
-                strokeWidth={3}
+                strokeWidth={2.4}
                 showEndpoint
                 endpoint={[xScale(END_YEAR), yScale(data[data.length - 1])]}
                 endpointLabel={

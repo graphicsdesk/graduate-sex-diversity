@@ -2,13 +2,13 @@
 
 ## Component design
 
-`<App/>` reads the copy. It sends content into `content/` components and sends maxYear directions into `<LedeGraphic/>` components.
+`<App/>` reads the copy. It sends content into `content/` components and sends maxYear directions into `<ScatterRow/>` components.
 
-`<LedeGraphic/>` implements `react-scrollama` and controls whether `<PercentGraph/>` or `<PercentGraph/>` is visible. It sends numerical data and high-level instructions to these graphs.
+`<ScatterRow/>` implements `react-scrollama` and controls whether `<PercentGraph/>` or `<PercentGraph/>` is visible. It sends numerical data and high-level instructions to these graphs.
 
 `<PercentGraph/>` contains the graph framework and animates in data. It controls the placement of `<Line/>`'s and `<Point/>`'s.
 
-`<PercentGraph/>` renders lines according to data from `<LedeGraphic/>`.
+`<PercentGraph/>` renders lines according to data from `<ScatterRow/>`.
 
 `<Point/>` can also render a `<PointLabel/>`. The label can respect the space of another point.
 

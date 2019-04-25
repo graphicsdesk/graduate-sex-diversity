@@ -13,12 +13,12 @@ const styles = {
   },
   label: {
     fontFamily: 'Roboto',
-    fontSize: '.85rem',
+    fontSize: props => (props.small ? '.75rem' : '.85rem'),
   },
 };
 
 // proportion = proportion female
-const Guide = ({ classes, line, upperLimit, proportion, id }) => {
+const Guide = ({ classes, line, upperLimit, proportion, id, small }) => {
   const slope = (1 - proportion) / proportion;
   let text = `${(proportion * 100).toFixed(proportion < 0.1 ? 1 : 0)}% FEMALE`;
   let x2 = upperLimit;
@@ -39,7 +39,11 @@ const Guide = ({ classes, line, upperLimit, proportion, id }) => {
         fill="none"
         strokeDasharray={proportion === 0.5 ? '5 4' : '4 4'}
       />
-      <text className={classes.label} transform="translate(14, 14)" fill="#111">
+      <text
+        className={classes.label}
+        transform={small ? 'translate(-150, -150)' : 'translate(14, 14)'}
+        fill="#111"
+      >
         <textPath href={`#${id}`} startOffset="50%" textAnchor="middle">
           {text}
         </textPath>
