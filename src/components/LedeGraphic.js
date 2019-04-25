@@ -1,15 +1,18 @@
 import React, { Component } from 'react';
 import { Scrollama, Step } from 'react-scrollama';
 import injectSheet from 'react-jss';
-import { PercentGraph } from './charts';
+import { FadeWrapper } from './svg';
+import { PercentGraph, ScatterPlot } from './charts';
+import { END_YEAR, START_YEAR } from '../constants';
 
 const styles = {
   Graphic: {
     margin: '1.5rem 0',
+    display: 'flex',
+    justifyContent: 'space-evenly',
   },
   stickyFigure: {
     height: '100vh',
-    width: '100%',
     top: 0,
     margin: 0,
     position: 'sticky',
@@ -18,77 +21,63 @@ const styles = {
     alignItems: 'center',
   },
   stepsContainer: {
-    overflow: 'auto',
-    paddingBottom: '20vh',
+    margin: '60vh 0',
   },
   step: {
-    position: 'relative',
-    marginBottom: '80vh',
-    display: 'flex',
-    justifyContent: 'center',
+    maxWidth: '350px',
+    margin: '0 auto',
+    paddingBottom: '220px',
+    color: '#aaa',
+    transitionDuration: '0.2s',
   },
   stepText: {
-    backgroundColor: 'rgba(255, 255, 255, 0.9)',
-    maxWidth: '510px',
-    textAlign: 'center',
-    color: '#222',
-    padding: '1.1rem',
-    fontSize: '1.1rem',
+    fontSize: '1.05rem',
     fontFamily: 'Merriweather',
     fontWeight: 400,
+    margin: 0,
     lineHeight: '1.9rem',
-
-    // Fixes a problem in Safari where background color is transparent
-    transform: 'translate3d(0, 0, 0)',
   },
 };
 
 class LedeGraphic extends Component {
   state = { stepIndex: -1 };
 
-  constructor(props) {
-    super(props);
-    const { steps } = this.props;
-
-    // Keeping track of how the line is divided
-    this.partitions = [];
-    steps.forEach(
-      ({ maxYear }) =>
-        maxYear &&
-        !this.partitions.includes(maxYear) &&
-        this.partitions.push(maxYear),
-    );
-  }
-
-  onStepEnter = ({ data: stepIndex }) => {
+  onStepEnter = ({ data: stepIndex, element }) => {
     this.setState({ stepIndex });
+    element.style.color = '#222';
   };
 
-  onStepExit = ({ data: stepIndex, direction }) => {
+  onStepExit = ({ data: stepIndex, direction, element }) => {
     if (direction === 'up' && stepIndex === 0) this.setState({ stepIndex: -1 });
+    element.style.color = '#aaa';
   };
 
   render() {
     const { stepIndex } = this.state;
     const { classes, steps } = this.props;
     let step = {
+      discipline: 'Engineering',
       disciplines: [],
+      maxYear: 1993,
+      showAxesIndicators: true,
     };
     if (stepIndex >= 0) step = steps[stepIndex];
-    const { disciplines, fields } = step;
+    const {
+      maxYear,
+      showAxesIndicators,
+      showGuides,
+      showLine,
+      showPercentGraph,
+      discipline, // discipline shown in connected scatter plot
+      disciplines, // disciplines shown in percent graph
+      fields,
+    } = step;
 
     return (
       <div className={classes.Graphic}>
-        <figure className={classes.stickyFigure}>
-          <PercentGraph
-            disciplines={disciplines}
-            fields={fields}
-            dataName="science and engineering"
-          />
-        </figure>
         <div className={classes.stepsContainer}>
           <Scrollama
-            offset={0.4}
+            offset={0.45}
             onStepEnter={this.onStepEnter}
             onStepExit={this.onStepExit}
           >
@@ -104,6 +93,27 @@ class LedeGraphic extends Component {
             ))}
           </Scrollama>
         </div>
+        <figure className={classes.stickyFigure}>
+          <FadeWrapper isVisible={!showPercentGraph} positionAbsolute useDiv>
+            <ScatterPlot
+              discipline={discipline}
+              dataName={discipline + ' fields'}
+              maxYear={maxYear}
+              showLine={showLine}
+              showAxesIndicators={showAxesIndicators}
+              showGuides={showGuides}
+            />
+          </FadeWrapper>
+          <FadeWrapper isVisible={showPercentGraph} useDiv>
+            <PercentGraph
+              dataName={discipline}
+              disciplines={disciplines}
+              fields={fields}
+              maxYear={showPercentGraph ? END_YEAR : START_YEAR}
+              isSquare
+            />
+          </FadeWrapper>
+        </figure>
       </div>
     );
   }

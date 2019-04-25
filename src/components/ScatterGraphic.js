@@ -26,7 +26,7 @@ const styles = {
   step: {
     maxWidth: '350px',
     margin: '0 auto',
-    paddingBottom: '200px',
+    paddingBottom: '220px',
     color: '#aaa',
     transitionDuration: '0.2s',
   },
