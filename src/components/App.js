@@ -2,19 +2,19 @@ import React, { Component } from 'react';
 import archieml from 'archieml';
 import COPY from '../copy';
 import ScatterGraphic from './ScatterGraphic';
-import PercentGraphic from './PercentGraphic';
+import LedeGraphic from './LedeGraphic';
 import { Header, Paragraph } from './content';
+import { keyToDataName } from '../utils';
 
-const copy = archieml.load(COPY);
-const { overall, body, scatters } = copy;
+const { headline, lede, body, scatters } = archieml.load(COPY);
 
 class App extends Component {
   render() {
     return (
       <div>
-        <Header headline={copy.headline} />
+        <Header headline={headline} />
 
-        <PercentGraphic steps={overall} />
+        <LedeGraphic steps={lede} />
 
         {body.map(text => <Paragraph key={text} text={text} />)}
 
@@ -25,7 +25,13 @@ class App extends Component {
             if (step.maxYear) step.maxYear = +step.maxYear;
             return step;
           });
-          return <ScatterGraphic key={key} steps={steps} dataName={key} />;
+          return (
+            <ScatterGraphic
+              key={key}
+              steps={steps}
+              dataName={keyToDataName(key)}
+            />
+          );
         })}
       </div>
     );

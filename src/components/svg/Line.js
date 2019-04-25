@@ -10,7 +10,7 @@ const styles = {
   pulse: {
     animation: 'infinite 1s pulse',
   },
-  hoverForName: {
+  path: {
     '&:hover + text': {
       opacity: 1,
     },
@@ -23,11 +23,22 @@ const styles = {
     transitionDuration: '.3s',
     pointerEvents: 'none',
   },
-  pointLabel: {
+  backgroundText: {
+    stroke: '#fff',
+    strokeWidth: 2.5,
+    opacity: 0.85,
+    strokeLinejoin: 'round',
+    strokeLinecap: 'round',
     fontSize: '1rem',
     fontFamily: 'Roboto',
     fontWeight: 500,
-    textAnchor: 'middle',
+    textAnchor: 'end',
+  },
+  text: {
+    fontSize: '1rem',
+    fontFamily: 'Roboto',
+    fontWeight: 500,
+    textAnchor: 'end',
   },
   '@keyframes pulse': {
     from: {
@@ -40,6 +51,8 @@ const styles = {
     },
   },
 };
+
+const LABEL_SPACING = 15;
 
 class Line extends Component {
   ref = React.createRef();
@@ -105,11 +118,13 @@ class Line extends Component {
       name,
     } = this.props;
 
+    const [endX, endY] = endpoint;
+
     return (
       <Fragment>
         <path
           ref={this.ref}
-          className={classes.hoverForName}
+          className={classes.path}
           d={d}
           fill="none"
           stroke={color}
@@ -133,13 +148,17 @@ class Line extends Component {
               fill={color}
               stroke={color}
             />
-            <text
-              className={classes.pointLabel}
-              x={endpoint[0]}
-              y={endpoint[1] + 28}
-              fill={color}
-            >
-              {endpointLabel}
+            <text fill={color}>
+              <tspan
+                x={endX}
+                y={endY - LABEL_SPACING}
+                className={classes.backgroundText}
+              >
+                {endpointLabel}
+              </tspan>
+              <tspan x={endX} y={endY - LABEL_SPACING} className={classes.text}>
+                {endpointLabel}
+              </tspan>
             </text>
           </FadeWrapper>
         )}

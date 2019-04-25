@@ -6,17 +6,19 @@ import { axisBottom, axisLeft } from 'd3-axis';
 import { select as d3Select } from 'd3-selection';
 import { format as d3Format } from 'd3-format';
 
-import { PERCENTS } from '../../data';
+import DATA from '../../data';
 import {
   COLUMBIA_NAME,
   END_YEAR,
   START_YEAR,
   TITLES,
   years,
+  primaryColor,
+  secondaryColor,
 } from '../../constants';
-import { partitionYears } from '../../utils';
 import { Line } from '../svg';
 
+const { DISCIPLINES, FIELD_PROPORTIONS } = DATA;
 const styles = {
   graphTitle: {
     fontFamily: 'Roboto',
@@ -82,8 +84,7 @@ class PercentGraph extends Component {
   constructor(props) {
     super(props);
 
-    const { dataName, isSquare } = props;
-    this.data = PERCENTS[dataName];
+    const { isSquare } = props;
 
     let height = window.innerHeight * 0.85;
     let width = window.innerWidth * 0.7;
@@ -135,7 +136,15 @@ class PercentGraph extends Component {
       xAxis,
       yAxis,
     } = this.state;
-    const { classes, partitions, maxYear, showPeers } = this.props;
+    const { classes, disciplines = [], fields = [] } = this.props;
+    const disciplineNames = disciplines.map(d => d.name);
+    const disciplinePeerVisibility = disciplines.reduce(
+      (acc, { name, showPeers }) => {
+        acc[name] = showPeers;
+        return acc;
+      },
+      {},
+    );
 
     const lineGenerator = d3Line()
       .x((_, i) => xScale(START_YEAR + i))
@@ -151,7 +160,7 @@ class PercentGraph extends Component {
         <g transform={`translate(${margin.left}, ${margin.top})`}>
           <text className={classes.graphTitle} x={0} y={-20}>
             <tspan className={classes.bold}>
-              Female representation in {TITLES[this.props.dataName]}
+              Female representation in {this.props.dataName}
             </tspan>
           </text>
 
@@ -172,22 +181,25 @@ class PercentGraph extends Component {
             Percent female
           </text>
 
-          {/* Render the lines of all peers */}
-          {Object.keys(this.data).map((inst, i) => {
-            if (inst === COLUMBIA_NAME) return null;
-
-            return (
-              <Line
-                key={inst}
-                d={lineGenerator(this.data[inst])}
-                name={inst}
-                isVisible={showPeers}
-                color="#bbb"
-                strokeWidth={1.2}
-                queuePosition={i}
-              />
-            );
-          })}
+          {/* Render peer discipline lines */}
+          {Object.keys(DISCIPLINES).reduce((acc, disc) => {
+            const institutions = DISCIPLINES[disc];
+            Object.keys(institutions).forEach((inst, i) => {
+              if (inst === COLUMBIA_NAME) return null;
+              acc.push(
+                <Line
+                  key={disc + inst}
+                  name={inst}
+                  d={lineGenerator(institutions[inst])}
+                  isVisible={disciplinePeerVisibility[disc]}
+                  color={secondaryColor(disc)}
+                  strokeWidth={1.2}
+                  queuePosition={i}
+                />,
+              );
+            });
+            return acc;
+          }, [])}
 
           {/* Equality guide line */}
           <path
@@ -202,28 +214,38 @@ class PercentGraph extends Component {
             EQUAL NUMBER OF MEN AND WOMEN
           </text>
 
-          {/* Render the lines of all Columbia's partitions */}
-          {partitions.map((upToYear, i) => {
-            const previousMaxYear = i > 0 ? partitions[i - 1] : START_YEAR;
-            const data = this.data[COLUMBIA_NAME];
-
+          {/* Render Columbia discipline lines */}
+          {Object.keys(DISCIPLINES).map(disc => {
+            const data = DISCIPLINES[disc][COLUMBIA_NAME];
             return (
               <Line
-                key={upToYear}
-                d={lineGenerator(
-                  partitionYears(data, previousMaxYear, upToYear),
-                )}
-                isVisible={upToYear <= maxYear}
+                key={disc}
+                d={lineGenerator(data)}
+                isVisible={disciplineNames.includes(disc)}
+                color={primaryColor(disc)}
+                strokeWidth={3}
+                showEndpoint
+                endpoint={[xScale(END_YEAR), yScale(data[data.length - 1])]}
+                endpointLabel={
+                  disc // Math.round(data[data.length - 1] * 100) + '%'
+                }
+              />
+            );
+          })}
+
+          {/* Render field lines */}
+          {Object.keys(FIELD_PROPORTIONS).map(field => {
+            const data = FIELD_PROPORTIONS[field];
+            return (
+              <Line
+                key={field}
+                d={lineGenerator(data)}
+                isVisible={fields.includes(field)}
                 color="#333"
                 strokeWidth={3}
                 showEndpoint
-                endpoint={[
-                  xScale(upToYear),
-                  yScale(data[upToYear - START_YEAR]),
-                ]}
-                endpointLabel={
-                  Math.round(data[upToYear - START_YEAR] * 100) + '%'
-                }
+                endpoint={[xScale(END_YEAR), yScale(data[data.length - 1])]}
+                endpointLabel={Math.round(data[data.length - 1] * 100) + '%'}
               />
             );
           })}

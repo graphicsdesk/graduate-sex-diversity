@@ -15,9 +15,7 @@ export const maxCoord = array => {
   return Math.max(...values);
 };
 
-export const partitionYears = (data, from, to) =>
-  data.map((x, i) => {
-    const year = START_YEAR + i;
-    if (from <= year && year <= to) return x;
-    return null;
-  });
+export const keyToDataName = key => {
+  const parts = key.split('_');
+  return 'Mechanical engineering';
+};

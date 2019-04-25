@@ -43,7 +43,7 @@ const styles = {
   },
 };
 
-class PercentGraphic extends Component {
+class LedeGraphic extends Component {
   state = { stepIndex: -1 };
 
   constructor(props) {
@@ -72,20 +72,18 @@ class PercentGraphic extends Component {
     const { stepIndex } = this.state;
     const { classes, steps } = this.props;
     let step = {
-      maxYear: 1993,
-      showPeers: false,
+      disciplines: [],
     };
     if (stepIndex >= 0) step = steps[stepIndex];
-    const { maxYear, showPeers } = step;
+    const { disciplines, fields } = step;
 
     return (
       <div className={classes.Graphic}>
         <figure className={classes.stickyFigure}>
           <PercentGraph
-            dataName="overall"
-            maxYear={maxYear}
-            showPeers={showPeers}
-            partitions={this.partitions}
+            disciplines={disciplines}
+            fields={fields}
+            dataName="science and engineering"
           />
         </figure>
         <div className={classes.stepsContainer}>
@@ -111,4 +109,4 @@ class PercentGraphic extends Component {
   }
 }
 
-export default injectSheet(styles)(PercentGraphic);
+export default injectSheet(styles)(LedeGraphic);

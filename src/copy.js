@@ -3,21 +3,48 @@ This document is written in the markup language ArchieML (AML). AML makes it a l
 
 headline: In a Fat Survey, a New Look at Graduate Student Sex Diversity in Science and Engineering
 
-[overall]
+[lede]
 
-text: From 1994 to 2005, female representation among graduate students in science and engineering rose by almost 10 percentage points.
-maxYear: 2005
+text: Engineering increased a lot.
+[.disciplines]
+name: Engineering
+[]
 
-text: However, in the last decade, it declined to 40 again. It's since stagnated.
-maxYear: 2016
-
-text: Among peer institutions, Columbia went from above average to middle of the pack.
-maxYear: 2016
+text: Among peers, engineering was once last. Now it's above average.
+[.disciplines]
+name: Engineering
 showPeers: true
+[]
 
-text: Which fields are contributing to this lag in diversity?
-maxYear: 2016
+text: Science increased a bit too, stayed mostly middle of the pack.
+[.disciplines]
+name: Engineering
 showPeers: true
+name: Science
+showPeers: true
+[]
+
+text: But every field has its own story.
+[.disciplines]
+name: Engineering
+showPeers: true
+name: Science
+showPeers: true
+[]
+
+text: While fields in biological sciences like genetics and biometry have large proportions of women...
+[.fields]
+* Biometry and epidemiology
+* Genetics
+[]
+
+text: Fields like physics and mechanical engineering are seeing a constant or growing underrepresentation of women.
+[.fields]
+* Biometry and epidemiology
+* Genetics
+* Mechanical engineering
+* Physics
+[]
 
 []
 

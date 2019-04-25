@@ -5,14 +5,9 @@ import { line as d3Line } from 'd3-shape';
 import { axisBottom, axisLeft } from 'd3-axis';
 import { select as d3Select } from 'd3-selection';
 
-import { COUNTS } from '../../data';
+import DATA from '../../data';
 import { maxCoord, colorScale } from '../../utils';
-import {
-  COLUMBIA_NAME,
-  POSSIBLE_GUIDES,
-  START_YEAR,
-  TITLES,
-} from '../../constants';
+import { POSSIBLE_GUIDES, START_YEAR, TITLES } from '../../constants';
 import {
   Point,
   Line,
@@ -23,6 +18,8 @@ import {
   FullArrow,
   SkinnyArrow,
 } from '../svg';
+
+const { FIELD_COUNTS } = DATA;
 
 const styles = {
   graphTitle: {
@@ -73,7 +70,8 @@ class ScatterPlot extends Component {
     super(props);
 
     const { dataName } = props;
-    this.data = COUNTS[dataName][COLUMBIA_NAME];
+    console.log(dataName, Object.keys(FIELD_COUNTS));
+    this.data = FIELD_COUNTS[dataName];
 
     const width = window.innerWidth * 0.5;
     const height = width;
@@ -164,9 +162,8 @@ class ScatterPlot extends Component {
 
         <g transform={`translate(${margin.left}, ${margin.top})`}>
           <text className={classes.graphTitle} x={xScale(0)} y={-20}>
-            <tspan className={classes.bold}>
-              {TITLES[this.props.dataName]}
-            </tspan>, male vs. female
+            <tspan className={classes.bold}>{this.props.dataName}</tspan>, male
+            vs. female
           </text>
 
           {/* X-axis and axis label */}
