@@ -11,12 +11,12 @@ import {
   COLUMBIA_NAME,
   END_YEAR,
   START_YEAR,
-  TITLES,
   years,
   primaryColor,
   secondaryColor,
 } from '../../constants';
 import { Line } from '../svg';
+import { flattenFields } from '../../utils';
 
 const { DISCIPLINES, FIELD_PROPORTIONS } = DATA;
 const styles = {
@@ -137,14 +137,14 @@ class PercentGraph extends Component {
       yAxis,
     } = this.state;
     const { classes, disciplines = [], fields = [] } = this.props;
-    const disciplineNames = disciplines.map(d => d.name);
-    const disciplinePeerVisibility = disciplines.reduce(
-      (acc, { name, showPeers }) => {
-        acc[name] = showPeers;
-        return acc;
-      },
-      {},
-    );
+    const {
+      names: discNames,
+      peerVisibility: discPeerVisibility,
+    } = flattenFields(disciplines);
+    const {
+      names: fieldNames,
+      peerVisibility: fieldPeerVisibility,
+    } = flattenFields(fields);
 
     const lineGenerator = d3Line()
       .x((_, i) => xScale(START_YEAR + i))
@@ -191,8 +191,28 @@ class PercentGraph extends Component {
                   key={disc + inst}
                   name={inst}
                   d={lineGenerator(institutions[inst])}
-                  isVisible={disciplinePeerVisibility[disc]}
+                  isVisible={discPeerVisibility[disc]}
                   color={secondaryColor(disc)}
+                  strokeWidth={1.2}
+                  queuePosition={i}
+                />,
+              );
+            });
+            return acc;
+          }, [])}
+
+          {/* Render peer field lines */}
+          {Object.keys(FIELD_PROPORTIONS).reduce((acc, instName) => {
+            if (instName === COLUMBIA_NAME) return acc;
+            const institutions = FIELD_PROPORTIONS[instName];
+            Object.keys(institutions).forEach((field, i) => {
+              acc.push(
+                <Line
+                  key={field + instName}
+                  name={instName}
+                  d={lineGenerator(institutions[field])}
+                  isVisible={fieldPeerVisibility[field]}
+                  color={secondaryColor(field)}
                   strokeWidth={1.2}
                   queuePosition={i}
                 />,
@@ -221,7 +241,7 @@ class PercentGraph extends Component {
               <Line
                 key={disc}
                 d={lineGenerator(data)}
-                isVisible={disciplineNames.includes(disc)}
+                isVisible={discNames.includes(disc)}
                 color={primaryColor(disc)}
                 strokeWidth={3}
                 showEndpoint
@@ -234,18 +254,20 @@ class PercentGraph extends Component {
           })}
 
           {/* Render field lines */}
-          {Object.keys(FIELD_PROPORTIONS).map(field => {
-            const data = FIELD_PROPORTIONS[field];
+          {Object.keys(FIELD_PROPORTIONS[COLUMBIA_NAME]).map(field => {
+            const data = FIELD_PROPORTIONS[COLUMBIA_NAME][field];
             return (
               <Line
                 key={field}
                 d={lineGenerator(data)}
-                isVisible={fields.includes(field)}
-                color="#333"
+                isVisible={fieldNames.includes(field)}
+                color={primaryColor(field)}
                 strokeWidth={3}
                 showEndpoint
                 endpoint={[xScale(END_YEAR), yScale(data[data.length - 1])]}
-                endpointLabel={Math.round(data[data.length - 1] * 100) + '%'}
+                endpointLabel={
+                  field /*Math.round(data[data.length - 1] * 100) + '%'*/
+                }
               />
             );
           })}

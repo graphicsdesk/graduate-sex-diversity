@@ -7,7 +7,7 @@ import { select as d3Select } from 'd3-selection';
 
 import DATA from '../../data';
 import { maxCoord, colorScale } from '../../utils';
-import { POSSIBLE_GUIDES, START_YEAR, TITLES } from '../../constants';
+import { POSSIBLE_GUIDES, START_YEAR } from '../../constants';
 import {
   Point,
   Line,
@@ -70,7 +70,6 @@ class ScatterPlot extends Component {
     super(props);
 
     const { dataName } = props;
-    console.log(dataName, Object.keys(FIELD_COUNTS));
     this.data = FIELD_COUNTS[dataName];
 
     const width = window.innerWidth * 0.5;

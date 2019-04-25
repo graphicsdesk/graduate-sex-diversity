@@ -15,7 +15,18 @@ export const maxCoord = array => {
   return Math.max(...values);
 };
 
+const capitalize = str => str.charAt(0).toUpperCase() + str.slice(1);
+
 export const keyToDataName = key => {
   const parts = key.split('_');
-  return 'Mechanical engineering';
+  parts[0] = capitalize(parts[0]);
+  return parts.join(' ');
 };
+
+export const flattenFields = fields => ({
+  names: fields.map(f => f.name),
+  peerVisibility: fields.reduce((acc, { name, showPeers }) => {
+    acc[name] = showPeers;
+    return acc;
+  }, {}),
+});

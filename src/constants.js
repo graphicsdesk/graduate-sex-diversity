@@ -33,9 +33,13 @@ const COLORS = {
   Science: {
     primary: '#1E7D68',
     secondary: '#99D9C9',
-  }
+  },
+  'Mechanical engineering': {
+    primary: '#BA3063',
+    secondary: '#FEABC5',
+  },
 };
 
-export const primaryColor = disc => COLORS[disc].primary;
+export const primaryColor = disc => COLORS[disc] ? COLORS[disc].primary : 'red';
 
-export const secondaryColor = disc => COLORS[disc].secondary;
+export const secondaryColor = disc => COLORS[disc] ? COLORS[disc].secondary : 'red';

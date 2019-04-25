@@ -66,7 +66,7 @@ class ScatterGraphic extends Component {
       showAxesIndicators,
       showGuides,
       showPercentGraph,
-      showPeers,
+      fields,
     } = step;
 
     return (
@@ -102,9 +102,9 @@ class ScatterGraphic extends Component {
           <FadeWrapper isVisible={showPercentGraph} useDiv>
             <PercentGraph
               dataName={dataName}
-              showPeers={showPeers}
-              isSquare
+              fields={fields}
               maxYear={showPercentGraph ? END_YEAR : START_YEAR}
+              isSquare
             />
           </FadeWrapper>
         </figure>

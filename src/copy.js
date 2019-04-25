@@ -34,16 +34,16 @@ showPeers: true
 
 text: While fields in biological sciences like genetics and biometry have large proportions of women...
 [.fields]
-* Biometry and epidemiology
-* Genetics
+name: Biometry and epidemiology
+name: Genetics
 []
 
 text: Fields like physics and mechanical engineering are seeing a constant or growing underrepresentation of women.
 [.fields]
-* Biometry and epidemiology
-* Genetics
-* Mechanical engineering
-* Physics
+name: Biometry and epidemiology
+name: Genetics
+name: Mechanical engineering
+name: Physics
 []
 
 []
@@ -99,10 +99,16 @@ showLine: true
 
 text: Looking at percentage representation of female students in Mechanical Engineering, Columbia has increased a couple of percentage points.
 showPercentGraph: true
+[.fields]
+name: Mechanical engineering
+[]
 
 text: However, Columbia still lags behind its peers in this department.
 showPercentGraph: true
+[.fields]
+name: Mechanical engineering
 showPeers: true
+[]
 
 []
 

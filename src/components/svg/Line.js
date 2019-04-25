@@ -18,7 +18,6 @@ const styles = {
   lineName: {
     fontSize: '1rem',
     fontFamily: 'Roboto',
-    fill: '#333',
     opacity: 0,
     transitionDuration: '.3s',
     pointerEvents: 'none',
@@ -134,7 +133,7 @@ class Line extends Component {
         />
         {name &&
         isEndpointVisible && (
-          <text className={classes.lineName}>
+          <text className={classes.lineName} fill={color}>
             <textPath href={'#' + this.pathId}>{name}</textPath>
           </text>
         )}
