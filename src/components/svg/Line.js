@@ -78,11 +78,11 @@ class Line extends Component {
   }
 
   componentDidUpdate(prevProps) {
-    const { isVisible, queuePosition } = this.props;
+    const { isVisible, queuePosition, d } = this.props;
     const { current: node } = this.ref;
     if (!node) return;
 
-    if (!prevProps.isVisible && isVisible) {
+    if ((!prevProps.isVisible && isVisible) || prevProps.d !== d) {
       // Animate in
       const length = node.getTotalLength();
       d3Select(node)
@@ -115,6 +115,7 @@ class Line extends Component {
       endpoint = [],
       endpointLabel,
       name,
+      isVisible,
     } = this.props;
 
     const [endX, endY] = endpoint;
@@ -138,7 +139,9 @@ class Line extends Component {
           </text>
         )}
         {endpoint.length === 2 && (
-          <FadeWrapper isVisible={showEndpoint && isEndpointVisible}>
+          <FadeWrapper
+            isVisible={isVisible && showEndpoint && isEndpointVisible}
+          >
             <circle
               className={classes.pulse}
               cx={endpoint[0]}
