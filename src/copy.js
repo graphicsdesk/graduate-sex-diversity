@@ -93,14 +93,14 @@ name: Engineering
 
 [+engineering]
 
-text: However, this increase in female representation is concentrated in a minority of fields.
+text: However, this increase in female representation has been concentrated in a minority of fields. It stems from Industrial and manufacturing engineering and Biomedical engineering, whose trend lines each saw a push toward gender parity in the last decade.
 
 [.scatters]
 * Industrial and manufacturing engineering
 * Biomedical engineering
 []
 
-text: Much of the increase stems from Industrial and manufacturing engineering and Biomedical engineering, whose trend lines each saw a push toward gender parity.
+text: The story is very different for the other four engineering fields. Among the students in mechanical engineering and engineering science, mechanics, and physics, the male population has grown at a consistently higher pace than the female population. For electrical and civil engineering, the representation of women remains stagnant.
 
 [.scatters]
 * Mechanical engineering
@@ -108,8 +108,6 @@ text: Much of the increase stems from Industrial and manufacturing engineering a
 * Electrical engineering
 * Civil engineering
 []
-
-text: The story is very different for the other four engineering fields. Among the students in mechanical engineering and engineering science, mechanics, and physics, the male population has grown at a consistently higher pace than the female population. For electrical and civil engineering, the representation of women remains stagnant.
 
 []
 
