@@ -18,7 +18,7 @@ import {
 import { Line } from '../svg';
 import { flattenFields } from '../../utils';
 
-const { DISCIPLINES, FIELD_PROPORTIONS } = DATA;
+const { DISCIPLINE_PROPORTIONS, FIELD_PROPORTIONS } = DATA;
 const styles = {
   graphTitle: {
     fontFamily: 'Roboto',
@@ -182,8 +182,8 @@ class PercentGraph extends Component {
           </text>
 
           {/* Render peer discipline lines */}
-          {Object.keys(DISCIPLINES).reduce((acc, disc) => {
-            const institutions = DISCIPLINES[disc];
+          {Object.keys(DISCIPLINE_PROPORTIONS).reduce((acc, disc) => {
+            const institutions = DISCIPLINE_PROPORTIONS[disc];
             Object.keys(institutions).forEach((inst, i) => {
               if (inst === COLUMBIA_NAME) return null;
               acc.push(
@@ -235,8 +235,8 @@ class PercentGraph extends Component {
           </text>
 
           {/* Render Columbia discipline lines */}
-          {Object.keys(DISCIPLINES).map(disc => {
-            const data = DISCIPLINES[disc][COLUMBIA_NAME];
+          {Object.keys(DISCIPLINE_PROPORTIONS).map(disc => {
+            const data = DISCIPLINE_PROPORTIONS[disc][COLUMBIA_NAME];
             return (
               <Line
                 key={disc}

@@ -7,7 +7,7 @@ import { select as d3Select } from 'd3-selection';
 
 import DATA from '../../data';
 import { maxCoord, colorScale } from '../../utils';
-import { POSSIBLE_GUIDES, START_YEAR } from '../../constants';
+import { END_YEAR, POSSIBLE_GUIDES, START_YEAR } from '../../constants';
 import {
   Point,
   Line,
@@ -19,7 +19,7 @@ import {
   SkinnyArrow,
 } from '../svg';
 
-const { FIELD_COUNTS } = DATA;
+const { DISCIPLINE_COUNTS, FIELD_COUNTS } = DATA;
 
 const styles = {
   graphTitle: {
@@ -61,16 +61,16 @@ const styles = {
   },
 };
 
-const NUM_TICKS = 6;
+const NUM_TICKS = 8;
 const TICK_PADDING = 9;
-const margin = { top: 40, right: 20, bottom: 50, left: 60 };
+const margin = { top: 40, right: 20, bottom: 50, left: 70 };
 
 class ScatterPlot extends Component {
   constructor(props) {
     super(props);
-
-    const { dataName } = props;
-    this.data = FIELD_COUNTS[dataName];
+    const { discipline, field } = this.props;
+    if (discipline) this.data = DISCIPLINE_COUNTS[discipline];
+    else this.data = FIELD_COUNTS[field];
 
     const width = window.innerWidth * 0.5;
     const height = width;
@@ -112,6 +112,60 @@ class ScatterPlot extends Component {
     };
   }
 
+  calculateSVGDimensions = () => {
+    const { discipline, field } = this.props;
+    if (discipline) this.data = DISCIPLINE_COUNTS[discipline];
+    else this.data = FIELD_COUNTS[field];
+
+    const width = window.innerWidth * 0.5;
+    const height = width;
+    const gWidth = width - margin.left - margin.right;
+    const gHeight = height - margin.top - margin.bottom;
+
+    const upperLimit = maxCoord(this.data) * 1.02;
+    const xScale = scaleLinear()
+      .domain([0, upperLimit])
+      .range([0, gWidth]);
+    const yScale = scaleLinear()
+      .domain([0, upperLimit])
+      .range([gHeight, 0]);
+
+    const xAxis = axisBottom(xScale)
+      .tickSize(-gHeight)
+      .tickPadding(TICK_PADDING)
+      .ticks(NUM_TICKS);
+    const yAxis = axisLeft(yScale)
+      .tickSize(-gWidth)
+      .tickPadding(TICK_PADDING)
+      .ticks(NUM_TICKS);
+
+    this.setState({
+      width,
+      height,
+      gWidth,
+      gHeight,
+
+      upperLimit,
+      xScale,
+      yScale,
+      xAxis,
+      yAxis,
+
+      maxYear: this.props.maxYear,
+      previousMaxYear: START_YEAR,
+      markedYears: [START_YEAR, END_YEAR],
+    });
+  };
+
+  componentDidUpdate(prevProps) {
+    const prevName = prevProps.discipline || prevProps.field;
+    const name = this.props.discipline || this.props.field;
+
+    if (name !== prevName) {
+      this.calculateSVGDimensions();
+    }
+  }
+
   static getDerivedStateFromProps = (nextProps, prevState) => {
     const { maxYear: nextMax } = nextProps;
     const { maxYear: prevMax, markedYears } = prevState;
@@ -145,7 +199,6 @@ class ScatterPlot extends Component {
       markedYears,
     } = this.state;
     const { classes, showLine, showAxesIndicators, showGuides } = this.props;
-
     const axisLabelSpacing = 45;
 
     const lineGenerator = d3Line()
@@ -186,7 +239,7 @@ class ScatterPlot extends Component {
           />
           <text
             className={classes.axisLabel}
-            transform={`translate(${-axisLabelSpacing}, ${gHeight /
+            transform={`translate(${-axisLabelSpacing - 13}, ${gHeight /
               2}) rotate(-90)`}
           >
             Number of men
