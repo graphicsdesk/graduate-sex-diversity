@@ -64,6 +64,7 @@ const Point = ({
   classes,
   x,
   y,
+  r,
   fill,
   isPulsing,
   label,
@@ -110,7 +111,7 @@ const Point = ({
         className={isPulsing ? classes.pulsingCircle : classes.circle}
         cx={x}
         cy={y}
-        r={7}
+        r={r || 7}
         fill={fill}
         stroke={isPulsing ? fill : '#fff'}
         strokeWidth={1.5}

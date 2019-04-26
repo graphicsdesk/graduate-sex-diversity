@@ -65,7 +65,6 @@ class Line extends Component {
   componentDidMount() {
     const { current: node } = this.ref;
     if (!node) return;
-    console.log(this.props.isVisible);
     if (this.props.isVisible) {
       const length = node.getTotalLength();
       d3Select(node)
@@ -84,8 +83,6 @@ class Line extends Component {
     const { current: node } = this.ref;
     if (!node) return;
 
-    if (d && d.substr(0, 6) === 'M36.78')
-      console.log(prevProps.isVisible, isVisible);
     if (
       (!prevProps.isVisible && isVisible) ||
       (isVisible && prevProps.d !== d)

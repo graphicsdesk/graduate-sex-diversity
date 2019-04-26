@@ -19,6 +19,7 @@ class ScatterRow extends Component {
       <div className={classes.ScatterRow}>
         {fields.map(field => (
           <ScatterPlot
+            key={field}
             field={field}
             dataName={field}
             maxYear={END_YEAR}

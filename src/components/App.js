@@ -4,7 +4,7 @@ import COPY from '../copy';
 import LedeGraphic from './LedeGraphic';
 import ScatterGraphic from './ScatterGraphic';
 import ScatterRow from './ScatterRow';
-import { Header, Paragraph, Subtitle } from './content';
+import { Header, Paragraph } from './content';
 
 const { headline, lede, nutgraf, scatter, engineering } = archieml.load(COPY);
 
@@ -25,13 +25,12 @@ class App extends Component {
 
         {nutgraf.map(text => <Paragraph key={text} text={text} />)}
 
-        <Subtitle text="A Detailed Look at Engineering" />
         <ScatterGraphic steps={scatterSteps} />
 
         {engineering.map(({ type, value }) => {
           if (type === 'text') return <Paragraph key={value} text={value} />;
           // assert(value === 'scatters')
-          return <ScatterRow fields={value} />;
+          return <ScatterRow key={value} fields={value} />;
         })}
       </div>
     );

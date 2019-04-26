@@ -3,6 +3,7 @@ import { Scrollama, Step } from 'react-scrollama';
 import injectSheet from 'react-jss';
 import { FadeWrapper } from './svg';
 import { PercentGraph, ScatterPlot } from './charts';
+import { Subtitle } from './content';
 import { END_YEAR, START_YEAR } from '../constants';
 
 const styles = {
@@ -39,8 +40,11 @@ const styles = {
   },
 };
 
-class LedeGraphic extends Component {
-  state = { stepIndex: -1 };
+class ScatterGraphic extends Component {
+  state = {
+    title: this.props.steps[0].title,
+    stepIndex: -1,
+  };
 
   onStepEnter = ({ data: stepIndex, element }) => {
     this.setState({ stepIndex });
@@ -53,7 +57,7 @@ class LedeGraphic extends Component {
   };
 
   render() {
-    const { stepIndex } = this.state;
+    const { stepIndex, title } = this.state;
     const { classes, steps } = this.props;
     let step = {
       discipline: 'Engineering',
@@ -75,50 +79,53 @@ class LedeGraphic extends Component {
     } = step;
 
     return (
-      <div className={classes.Graphic}>
-        <div className={classes.stepsContainer}>
-          <Scrollama
-            offset={0.45}
-            onStepEnter={this.onStepEnter}
-            onStepExit={this.onStepExit}
-          >
-            {steps.map(({ text }, i) => (
-              <Step data={i} key={text}>
-                <div className={classes.step}>
-                  <p
-                    className={classes.stepText}
-                    dangerouslySetInnerHTML={{ __html: text }}
-                  />
-                </div>
-              </Step>
-            ))}
-          </Scrollama>
+      <div>
+        <Subtitle text={title} />
+        <div className={classes.Graphic}>
+          <div className={classes.stepsContainer}>
+            <Scrollama
+              offset={0.45}
+              onStepEnter={this.onStepEnter}
+              onStepExit={this.onStepExit}
+            >
+              {steps.map(({ text }, i) => (
+                <Step data={i} key={text}>
+                  <div className={classes.step}>
+                    <p
+                      className={classes.stepText}
+                      dangerouslySetInnerHTML={{ __html: text }}
+                    />
+                  </div>
+                </Step>
+              ))}
+            </Scrollama>
+          </div>
+          <figure className={classes.stickyFigure}>
+            <FadeWrapper isVisible={!showPercentGraph} positionAbsolute useDiv>
+              <ScatterPlot
+                discipline={discipline}
+                field={field}
+                dataName={discipline ? discipline + ' fields' : field}
+                maxYear={maxYear}
+                showLine={showLine}
+                showAxesIndicators={showAxesIndicators}
+                showGuides={showGuides}
+              />
+            </FadeWrapper>
+            <FadeWrapper isVisible={showPercentGraph} useDiv>
+              <PercentGraph
+                dataName={discipline}
+                disciplines={disciplines}
+                fields={fields}
+                maxYear={showPercentGraph ? END_YEAR : START_YEAR}
+                isSquare
+              />
+            </FadeWrapper>
+          </figure>
         </div>
-        <figure className={classes.stickyFigure}>
-          <FadeWrapper isVisible={!showPercentGraph} positionAbsolute useDiv>
-            <ScatterPlot
-              discipline={discipline}
-              field={field}
-              dataName={discipline ? discipline + ' fields' : field}
-              maxYear={maxYear}
-              showLine={showLine}
-              showAxesIndicators={showAxesIndicators}
-              showGuides={showGuides}
-            />
-          </FadeWrapper>
-          <FadeWrapper isVisible={showPercentGraph} useDiv>
-            <PercentGraph
-              dataName={discipline}
-              disciplines={disciplines}
-              fields={fields}
-              maxYear={showPercentGraph ? END_YEAR : START_YEAR}
-              isSquare
-            />
-          </FadeWrapper>
-        </figure>
       </div>
     );
   }
 }
 
-export default injectSheet(styles)(LedeGraphic);
+export default injectSheet(styles)(ScatterGraphic);

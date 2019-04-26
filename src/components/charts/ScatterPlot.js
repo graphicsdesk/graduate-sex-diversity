@@ -309,6 +309,7 @@ class ScatterPlot extends Component {
                 key={x + '-' + y + '-' + i}
                 x={xScale(x)}
                 y={yScale(y)}
+                r={inRow ? 6 : 7}
                 fill={colorScale[i]}
                 isPulsing={year === maxYear}
                 label={year}

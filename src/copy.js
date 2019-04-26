@@ -53,6 +53,7 @@ name: Physics
 [scatter]
 
 text: In 1994, there were 502 male and 70 female graduate students in engineering fields.
+title: A Detailed Look at Engineering
 discipline: Engineering
 maxYear: 1994
 showAxesIndicators: true
