@@ -188,7 +188,9 @@ class ScatterPlot extends Component {
       inRow,
       noArrows,
     } = this.props;
-    const axisLabelSpacing = 45;
+
+    let axisLabelSpacing = 35;
+    if (upperLimit >= 100) axisLabelSpacing += 10;
 
     const lineGenerator = d3Line()
       .x(d => xScale(d[0]))

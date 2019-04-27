@@ -5,16 +5,19 @@ headline: In National Science Foundation Data, a New Look at Graduate Student Se
 
 [lede]
 
+
 text: In the last two decades, female representation has quickly improved among graduate students in engineering fields.
 [.disciplines]
 name: Engineering
 []
+
 
 text: It has risen from last place among all peer institutions to comfortably above the average, though it still lags far behind gender parity.
 [.disciplines]
 name: Engineering
 showPeers: true
 []
+
 
 text: Female representation among students in science fields has grown as well, albeit at a slower pace.
 [.disciplines]
@@ -26,11 +29,13 @@ showPeers: true
 
 text: But, each field has its own story.
 
+
 text: In mathematics and biology, student populations are maintaining or quickly progressing towards equal representation.
 [.fields]
 name: Mathematics and applied mathematics
 name: Biology
 []
+
 
 text: Those in mechanical engineering and physics, however, are severely lagging behind or even regressing in female representation.
 [.fields]
@@ -51,6 +56,7 @@ name: Physics
 []
 
 [scatter]
+
 
 text: In 1994, there were 502 male and 70 female graduate students in engineering fields.
 title: A Detailed Look at Engineering
@@ -81,13 +87,6 @@ showLine: true
 [.showGuides]
 * 0.25
 * 0.5
-[]
-
-text: That accelerated growth has led to a visible increase in the percentage of female students in engineering fields.
-discipline: Engineering
-showPercentGraph: true
-[.disciplines]
-name: Engineering
 []
 
 []
