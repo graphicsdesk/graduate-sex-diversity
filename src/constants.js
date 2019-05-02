@@ -45,13 +45,9 @@ const COLORS = {
     primary: '#1E7D68',
     secondary: '#99D9C9',
   },
-  'Mechanical engineering': {
+  'Physics': {
     primary: '#BA3063',
     secondary: '#FEABC5',
-  },
-  'Physics': {
-    primary: '#1E7D68',
-    secondary: '#99D9C9',
   },
 };
 

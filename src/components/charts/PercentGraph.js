@@ -16,18 +16,18 @@ import {
   secondaryColor,
 } from '../../constants';
 import { writeTitleFromFields } from '../../utils';
-import { Line } from '../svg';
+import { FadeWrapper, Line } from '../svg';
 
 const styles = {
   graphTitle: {
     fontFamily: 'Roboto',
-    fontSize: '1.2rem',
+    fontSize: '1.3rem',
     fontWeight: 400,
     fill: '#111',
     textAnchor: 'start',
   },
   bold: {
-    fontWeight: 500,
+    fontWeight: 700,
   },
   xAxis: {
     '& path.domain': { display: 'none' },
@@ -78,6 +78,12 @@ const styles = {
 
 const TICK_PADDING = 9;
 const margin = { top: 40, right: 20, bottom: 50, left: 70 };
+
+// Arbitrary labels I don't know how else better to implement
+const labels = {
+  Statistics: [2003, 2016],
+  Physics: [1994, 2007, 2016],
+};
 
 class PercentGraph extends Component {
   constructor(props) {
@@ -169,13 +175,14 @@ class PercentGraph extends Component {
       <svg width={width} height={height}>
         <g transform={`translate(${margin.left}, ${margin.top})`}>
           {/* Graph title */}
-          {fields.length > 0 && (
+          <FadeWrapper isVisible={fields.length > 0}>
             <text className={classes.graphTitle} x={0} y={-20}>
+              Female percentage{' '}
               <tspan className={classes.bold}>
-                Female percentage in {writeTitleFromFields(fields)}
+                {writeTitleFromFields(fields)}
               </tspan>
             </text>
-          )}
+          </FadeWrapper>
 
           {/* X- and y- axes and y-axis label */}
           <g
@@ -219,17 +226,17 @@ class PercentGraph extends Component {
                 key={field}
                 d={lineGenerator(data)}
                 isVisible={fields.includes(field)}
+                name={field}
                 color={primaryColor(field)}
                 strokeWidth={2.2}
                 showEndpoint
-                endpoint={[xScale(END_YEAR), yScale(data[data.length - 1])]}
-                endpointLabel={
-                  field === 'TOTALS' ? (
-                    Math.round(data[data.length - 1] * 100) + '%'
-                  ) : (
-                    field
-                  )
-                }
+                labels={(labels[field]
+                  ? labels[field]
+                  : [END_YEAR]).map(year => ({
+                  x: xScale(year),
+                  y: yScale(data[year - START_YEAR]),
+                  label: Math.round(data[year - START_YEAR] * 100) + '%',
+                }))}
               />
             );
           })}

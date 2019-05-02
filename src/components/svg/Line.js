@@ -24,20 +24,20 @@ const styles = {
   },
   backgroundText: {
     stroke: '#fff',
-    strokeWidth: 2.5,
+    strokeWidth: 4,
     opacity: 0.85,
     strokeLinejoin: 'round',
     strokeLinecap: 'round',
     fontSize: '1rem',
     fontFamily: 'Roboto',
     fontWeight: 500,
-    textAnchor: 'end',
+    textAnchor: 'middle',
   },
   text: {
     fontSize: '1rem',
     fontFamily: 'Roboto',
     fontWeight: 500,
-    textAnchor: 'end',
+    textAnchor: 'middle',
   },
   '@keyframes pulse': {
     from: {
@@ -115,14 +115,10 @@ class Line extends Component {
       d,
       color,
       strokeWidth,
-      showEndpoint,
-      endpoint = [],
-      endpointLabel,
+      labels = [],
       name,
       isVisible,
     } = this.props;
-
-    const [endX, endY] = endpoint;
 
     return (
       <Fragment>
@@ -142,32 +138,34 @@ class Line extends Component {
             <textPath href={'#' + this.pathId}>{name}</textPath>
           </text>
         )}
-        {endpoint.length === 2 && (
-          <FadeWrapper
-            isVisible={isVisible && showEndpoint && isEndpointVisible}
-          >
-            <circle
-              className={classes.pulse}
-              cx={endpoint[0]}
-              cy={endpoint[1]}
-              r={7}
-              fill={color}
-              stroke={color}
-            />
-            <text fill={color}>
-              <tspan
-                x={endX}
-                y={endY - LABEL_SPACING}
-                className={classes.backgroundText}
-              >
-                {endpointLabel}
-              </tspan>
-              <tspan x={endX} y={endY - LABEL_SPACING} className={classes.text}>
-                {endpointLabel}
-              </tspan>
-            </text>
-          </FadeWrapper>
-        )}
+        {labels.length > 0 &&
+          labels.map(({ x, y, label }, i) => (
+            <FadeWrapper
+              key={x + '-' + y + '-' + label}
+              isVisible={isVisible && isEndpointVisible}
+            >
+              <circle
+                className={i === labels.length - 1 ? classes.pulse : undefined}
+                cx={x}
+                cy={y}
+                r={7}
+                fill={color}
+                stroke={color}
+              />
+              <text fill={color}>
+                <tspan
+                  x={x}
+                  y={y - LABEL_SPACING}
+                  className={classes.backgroundText}
+                >
+                  {label}
+                </tspan>
+                <tspan x={x} y={y - LABEL_SPACING} className={classes.text}>
+                  {label}
+                </tspan>
+              </text>
+            </FadeWrapper>
+          ))}
       </Fragment>
     );
   }

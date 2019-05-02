@@ -18,10 +18,11 @@ export const maxCoord = array => {
 export const writeTitleFromFields = fields => {
   const field = fields[0];
   if (field === 'ALL') {
-    return 'all fields';
-  } else if (field === 'TOTAL') {
-    return 'science and engineering';
-  } else {
-    return field.toLowerCase();
+    return 'in all fields';
+  } else if (field === 'TOTALS') {
+    return 'in science and engineering';
+  } else if (field) {
+    return 'in ' + field.toLowerCase();
   }
+  return 'in science and engineering';
 };
