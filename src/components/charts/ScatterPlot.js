@@ -76,6 +76,16 @@ class ScatterPlot extends Component {
     }
   }
 
+  componentDidMount() {
+    window.addEventListener('resize', this.handleResize);
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener('resize', this.handleResize);
+  }
+
+  handleResize = () => this.setState(this.calculateSize());
+
   resetState = () => {
     const { dataName } = this.props;
     if (dataName === 'TOTALS' || dataName === 'Engineering') {
@@ -84,7 +94,7 @@ class ScatterPlot extends Component {
       this.data = COUNTS[dataName][COLUMBIA_NAME];
     }
     return {
-      ...this.calculateSVGDimensions(),
+      ...this.calculateSize(),
 
       maxYear: this.props.maxYear,
       previousMaxYear: START_YEAR,
@@ -92,7 +102,7 @@ class ScatterPlot extends Component {
     };
   };
 
-  calculateSVGDimensions = () => {
+  calculateSize = () => {
     const { dataName, individual } = this.props;
 
     let NUM_TICKS = 8;

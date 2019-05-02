@@ -82,15 +82,33 @@ const margin = { top: 40, right: 20, bottom: 50, left: 70 };
 class PercentGraph extends Component {
   constructor(props) {
     super(props);
+    this.state = this.calculateSize();
+  }
 
-    const { isSquare } = props;
+  componentDidMount() {
+    window.addEventListener('resize', this.handleResize);
+  }
 
+  componentWillUnmount() {
+    window.removeEventListener('resize', this.handleResize);
+  }
+
+  handleResize = () => this.setState(this.calculateSize());
+
+  calculateSize = () => {
+    const fullWidth = window.innerWidth;
     let height = window.innerHeight * 0.85;
-    let width = window.innerWidth * 0.7;
-
-    if (isSquare) {
-      height = width = window.innerWidth * 0.5;
+    let width = fullWidth * 0.7;
+    let numTicks = years.length / 2;
+    if (fullWidth < 768) {
+      width = fullWidth * 0.95;
+      numTicks = years.length / 4;
+    } else if (fullWidth < 992) {
+      width = fullWidth * 0.9;
+    } else if (fullWidth < 1200) {
+      width = fullWidth * 0.85;
     }
+
     const gWidth = width - margin.left - margin.right;
     const gHeight = height - margin.top - margin.bottom;
 
@@ -105,13 +123,13 @@ class PercentGraph extends Component {
       .tickSize(-gHeight)
       .tickPadding(TICK_PADDING)
       .tickFormat(x => x) // remove thousands commas
-      .ticks(years.length / 2);
+      .ticks(numTicks);
     const yAxis = axisLeft(yScale)
       .tickSize(-gWidth)
       .tickPadding(TICK_PADDING)
       .tickFormat(d3Format('.0%'));
 
-    this.state = {
+    return {
       width,
       height,
       gWidth,
@@ -122,7 +140,7 @@ class PercentGraph extends Component {
       xAxis,
       yAxis,
     };
-  }
+  };
 
   render() {
     const {
@@ -206,7 +224,11 @@ class PercentGraph extends Component {
                 showEndpoint
                 endpoint={[xScale(END_YEAR), yScale(data[data.length - 1])]}
                 endpointLabel={
-                  field === 'TOTALS' ? Math.round(data[data.length - 1] * 100) + '%' : field
+                  field === 'TOTALS' ? (
+                    Math.round(data[data.length - 1] * 100) + '%'
+                  ) : (
+                    field
+                  )
                 }
               />
             );
