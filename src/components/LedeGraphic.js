@@ -3,6 +3,7 @@ import { Scrollama, Step } from 'react-scrollama';
 import injectSheet from 'react-jss';
 import { FadeWrapper } from './svg';
 import { ScatterPlot } from './charts';
+import { START_YEAR } from '../constants';
 
 const styles = {
   Graphic: {
@@ -54,6 +55,16 @@ class LedeGraphic extends Component {
     stepIndex: -1,
   };
 
+  fields = this.props.steps.reduce(
+    (acc, step) => {
+      const { field } = step;
+      if (!field) return acc;
+      if (!acc.includes(field)) acc.push(field);
+      return acc;
+    },
+    ['TOTALS'],
+  );
+
   onStepEnter = ({ data: stepIndex, element }) => {
     this.setState({ stepIndex });
     element.style.color = '#222';
@@ -68,15 +79,15 @@ class LedeGraphic extends Component {
     const { stepIndex } = this.state;
     const { classes, steps } = this.props;
     let step = {
-      maxYear: 1993,
+      maxYear: START_YEAR - 1,
       showAxesIndicators: true,
     };
     if (stepIndex >= 0) {
       step = steps[stepIndex];
     }
 
-    let { maxYear, guides, showLine, data: dataName } = step;
-    if (!dataName) dataName = 'TOTALS';
+    let { maxYear, guides, showLine, field: stepField } = step;
+    if (!stepField) stepField = 'TOTALS';
     let { showAxesIndicators } = step;
     if (stepIndex <= 0) {
       showAxesIndicators = true;
@@ -105,30 +116,23 @@ class LedeGraphic extends Component {
             </Scrollama>
           </div>
           <figure className={classes.stickyFigure}>
-            <FadeWrapper
-              isVisible={dataName === 'TOTALS'}
-              positionAbsolute
-              useDiv
-            >
-              <ScatterPlot
-                dataName={'TOTALS'}
-                title="Graduate students in science and engineering"
-                maxYear={maxYear}
-                showLine={showLine}
-                showAxesIndicators={showAxesIndicators}
-                guides={guides}
-              />
-            </FadeWrapper>
-            <FadeWrapper isVisible={dataName === 'Statistics'} useDiv>
-              <ScatterPlot
-                dataName={'Statistics'}
-                title="Graduate students in statistics"
-                maxYear={maxYear}
-                showLine={showLine}
-                showAxesIndicators={showAxesIndicators}
-                guides={guides}
-              />
-            </FadeWrapper>
+            {this.fields.map((field, i) => (
+              <FadeWrapper
+                key={field}
+                isVisible={stepField === field}
+                positionAbsolute={i < this.fields.length - 1}
+                useDiv
+              >
+                <ScatterPlot
+                  dataName={field}
+                  title={'Graduate students in ' + field.toLowerCase()}
+                  maxYear={stepField === field ? maxYear : START_YEAR - 1}
+                  showLine={stepField === field && showLine}
+                  showAxesIndicators={showAxesIndicators}
+                  guides={guides}
+                />
+              </FadeWrapper>
+            ))}
           </figure>
         </div>
       </div>

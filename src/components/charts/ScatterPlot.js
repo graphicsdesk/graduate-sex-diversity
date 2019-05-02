@@ -291,6 +291,10 @@ class ScatterPlot extends Component {
             d={patchedLineGenerator(this.data)}
             className={classes.line}
             isVisible={showLine}
+            queuePosition={
+              maxYear -
+              (previousMaxYear < START_YEAR ? START_YEAR : previousMaxYear)
+            }
             color="#333"
             strokeWidth={1.2}
           />
