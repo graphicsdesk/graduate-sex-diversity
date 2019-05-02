@@ -5,108 +5,21 @@ headline: National Science Foundation Data Reveals Disparities in _____  Graduat
 
 [lede]
 
-
-text: In the last two decades, the percentage of female students in the in engineering fields at Columbia has increased significantly.
-[.disciplines]
-name: Engineering
-[]
-
-
-text: Columbia’s engineering Graduate School sex diversity   has risen from ranking last place among its peer institutions in _____ to, as of recently, comfortably above the average, though the University still lags far behind gender parity.
-[.disciplines]
-name: Engineering
-showPeers: true
-[]
-
-
-text: Female representation among graduate students in science fields has grown as well, albeit at a slower pace.
-[.disciplines]
-name: Engineering
-showPeers: true
-name: Science
-showPeers: true
-[]
-
-text: While Columbia’s overall data shows steady incline in their graduate science programs and engineering programs, But, each field has its own story.
-
-
-text: In mathematics and biology, student populations are maintaining or quickly progressing towards equal representation.
-[.fields]
-name: Mathematics and applied mathematics
-name: Biology
-[]
-
-
-text: But the mechanical engineering and physics departments are severely lagging behind or even regressing in female representation.
-[.fields]
-name: Mechanical engineering
-name: Physics
-[]
-
-[]
-
-[nutgraf]
-
-* Overall, sex diversity is generally increasing among graduate students in science and engineering. But gender disparities still vary widely among the detailed fields, reveals an analysis from The Eye based on data from the National Science Foundation’s Survey of Graduate Students and Postdoctorates in Science and Engineering, an annual census of all U.S. academic institutions. _________
-
-* Broader trends, Advancement of Women, pipeline Praesent convallis odio turpis, in feugiat felis sollicitudin nec. Fusce in pharetra est. Phasellus fringilla tempor ornare. Ut augue diam, viverra at vulputate eu, eleifend a diam. (For details on how we did this analysis, see the note at the end of this article.)
-
-[]
-
-[scatter]
-
-
-text: In 1994, there were 502 male and 70 female graduate students in engineering fields.
-title: A Detailed Look at Engineering
-discipline: Engineering
+text: In 1994, there were 665 female and 1525 male graduate students in science and engineering.
 maxYear: 1994
-showAxesIndicators: true
 
-text: Up until 2010, the engineering student population saw dramatic growth, nearly tripling in size.
-discipline: Engineering
-maxYear: 2010
-[.showGuides]
-* 0.5
-[]
+text: In the next couple of years, the female population saw a slight increase, and science and engineering graduate students drew closer to parity.
+maxYear: 2000
+guides: 0.25, 0.5, 0.75
 
-text: Due to the male student population’s consistently greater growth rate, the percent makeup of female students in engineering stayed mostly constant during this time period.
-discipline: Engineering
-maxYear: 2010
-[.showGuides] 
-* 0.25
-* 0.5
-* 0.75
-[]
-
-text: After 2010, however, female student growth accelerated, and the field began tending towards gender parity.
-discipline: Engineering
+text: Since 2004, the number of graduate students in science and engineering has grown dramatically due to considerable growth in engineering, mathematics, and physical sciences fields. Columbia did not report data for several fields between 2001 and 2003. See the methodology at the end of this article for further details.
 maxYear: 2016
+guides: 0.5
+
+text: However, because the number of men has consistently grown faster than the number of women, female percentage among science and engineering graduate students has wavered around 40 for the last decade.
+maxYear: 2016
+guides: 0.4, 0.5
 showLine: true
-[.showGuides]
-* 0.25
-* 0.5
-[]
 
 []
-
-[+engineering]
-
-text: However, this increase in female representation has been concentrated in a minority of fields— trend lines from. It stems from Industrial and Manufacturing Engineering and Biomedical Engineering , whose trend lines each saw a push toward gender parity in the last decade.
-
-[.scatters]
-* Industrial and manufacturing engineering
-* Biomedical engineering
-[]
-
-text: But the story is very different for the other four engineering fields. Among the students in mechanical engineering and engineering science, mechanics, and physics, the male population, already significantly higher, has grown at a consistently faster pace than the female population. For electrical and civil engineering, the lack of representation of women remains stagnant.
-
-[.scatters]
-* Mechanical engineering
-* Engineering science, mechanics, and physics
-* Electrical engineering
-* Civil engineering
-[]
-
-[]
-
 `;

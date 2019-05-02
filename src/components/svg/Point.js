@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import injectSheet from 'react-jss';
 import fade from './fade';
 
@@ -64,7 +64,6 @@ const Point = ({
   classes,
   x,
   y,
-  r,
   fill,
   isPulsing,
   label,
@@ -106,12 +105,12 @@ const Point = ({
     labelY -= VERT_SPACING;
 
   return (
-    <g>
+    <Fragment>
       <circle
         className={isPulsing ? classes.pulsingCircle : classes.circle}
         cx={x}
         cy={y}
-        r={r || 7}
+        r={7}
         fill={fill}
         stroke={isPulsing ? fill : '#fff'}
         strokeWidth={1.5}
@@ -126,7 +125,7 @@ const Point = ({
           {label}
         </tspan>
       </text>
-    </g>
+    </Fragment>
   );
 };
 

@@ -2,15 +2,23 @@ import React, { Component } from 'react';
 import archieml from 'archieml';
 import COPY from '../copy';
 import LedeGraphic from './LedeGraphic';
-import ScatterGraphic from './ScatterGraphic';
-import ScatterRow from './ScatterRow';
-import { Header, Paragraph } from './content';
+import { Header } from './content';
+import { POSSIBLE_GUIDES } from '../constants';
 
-const { headline, lede, nutgraf, scatter, engineering } = archieml.load(COPY);
+const { headline, lede } = archieml.load(COPY);
 
-const scatterSteps = scatter.map(step => {
-  const { showGuides, maxYear } = step;
-  if (showGuides) step.showGuides = showGuides.map(x => +x);
+// IMPORTANT: DON'T OVER COMPLICATE SETTINGS. e.g. BY DEFAULT, ADD AXES
+// INDICATORS TO FIRST FRAME of connected scatters
+
+const ledeSteps = lede.map(step => {
+  const { guides, maxYear } = step;
+  if (guides) {
+    step.guides = step.guides.split(',').map(s => {
+      if (!POSSIBLE_GUIDES.includes(+s))
+        console.log(s + ' is not included in the possible guides.');
+      return +s;
+    });
+  }
   if (maxYear) step.maxYear = +step.maxYear;
   return step;
 });
@@ -21,17 +29,7 @@ class App extends Component {
       <div>
         <Header headline={headline} />
 
-        <LedeGraphic steps={lede} />
-
-        {nutgraf.map(text => <Paragraph key={text} text={text} />)}
-
-        <ScatterGraphic steps={scatterSteps} />
-
-        {engineering.map(({ type, value }) => {
-          if (type === 'text') return <Paragraph key={value} text={value} />;
-          // assert(value === 'scatters')
-          return <ScatterRow key={value} fields={value} />;
-        })}
+        <LedeGraphic steps={ledeSteps} />
       </div>
     );
   }

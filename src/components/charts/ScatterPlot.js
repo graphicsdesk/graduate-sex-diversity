@@ -19,24 +19,12 @@ import {
   SkinnyArrow,
 } from '../svg';
 
-const { DISCIPLINE_COUNTS, FIELD_COUNTS } = DATA;
-
 const styles = {
   graphTitle: {
     fontFamily: 'Roboto',
     fontSize: '1.1rem',
-    fontWeight: 400,
     fill: '#111',
     textAnchor: 'start',
-  },
-  smallGraphTitle: {
-    fontFamily: 'Roboto',
-    fontSize: '1.05rem',
-    fontWeight: 500,
-    textAnchor: 'middle',
-    fill: '#111',
-  },
-  bold: {
     fontWeight: 600,
   },
   line: {
@@ -74,10 +62,8 @@ const margin = { top: 40, right: 20, bottom: 50, left: 70 };
 class ScatterPlot extends Component {
   constructor(props) {
     super(props);
-    const { discipline, field } = this.props;
 
-    if (discipline) this.data = DISCIPLINE_COUNTS[discipline];
-    else this.data = FIELD_COUNTS[field];
+    this.data = DATA[props.dataName];
 
     this.state = this.resetState();
   }
@@ -91,21 +77,20 @@ class ScatterPlot extends Component {
   });
 
   calculateSVGDimensions = () => {
-    const { discipline, field, inRow } = this.props;
-    if (discipline) this.data = DISCIPLINE_COUNTS[discipline];
-    else this.data = FIELD_COUNTS[field];
-
     let NUM_TICKS = 8;
 
     let width = window.innerWidth * 0.5;
-    if (inRow) {
-      width = 400;
+    if (width < 576) {
       NUM_TICKS = 4;
     }
+
+    // Calculate svg and root group's dimensions
 
     const height = width;
     const gWidth = width - margin.left - margin.right;
     const gHeight = height - margin.top - margin.bottom;
+
+    // Construct scales and axes from data
 
     const upperLimit = maxCoord(this.data) * 1.02;
     const xScale = scaleLinear()
@@ -138,15 +123,8 @@ class ScatterPlot extends Component {
     };
   };
 
-  componentDidUpdate(prevProps) {
-    const prevName = prevProps.discipline || prevProps.field;
-    const name = this.props.discipline || this.props.field;
-
-    if (name !== prevName) {
-      this.setState(this.resetState());
-    }
-  }
-
+  // Stores all unique maxYears in this.state.markedYears so we can
+  // label those points along the way
   static getDerivedStateFromProps = (nextProps, prevState) => {
     const { maxYear: nextMax } = nextProps;
     const { maxYear: prevMax, markedYears } = prevState;
@@ -181,20 +159,23 @@ class ScatterPlot extends Component {
     } = this.state;
     const {
       classes,
-      dataName,
+      title,
+
+      guides,
       showLine,
       showAxesIndicators,
-      showGuides,
-      inRow,
-      noArrows,
     } = this.props;
 
-    let axisLabelSpacing = 35;
-    if (upperLimit >= 100) axisLabelSpacing += 10;
+    let AX_LABEL_SPACING = 35;
+    if (upperLimit >= 100) {
+      AX_LABEL_SPACING += 10;
+    }
 
     const lineGenerator = d3Line()
       .x(d => xScale(d[0]))
       .y(d => yScale(d[1]));
+    const patchedLineGenerator = data =>
+      lineGenerator(data.filter(d => d[0] !== null && d[1] !== null));
 
     return (
       <svg width={width} height={height}>
@@ -204,17 +185,9 @@ class ScatterPlot extends Component {
         </defs>
 
         <g transform={`translate(${margin.left}, ${margin.top})`}>
-          {dataName &&
-            (inRow ? (
-              <text className={classes.smallGraphTitle} x={gWidth / 2} y={-20}>
-                {dataName}
-              </text>
-            ) : (
-              <text className={classes.graphTitle} x={xScale(0)} y={-20}>
-                <tspan className={classes.bold}>{dataName}</tspan>, male vs.
-                female
-              </text>
-            ))}
+          <text className={classes.graphTitle} x={xScale(0)} y={-20}>
+            {title}
+          </text>
 
           {/* X-axis and axis label */}
           <g
@@ -225,7 +198,7 @@ class ScatterPlot extends Component {
           <text
             className={classes.axisLabel}
             transform={`translate(${gWidth / 2}, ${gHeight +
-              axisLabelSpacing})`}
+              AX_LABEL_SPACING})`}
           >
             Number of women
           </text>
@@ -237,8 +210,8 @@ class ScatterPlot extends Component {
           />
           <text
             className={classes.axisLabel}
-            transform={`translate(${-axisLabelSpacing -
-              (inRow ? 4 : 13)}, ${gHeight / 2}) rotate(-90)`}
+            transform={`translate(${-AX_LABEL_SPACING - 13}, ${gHeight /
+              2}) rotate(-90)`}
           >
             Number of men
           </text>
@@ -251,12 +224,12 @@ class ScatterPlot extends Component {
               upperLimit={upperLimit}
               proportion={proportion}
               id={proportion + '-representation-guide'}
-              isVisible={showGuides.includes(proportion)}
-              small={inRow}
+              isVisible={guides.includes(proportion)}
             />
           ))}
 
-          <FadeWrapper isVisible={!noArrows && showGuides.length > 0}>
+          {/* MORE MEN and MORE MEN direction indicators */}
+          <FadeWrapper isVisible={guides.length > 0}>
             <SkinnyArrow
               x={xScale(upperLimit * 0.65)}
               y={yScale(upperLimit * 0.65)}
@@ -273,9 +246,10 @@ class ScatterPlot extends Component {
             />
           </FadeWrapper>
 
-          <FadeWrapper isVisible={!noArrows && showAxesIndicators}>
+          {/* Axes indicators */}
+          <FadeWrapper isVisible={showAxesIndicators}>
             <FullArrow
-              x={xScale(upperLimit / 15)}
+              x={xScale(this.data[0][0])}
               y={yScale(this.data[0][1] + upperLimit / 6)}
               gHeight={gHeight}
               orient="up"
@@ -283,7 +257,7 @@ class ScatterPlot extends Component {
               line2="OF MEN"
             />
             <FullArrow
-              x={xScale(upperLimit * 3 / 10)}
+              x={xScale(this.data[0][0] + upperLimit / 4)}
               y={yScale(this.data[0][1])}
               gHeight={gHeight}
               orient="right"
@@ -292,8 +266,9 @@ class ScatterPlot extends Component {
             />
           </FadeWrapper>
 
+          {/* Main data line */}
           <Line
-            d={lineGenerator(this.data)}
+            d={patchedLineGenerator(this.data)}
             className={classes.line}
             isVisible={showLine}
             color="#333"
@@ -302,6 +277,9 @@ class ScatterPlot extends Component {
 
           {this.data.map((point, i) => {
             const [x, y] = point;
+            if (x === null || y === null) {
+              return null;
+            }
             const year = START_YEAR + i;
             let avoidPoint = this.data[
               i >= this.data.length - 1 ? i - 1 : i + 1
@@ -311,7 +289,6 @@ class ScatterPlot extends Component {
                 key={x + '-' + y + '-' + i}
                 x={xScale(x)}
                 y={yScale(y)}
-                r={inRow ? 6 : 7}
                 fill={colorScale[i]}
                 isPulsing={year === maxYear}
                 label={year}
@@ -334,7 +311,7 @@ class ScatterPlot extends Component {
 }
 
 ScatterPlot.defaultProps = {
-  showGuides: [],
+  guides: [],
 };
 
 export default injectSheet(styles)(ScatterPlot);

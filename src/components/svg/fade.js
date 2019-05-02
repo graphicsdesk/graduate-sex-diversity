@@ -49,7 +49,6 @@ const fade = WrappedComponent => {
     render() {
       const { fadeIn } = this.state;
       const { classes, isVisible, queuePosition, ...otherProps } = this.props;
-
       return (
         <g opacity={fadeIn ? 1 : 0} className={classes.transition}>
           <WrappedComponent {...otherProps} />
