@@ -14,10 +14,14 @@ export const maxCoord = array => {
   });
   return Math.max(...values);
 };
-export const flattenFields = fields => ({
-  names: fields.map(f => f.name),
-  peerVisibility: fields.reduce((acc, { name, showPeers }) => {
-    acc[name] = showPeers;
-    return acc;
-  }, {}),
-});
+
+export const writeTitleFromFields = fields => {
+  const field = fields[0];
+  if (field === 'ALL') {
+    return 'all fields';
+  } else if (field === 'TOTAL') {
+    return 'science and engineering';
+  } else {
+    return field.toLowerCase();
+  }
+};

@@ -6,16 +6,16 @@ headline: National Science Foundation Data Reveals Disparities in _____  Graduat
 [lede]
 
 text: The percentage of women among graduate students in science and engineering fields is virtually unchanged since 1998.
-field: TOTAL
+fields: TOTALS
 
 text: But an Eye analysis of thirty subject areas in seven disciplines shows that, beneath this stagnation, the perpetuation, dismantling, and even widening of certain gender gaps is still very active, and they vary significantly by field.
-field: ALL
+fields: ALL
 
 text: In some fields, gender gaps seem to be have persisted by History. Among graduate students, men have dominated economics throughout the timeframe of this analysis, though the number of women has recent spiked.
-field: Economics
+fields: Economics (except agricultural)
 
 text: Other gender gaps have set more recently: In physics, female percentage has fallen from 28 percent in 2007 to just 10 percent in 2016.
-field: Physics
+fields: Physics
 
 []
 

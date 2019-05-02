@@ -12,13 +12,10 @@ import {
   END_YEAR,
   START_YEAR,
   years,
-  primaryColor,
-  secondaryColor,
+  fieldColor,
 } from '../../constants';
+import { writeTitleFromFields } from '../../utils';
 import { Line } from '../svg';
-import { flattenFields } from '../../utils';
-
-const { DISCIPLINE_PROPORTIONS, FIELD_PROPORTIONS } = DATA;
 
 const styles = {
   graphTitle: {
@@ -137,21 +134,14 @@ class PercentGraph extends Component {
       xAxis,
       yAxis,
     } = this.state;
-    const { classes, disciplines = [], fields = [] } = this.props;
-    const {
-      names: discNames,
-      peerVisibility: discPeerVisibility,
-    } = flattenFields(disciplines);
-    const {
-      names: fieldNames,
-      peerVisibility: fieldPeerVisibility,
-    } = flattenFields(fields);
+    const { classes, fields } = this.props;
 
     const lineGenerator = d3Line()
       .x((_, i) => xScale(START_YEAR + i))
       .y(yScale)
       .curve(curveCardinal.tension(0.5))
       .defined(d => d);
+
     const yearLineGenerator = d3Line()
       .x(d => xScale(d[0]))
       .y(d => yScale(d[1]));
@@ -159,13 +149,16 @@ class PercentGraph extends Component {
     return (
       <svg width={width} height={height}>
         <g transform={`translate(${margin.left}, ${margin.top})`}>
-          <text className={classes.graphTitle} x={0} y={-20}>
-            <tspan className={classes.bold}>
-              Female representation in {this.props.dataName}
-            </tspan>
-          </text>
+          {/* Graph title */}
+          {fields.length > 0 && (
+            <text className={classes.graphTitle} x={0} y={-20}>
+              <tspan className={classes.bold}>
+                Female percentage in {writeTitleFromFields(fields)}
+              </tspan>
+            </text>
+          )}
 
-          {/* X- and y- axes */}
+          {/* X- and y- axes and y-axis label */}
           <g
             ref={node => d3Select(node).call(xAxis)}
             className={classes.xAxis}
@@ -182,47 +175,7 @@ class PercentGraph extends Component {
             Percent female
           </text>
 
-          {/* Render peer discipline lines */}
-          {Object.keys(DISCIPLINE_PROPORTIONS).reduce((acc, disc) => {
-            const institutions = DISCIPLINE_PROPORTIONS[disc];
-            Object.keys(institutions).forEach((inst, i) => {
-              if (inst === COLUMBIA_NAME) return null;
-              acc.push(
-                <Line
-                  key={disc + inst}
-                  name={inst}
-                  d={lineGenerator(institutions[inst])}
-                  isVisible={discPeerVisibility[disc]}
-                  color={secondaryColor(disc)}
-                  strokeWidth={1.2}
-                  queuePosition={i}
-                />,
-              );
-            });
-            return acc;
-          }, [])}
-
-          {/* Render peer field lines */}
-          {Object.keys(FIELD_PROPORTIONS).reduce((acc, instName) => {
-            if (instName === COLUMBIA_NAME) return acc;
-            const institutions = FIELD_PROPORTIONS[instName];
-            Object.keys(institutions).forEach((field, i) => {
-              acc.push(
-                <Line
-                  key={field + instName}
-                  name={instName}
-                  d={lineGenerator(institutions[field])}
-                  isVisible={fieldPeerVisibility[field]}
-                  color={secondaryColor(field)}
-                  strokeWidth={1.2}
-                  queuePosition={i}
-                />,
-              );
-            });
-            return acc;
-          }, [])}
-
-          {/* Equality guide line */}
+          {/* Equality line */}
           <path
             className={classes.equalityLine}
             d={yearLineGenerator([[START_YEAR, 0.5], [END_YEAR, 0.5]])}
@@ -235,40 +188,23 @@ class PercentGraph extends Component {
             EQUAL NUMBER OF MEN AND WOMEN
           </text>
 
-          {/* Render Columbia discipline lines */}
-          {Object.keys(DISCIPLINE_PROPORTIONS).map(disc => {
-            const data = DISCIPLINE_PROPORTIONS[disc][COLUMBIA_NAME];
-            return (
-              <Line
-                key={disc}
-                d={lineGenerator(data)}
-                isVisible={discNames.includes(disc)}
-                color={primaryColor(disc)}
-                strokeWidth={3}
-                showEndpoint
-                endpoint={[xScale(END_YEAR), yScale(data[data.length - 1])]}
-                endpointLabel={
-                  disc // Math.round(data[data.length - 1] * 100) + '%'
-                }
-              />
-            );
-          })}
+          {/* Columbia field lines */}
+          {Object.keys(DATA).map(field => {
+            let data = DATA[field];
+            if (field !== 'TOTALS') {
+              data = data[COLUMBIA_NAME];
+            }
 
-          {/* Render field lines */}
-          {Object.keys(FIELD_PROPORTIONS[COLUMBIA_NAME]).map(field => {
-            const data = FIELD_PROPORTIONS[COLUMBIA_NAME][field];
             return (
               <Line
                 key={field}
                 d={lineGenerator(data)}
-                isVisible={fieldNames.includes(field)}
-                color={primaryColor(field)}
-                strokeWidth={2.4}
+                isVisible={fields.includes('ALL') || fields.includes(field)}
+                color={fieldColor(field)}
+                strokeWidth={2.2}
                 showEndpoint
                 endpoint={[xScale(END_YEAR), yScale(data[data.length - 1])]}
-                endpointLabel={
-                  field /*Math.round(data[data.length - 1] * 100) + '%'*/
-                }
+                endpointLabel={Math.round(data[data.length - 1] * 100) + '%'}
               />
             );
           })}
@@ -277,10 +213,5 @@ class PercentGraph extends Component {
     );
   }
 }
-
-PercentGraph.defaultProps = {
-  maxYear: END_YEAR,
-  partitions: [END_YEAR],
-};
 
 export default injectSheet(styles)(PercentGraph);

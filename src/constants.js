@@ -62,6 +62,8 @@ const COLORS = {
   },
 };
 
+export const fieldColor = field => primaryColor(field);
+
 export const primaryColor = disc => COLORS[disc] ? COLORS[disc].primary : 'red';
 
 export const secondaryColor = disc => COLORS[disc] ? COLORS[disc].secondary : 'red';

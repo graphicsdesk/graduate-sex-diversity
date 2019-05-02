@@ -62,15 +62,15 @@ class LedeGraphic extends Component {
     const { stepIndex } = this.state;
     const { classes, steps } = this.props;
     let step = {
-      field: null,
+      fields: [],
     };
     if (stepIndex >= 0) step = steps[stepIndex];
-    const { field } = step;
+    const { fields } = step;
 
     return (
       <div className={classes.Graphic}>
         <figure className={classes.stickyFigure}>
-          <PercentGraph fields={[field]} />
+          <PercentGraph fields={fields} />
         </figure>
         <div className={classes.stepsContainer}>
           <Scrollama
@@ -81,9 +81,7 @@ class LedeGraphic extends Component {
             {steps.map(({ text }, i) => (
               <Step data={i} key={text}>
                 <div className={classes.step}>
-                  <p className={classes.stepText}>
-                    {text}
-                  </p>
+                  <p className={classes.stepText}>{text}</p>
                 </div>
               </Step>
             ))}
