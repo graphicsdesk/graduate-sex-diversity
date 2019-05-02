@@ -4,36 +4,18 @@ This document is written in the markup language ArchieML (AML). AML makes it a l
 headline: National Science Foundation Data Reveals Disparities in _____  Graduate Student Sex Diversity in Science and Engineering
 
 [lede]
-text: In 1994, there were 665 female and 1525 male graduate students in science and engineering.
-maxYear: 1994
 
-text: In the next couple of years, the female population saw a slight increase, and science and engineering graduate students drew closer to parity.
-maxYear: 2000
-guides: 0.25, 0.5, 0.75
+text: The percentage of women among graduate students in science and engineering fields is virtually unchanged since 1998.
+field: TOTAL
 
-text: Since 2004, the number of graduate students in science and engineering has grown dramatically due to considerable growth in engineering, mathematics, and physical sciences fields. 
-note: Columbia did not report data for several fields between 2001 and 2003. See the methodology at the end of this article for further details.
-maxYear: 2016
-guides: 0.5
+text: But an Eye analysis of thirty subject areas in seven disciplines shows that, beneath this stagnation, the perpetuation, dismantling, and even widening of certain gender gaps is still very active, and they vary significantly by field.
+field: ALL
 
-text: However, because the number of men has consistently grown faster than the number of women, female percentage among science and engineering graduate students has wavered around 40 for the last decade.
-maxYear: 2016
-guides: 0.4, 0.5
-showLine: true
+text: In some fields, gender gaps seem to be have persisted by History. Among graduate students, men have dominated economics throughout the timeframe of this analysis, though the number of women has recent spiked.
+field: Economics
 
-text: But, this stagnation hides extremely disparate trendlines in gender representations among fields in science and engineering.
-
-text: During the timeframe of this analysis, despite a tenfold increase in size, the graduate students in statistics have maintained parity.
-field: Statistics
-guides: 0.5
-maxYear: 2016
-showLine: true
-
-text: Yet in mechanical engineering, field has strayed further and further from parity.
-field: Mechanical engineering
-guides: 0.2,0.5
-maxYear: 2016
-showLine: true
+text: Other gender gaps have set more recently: In physics, female percentage has fallen from 28 percent in 2007 to just 10 percent in 2016.
+field: Physics
 
 []
 
