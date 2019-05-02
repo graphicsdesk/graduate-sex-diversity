@@ -1,25 +1,25 @@
 export default `
-This document is written in the markup language ArchieML (AML). AML makes it a lot easier to write and edit text that can be directly structured and used in code.
+This document is written in the markup language ArchieML (AML). AML makes it a lot easier to write and edit structured text that can be directly copy-pasted into code.
 
-headline: In National Science Foundation Data, a New Look at Graduate Student Sex Diversity in Science and Engineering
+headline: National Science Foundation Data Reveals Disparities in _____  Graduate Student Sex Diversity in Science and Engineering
 
 [lede]
 
 
-text: In the last two decades, female representation has quickly improved among graduate students in engineering fields.
+text: In the last two decades, the percentage of female students in the in engineering fields at Columbia has increased significantly.
 [.disciplines]
 name: Engineering
 []
 
 
-text: It has risen from last place among all peer institutions to comfortably above the average, though it still lags far behind gender parity.
+text: Columbia’s engineering Graduate School sex diversity   has risen from ranking last place among its peer institutions in _____ to, as of recently, comfortably above the average, though the University still lags far behind gender parity.
 [.disciplines]
 name: Engineering
 showPeers: true
 []
 
 
-text: Female representation among students in science fields has grown as well, albeit at a slower pace.
+text: Female representation among graduate students in science fields has grown as well, albeit at a slower pace.
 [.disciplines]
 name: Engineering
 showPeers: true
@@ -27,7 +27,7 @@ name: Science
 showPeers: true
 []
 
-text: But, each field has its own story.
+text: While Columbia’s overall data shows steady incline in their graduate science programs and engineering programs, But, each field has its own story.
 
 
 text: In mathematics and biology, student populations are maintaining or quickly progressing towards equal representation.
@@ -37,7 +37,7 @@ name: Biology
 []
 
 
-text: Those in mechanical engineering and physics, however, are severely lagging behind or even regressing in female representation.
+text: But the mechanical engineering and physics departments are severely lagging behind or even regressing in female representation.
 [.fields]
 name: Mechanical engineering
 name: Physics
@@ -47,9 +47,7 @@ name: Physics
 
 [nutgraf]
 
-* Overall, sex diversity is increasing among graduate students in science and engineering. But gender disparities still vary widely among the detailed fields, according to an Eye analysis.
-
-* This analysis is based on data from the National Science Foundation’s Survey of Graduate Students and Postdoctorates in Science and Engineering, an annual census of all U.S. academic institutions.
+* Overall, sex diversity is generally increasing among graduate students in science and engineering. But gender disparities still vary widely among the detailed fields, reveals an analysis from The Eye based on data from the National Science Foundation’s Survey of Graduate Students and Postdoctorates in Science and Engineering, an annual census of all U.S. academic institutions. _________
 
 * Broader trends, Advancement of Women, pipeline Praesent convallis odio turpis, in feugiat felis sollicitudin nec. Fusce in pharetra est. Phasellus fringilla tempor ornare. Ut augue diam, viverra at vulputate eu, eleifend a diam. (For details on how we did this analysis, see the note at the end of this article.)
 
@@ -93,14 +91,14 @@ showLine: true
 
 [+engineering]
 
-text: However, this increase in female representation has been concentrated in a minority of fields. It stems from Industrial and manufacturing engineering and Biomedical engineering, whose trend lines each saw a push toward gender parity in the last decade.
+text: However, this increase in female representation has been concentrated in a minority of fields— trend lines from. It stems from Industrial and Manufacturing Engineering and Biomedical Engineering , whose trend lines each saw a push toward gender parity in the last decade.
 
 [.scatters]
 * Industrial and manufacturing engineering
 * Biomedical engineering
 []
 
-text: The story is very different for the other four engineering fields. Among the students in mechanical engineering and engineering science, mechanics, and physics, the male population has grown at a consistently higher pace than the female population. For electrical and civil engineering, the representation of women remains stagnant.
+text: But the story is very different for the other four engineering fields. Among the students in mechanical engineering and engineering science, mechanics, and physics, the male population, already significantly higher, has grown at a consistently faster pace than the female population. For electrical and civil engineering, the lack of representation of women remains stagnant.
 
 [.scatters]
 * Mechanical engineering
