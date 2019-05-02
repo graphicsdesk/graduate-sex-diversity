@@ -1,8 +1,8 @@
-import React, { Component } from 'react';
+import React from 'react';
 import archieml from 'archieml';
 import COPY from '../copy';
 import LedeGraphic from './LedeGraphic';
-import { Header } from './content';
+import { Header, Paragraph } from './content';
 import { POSSIBLE_GUIDES } from '../constants';
 
 const { headline, lede } = archieml.load(COPY);
@@ -15,7 +15,7 @@ const ledeSteps = lede.map(step => {
   if (guides) {
     step.guides = step.guides.split(',').map(s => {
       if (!POSSIBLE_GUIDES.includes(+s))
-        console.log(s + ' is not included in the possible guides.');
+        console.error(s + ' is not included in the possible guides.');
       return +s;
     });
   }
@@ -23,16 +23,17 @@ const ledeSteps = lede.map(step => {
   return step;
 });
 
-class App extends Component {
-  render() {
-    return (
-      <div>
-        <Header headline={headline} />
+const nutgraf = [
+  'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec auctor ut turpis id imperdiet. Quisque pharetra urna sed nunc consectetur, id vestibulum lorem fermentum. In eleifend facilisis rhoncus. Donec ullamcorper tincidunt augue. Sed a ornare purus, id bibendum mauris.',
+  'Suspendisse suscipit ipsum dapibus arcu venenatis, eget ultrices purus laoreet. Integer dolor justo, pretium id erat non, feugiat fringilla mauris. Aenean consequat, purus et faucibus luctus, sapien neque tempor nibh, nec lobortis arcu augue a tortor. Sed vulputate convallis tempor.',
+];
 
-        <LedeGraphic steps={ledeSteps} />
-      </div>
-    );
-  }
-}
+const App = () => (
+  <div>
+    <Header headline={headline} />
+    <LedeGraphic steps={ledeSteps} />
+    {nutgraf.map(text => <Paragraph key={text} text={text} />)}
+  </div>
+);
 
 export default App;

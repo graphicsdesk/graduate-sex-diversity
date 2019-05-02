@@ -174,10 +174,12 @@ class ScatterPlot extends Component {
       classes,
       title,
 
+      dataName,
       guides,
       showLine,
       showAxesIndicators,
     } = this.props;
+    console.log(previousMaxYear, maxYear);
 
     let AX_LABEL_SPACING = 35;
     if (upperLimit >= 100) {
@@ -194,8 +196,8 @@ class ScatterPlot extends Component {
     return (
       <svg width={width} height={height}>
         <defs>
-          <FullArrowHead />
-          <SkinnyArrowHead />
+          <FullArrowHead dataName={dataName} />
+          <SkinnyArrowHead dataName={dataName} />
         </defs>
 
         <g transform={`translate(${margin.left}, ${margin.top})`}>
@@ -249,6 +251,7 @@ class ScatterPlot extends Component {
               y={yScale(upperLimit * 0.65)}
               gHeight={gHeight}
               orient={-1}
+              dataName={dataName}
               label="MORE MEN"
             />
             <SkinnyArrow
@@ -256,6 +259,7 @@ class ScatterPlot extends Component {
               y={yScale(upperLimit * 0.65)}
               gHeight={gHeight}
               orient={1}
+              dataName={dataName}
               label="MORE WOMEN"
             />
           </FadeWrapper>
@@ -269,6 +273,7 @@ class ScatterPlot extends Component {
               orient="up"
               line1="NUMBER"
               line2="OF MEN"
+              dataName={dataName}
             />
             <FullArrow
               x={xScale(this.data[0][0] + upperLimit / 4)}
@@ -277,6 +282,7 @@ class ScatterPlot extends Component {
               orient="right"
               line1="NUMBER"
               line2="OF WOMEN"
+              dataName={dataName}
             />
           </FadeWrapper>
 
@@ -300,7 +306,7 @@ class ScatterPlot extends Component {
             ];
             return (
               <Point
-                key={x + '-' + y + '-' + i}
+                key={dataName + '-' + x + '-' + y + '-' + i}
                 x={xScale(x)}
                 y={yScale(y)}
                 fill={colorScale[i]}

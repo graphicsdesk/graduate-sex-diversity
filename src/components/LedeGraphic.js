@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Scrollama, Step } from 'react-scrollama';
 import injectSheet from 'react-jss';
+import { FadeWrapper } from './svg';
 import { ScatterPlot } from './charts';
 
 const styles = {
@@ -35,6 +36,17 @@ const styles = {
     margin: 0,
     lineHeight: '1.9rem',
   },
+  note: {
+    color: '#aaa',
+    fontSize: '0.9rem',
+    fontFamily: 'Open Sans',
+    fontWeight: 400,
+    lineHeight: 1.5,
+    margin: 0,
+    marginTop: '1rem',
+    paddingTop: '0.8rem',
+    borderTop: '0.8px solid #ddd',
+  },
 };
 
 class LedeGraphic extends Component {
@@ -63,7 +75,8 @@ class LedeGraphic extends Component {
       step = steps[stepIndex];
     }
 
-    const { maxYear, guides, showLine, field = 'TOTALS' } = step;
+    let { maxYear, guides, showLine, data: dataName } = step;
+    if (!dataName) dataName = 'TOTALS';
     let { showAxesIndicators } = step;
     if (stepIndex <= 0) {
       showAxesIndicators = true;
@@ -78,27 +91,44 @@ class LedeGraphic extends Component {
               onStepEnter={this.onStepEnter}
               onStepExit={this.onStepExit}
             >
-              {steps.map(({ text }, i) => (
+              {steps.map(({ text, note }, i) => (
                 <Step data={i} key={text}>
                   <div className={classes.step}>
                     <p
                       className={classes.stepText}
                       dangerouslySetInnerHTML={{ __html: text }}
                     />
+                    {note && <p className={classes.note}>{note}</p>}
                   </div>
                 </Step>
               ))}
             </Scrollama>
           </div>
           <figure className={classes.stickyFigure}>
-            <ScatterPlot
-              dataName={field}
-              title="Graduate students in science and engineering"
-              maxYear={maxYear}
-              guides={guides}
-              showLine={showLine}
-              showAxesIndicators={showAxesIndicators}
-            />
+            <FadeWrapper
+              isVisible={dataName === 'TOTALS'}
+              positionAbsolute
+              useDiv
+            >
+              <ScatterPlot
+                dataName={'TOTALS'}
+                title="Graduate students in science and engineering"
+                maxYear={maxYear}
+                showLine={showLine}
+                showAxesIndicators={showAxesIndicators}
+                guides={guides}
+              />
+            </FadeWrapper>
+            <FadeWrapper isVisible={dataName === 'Statistics'} useDiv>
+              <ScatterPlot
+                dataName={'Statistics'}
+                title="Graduate students in statistics"
+                maxYear={maxYear}
+                showLine={showLine}
+                showAxesIndicators={showAxesIndicators}
+                guides={guides}
+              />
+            </FadeWrapper>
           </figure>
         </div>
       </div>

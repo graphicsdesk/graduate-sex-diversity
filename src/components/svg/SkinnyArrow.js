@@ -1,6 +1,6 @@
 import React from 'react';
 import injectSheet from 'react-jss';
-import { SKINNY_ARROW_ID } from '../../constants';
+import { skinnyArrowId } from '../../constants';
 
 const styles = {
   label: {
@@ -11,7 +11,7 @@ const styles = {
   },
 };
 
-const SkinnyArrow = ({ classes, x, y, gHeight, orient, label }) => {
+const SkinnyArrow = ({ classes, x, y, gHeight, orient, label, dataName }) => {
   const arrowLength = Math.min(32, gHeight / 10);
   let labelPadding = 7;
   if (orient < 0) labelPadding += 8;
@@ -32,7 +32,7 @@ const SkinnyArrow = ({ classes, x, y, gHeight, orient, label }) => {
         stroke="#111"
         fill="none"
         strokeWidth={1.8}
-        markerEnd={`url(#${SKINNY_ARROW_ID})`}
+        markerEnd={`url(#${skinnyArrowId(dataName)})`}
       />
       <text
         className={classes.label}

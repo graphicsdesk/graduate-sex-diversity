@@ -46,6 +46,10 @@ const fade = WrappedComponent => {
       }
     }
 
+    componentWillUnmount() {
+      clearTimeout(this.timeoutID);
+    }
+
     render() {
       const { fadeIn } = this.state;
       const { classes, isVisible, queuePosition, ...otherProps } = this.props;

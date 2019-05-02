@@ -1,11 +1,11 @@
 import React from 'react';
-import { SKINNY_ARROW_ID } from '../../constants';
+import { skinnyArrowId } from '../../constants';
 
 const SKINNY_ARROW_SIZE = 28;
 
-const SkinnyArrowHead = () => (
+const SkinnyArrowHead = ({ dataName }) => (
   <marker
-    id={SKINNY_ARROW_ID}
+    id={skinnyArrowId(dataName)}
     markerWidth={SKINNY_ARROW_SIZE}
     markerHeight={SKINNY_ARROW_SIZE}
     refX={SKINNY_ARROW_SIZE / 2}

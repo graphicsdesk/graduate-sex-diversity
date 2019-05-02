@@ -1,6 +1,6 @@
 import React from 'react';
 import injectSheet from 'react-jss';
-import { FULL_ARROW_ID } from '../../constants';
+import { fullArrowId } from '../../constants';
 
 const styles = {
   label: {
@@ -11,7 +11,7 @@ const styles = {
   },
 };
 
-const FullArrow = ({ classes, x, y, orient, line1, line2 }) => {
+const FullArrow = ({ classes, x, y, orient, line1, line2, dataName }) => {
   const arrowLength = 55;
 
   let labelPadding = null;
@@ -42,7 +42,7 @@ const FullArrow = ({ classes, x, y, orient, line1, line2 }) => {
         stroke="#111"
         fill="none"
         strokeWidth={1.8}
-        markerEnd={`url(#${FULL_ARROW_ID})`}
+        markerEnd={`url(#${fullArrowId(dataName)})`}
       />
       <text
         className={classes.label}

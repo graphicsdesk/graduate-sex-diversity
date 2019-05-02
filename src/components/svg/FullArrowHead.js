@@ -1,11 +1,11 @@
 import React from 'react';
-import { FULL_ARROW_ID } from '../../constants';
+import { fullArrowId } from '../../constants';
 
 const FULL_ARROW_SIZE = 18;
 
-export const FullArrowHead = () => (
+export const FullArrowHead = ({ dataName }) => (
   <marker
-    id={FULL_ARROW_ID}
+    id={fullArrowId(dataName)}
     markerWidth={FULL_ARROW_SIZE}
     markerHeight={FULL_ARROW_SIZE}
     refX={FULL_ARROW_SIZE / 2}

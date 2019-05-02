@@ -1,3 +1,5 @@
+import nanoid from 'nanoid';
+
 /* Names */
 
 export const COLUMBIA_NAME = 'Columbia University in the City of New York';
@@ -16,8 +18,17 @@ export const QUEUE_DELAY = LINE_ANIM_DURATION / 3;
 
 /* IDs */
 
-export const SKINNY_ARROW_ID = 'skinny-pointy-pointy';
-export const FULL_ARROW_ID = 'full-pointy-pointy';
+const createIdStore = () => {
+  const ids = {};
+  return graphicId => {
+    if (!(graphicId in ids)) return (ids[graphicId] = nanoid());
+    return ids[graphicId];
+  };
+};
+
+export const fullArrowId = createIdStore();
+
+export const skinnyArrowId = createIdStore();
 
 /* Values */
 

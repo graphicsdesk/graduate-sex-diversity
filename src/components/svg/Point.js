@@ -81,12 +81,13 @@ const Point = ({
   let direction = Math.PI - Math.atan((avoidY - labelY) / (avoidX - labelX));
   if (direction < -quartPi) direction += 2 * Math.PI;
 
-  if (label === 1994) labelX -= HORI_SPACING;
-  else if (label === 2016) labelX += HORI_SPACING;
+  if (label === 1994 || label === 2016) labelX -= HORI_SPACING;
+  else if (label === 2000) labelY += VERT_SPACING;
   else if (
     -quartPi <= direction &&
     direction < quartPi // place left
   )
+    // else if (label === 2016) labelX += HORI_SPACING;
     labelX -= HORI_SPACING;
   else if (
     quartPi <= direction &&

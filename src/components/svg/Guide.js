@@ -44,7 +44,7 @@ const Guide = ({ classes, line, upperLimit, proportion, id, small }) => {
         transform={small ? 'translate(-150, -150)' : 'translate(14, 14)'}
         fill="#111"
       >
-        <textPath href={`#${id}`} startOffset="50%" textAnchor="middle">
+        <textPath href={`#${id}`} startOffset="60%" textAnchor="middle">
           {text}
         </textPath>
       </text>
