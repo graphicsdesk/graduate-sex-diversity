@@ -5,7 +5,7 @@ import { line as d3Line } from 'd3-shape';
 import { axisBottom, axisLeft } from 'd3-axis';
 import { select as d3Select } from 'd3-selection';
 
-import DATA from '../../data';
+import COUNTS from '../../counts';
 import { maxCoord, colorScale } from '../../utils';
 import {
   COLUMBIA_NAME,
@@ -78,8 +78,11 @@ class ScatterPlot extends Component {
 
   resetState = () => {
     const { dataName } = this.props;
-    if (dataName === 'TOTALS') this.data = DATA[dataName];
-    else this.data = DATA[dataName][COLUMBIA_NAME];
+    if (dataName === 'TOTALS' || dataName === 'Engineering') {
+      this.data = COUNTS[dataName];
+    } else {
+      this.data = COUNTS[dataName][COLUMBIA_NAME];
+    }
     return {
       ...this.calculateSVGDimensions(),
 
@@ -111,7 +114,7 @@ class ScatterPlot extends Component {
     // Construct scales and axes from data
 
     let upperLimit = maxCoord(this.data);
-    if (dataName === 'Mechanical engineering') upperLimit *= 1.2;
+    if (dataName === 'Mechanical engineering') upperLimit *= 1.02;
     else upperLimit *= 1.1;
     const xScale = scaleLinear()
       .domain([0, upperLimit])
@@ -184,7 +187,6 @@ class ScatterPlot extends Component {
       showLine,
       showAxesIndicators,
     } = this.props;
-
     let AX_LABEL_SPACING = 35;
     if (upperLimit >= 100) {
       AX_LABEL_SPACING += 10;
@@ -248,7 +250,6 @@ class ScatterPlot extends Component {
               line={lineGenerator}
               upperLimit={upperLimit}
               proportion={proportion}
-              id={proportion + '-representation-guide'}
               isVisible={guides.includes(proportion)}
             />
           ))}
@@ -256,16 +257,16 @@ class ScatterPlot extends Component {
           {/* MORE MEN and MORE MEN direction indicators */}
           <FadeWrapper isVisible={guides.length > 0}>
             <SkinnyArrow
-              x={xScale(upperLimit * 0.55)}
-              y={yScale(upperLimit * 0.55)}
+              x={xScale(upperLimit * 0.65)}
+              y={yScale(upperLimit * 0.65)}
               gHeight={gHeight}
               orient={-1}
               dataName={dataName}
               label="MORE MEN"
             />
             <SkinnyArrow
-              x={xScale(upperLimit * 0.55)}
-              y={yScale(upperLimit * 0.55)}
+              x={xScale(upperLimit * 0.65)}
+              y={yScale(upperLimit * 0.65)}
               gHeight={gHeight}
               orient={1}
               dataName={dataName}
@@ -276,7 +277,7 @@ class ScatterPlot extends Component {
           {/* Axes indicators */}
           <FadeWrapper isVisible={showAxesIndicators}>
             <FullArrow
-              x={xScale(this.data[0][0])}
+              x={xScale(upperLimit / 15)}
               y={yScale(this.data[0][1] + upperLimit / 6)}
               gHeight={gHeight}
               orient="up"
@@ -285,7 +286,7 @@ class ScatterPlot extends Component {
               dataName={dataName}
             />
             <FullArrow
-              x={xScale(this.data[0][0] + upperLimit / 4)}
+              x={xScale(upperLimit * 0.3)}
               y={yScale(this.data[0][1])}
               gHeight={gHeight}
               orient="right"
@@ -325,10 +326,7 @@ class ScatterPlot extends Component {
                 fill={colorScale[i]}
                 isPulsing={year === maxYear}
                 label={year}
-                isLabelVisible={
-                  markedYears.includes(year) ||
-                  (year === 2004 && dataName === 'TOTALS')
-                }
+                isLabelVisible={markedYears.includes(year)}
                 avoidX={xScale(avoidPoint[0])}
                 avoidY={yScale(avoidPoint[1])}
                 isVisible={START_YEAR + i <= maxYear}

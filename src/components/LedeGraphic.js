@@ -65,7 +65,7 @@ class LedeGraphic extends Component {
       fields: [],
     };
     if (stepIndex >= 0) step = steps[stepIndex];
-    const { fields } = step;
+    const { fields = [] } = step;
 
     return (
       <div className={classes.Graphic}>

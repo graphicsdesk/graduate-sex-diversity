@@ -6,13 +6,14 @@ import { axisBottom, axisLeft } from 'd3-axis';
 import { select as d3Select } from 'd3-selection';
 import { format as d3Format } from 'd3-format';
 
-import DATA from '../../data';
+import PROPORTIONS from '../../proportions';
 import {
   COLUMBIA_NAME,
   END_YEAR,
   START_YEAR,
   years,
-  fieldColor,
+  primaryColor,
+  secondaryColor,
 } from '../../constants';
 import { writeTitleFromFields } from '../../utils';
 import { Line } from '../svg';
@@ -189,22 +190,24 @@ class PercentGraph extends Component {
           </text>
 
           {/* Columbia field lines */}
-          {Object.keys(DATA).map(field => {
-            let data = DATA[field];
-            if (field !== 'TOTALS') {
+          {Object.keys(PROPORTIONS).map(field => {
+            let data = PROPORTIONS[field];
+
+            if (field !== 'TOTALS' && field !== 'Engineering') {
               data = data[COLUMBIA_NAME];
             }
-
             return (
               <Line
                 key={field}
                 d={lineGenerator(data)}
-                isVisible={fields.includes('ALL') || fields.includes(field)}
-                color={fieldColor(field)}
+                isVisible={fields.includes(field)}
+                color={primaryColor(field)}
                 strokeWidth={2.2}
                 showEndpoint
                 endpoint={[xScale(END_YEAR), yScale(data[data.length - 1])]}
-                endpointLabel={Math.round(data[data.length - 1] * 100) + '%'}
+                endpointLabel={
+                  field /*Math.round(data[data.length - 1] * 100) + '%'*/
+                }
               />
             );
           })}

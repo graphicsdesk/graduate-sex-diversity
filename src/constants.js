@@ -37,11 +37,11 @@ export const POSSIBLE_GUIDES = [0.2, 0.25, 0.4, 0.5, 0.75];
 /* Colors */
 
 const COLORS = {
-  Engineering: {
+  TOTALS: {
     primary: '#007291',
     secondary: '#a1c5d2',
   },
-  Science: {
+  'Statistics': {
     primary: '#1E7D68',
     secondary: '#99D9C9',
   },
@@ -50,19 +50,10 @@ const COLORS = {
     secondary: '#FEABC5',
   },
   'Physics': {
-    primary: '#BA3063',
-    secondary: '#FEABC5',
-  },
-  'Biology': {
     primary: '#1E7D68',
     secondary: '#99D9C9',
   },
-  'Mathematics and applied mathematics': {
-    primary: '#1E7D68',
-  },
 };
-
-export const fieldColor = field => primaryColor(field);
 
 export const primaryColor = disc => COLORS[disc] ? COLORS[disc].primary : 'red';
 

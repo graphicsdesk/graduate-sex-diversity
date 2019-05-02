@@ -45,11 +45,7 @@ const Guide = ({ classes, line, upperLimit, proportion }) => {
         strokeDasharray={isEquality ? '5 4' : '4 4'}
       />
       <text className={classes.label} transform="translate(14, 14)" fill="#111">
-        <textPath
-          xlinkHref={`#${id}`}
-          startOffset={isEquality ? '50%' : '65%'}
-          textAnchor="middle"
-        >
+        <textPath xlinkHref={`#${id}`} startOffset="50%" textAnchor="middle">
           {text}
         </textPath>
       </text>

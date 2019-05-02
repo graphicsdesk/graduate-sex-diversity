@@ -8,13 +8,12 @@ headline: National Science Foundation Data Reveals Disparities in _____  Graduat
 text: The percentage of women among graduate students in science and engineering fields is virtually unchanged since 1998.
 fields: TOTALS
 
-text: But an Eye analysis of thirty subject areas in seven disciplines shows that, beneath this stagnation, the perpetuation, dismantling, and even widening of certain gender gaps is still very active, and they vary significantly by field.
-fields: ALL
+text: But active perpetuation, dismantling, or even widening of certain gender gaps underlie this apparent immobility, and these behaviors vary significantly by subject area.
 
-text: In some fields, gender gaps seem to be have persisted by History. Among graduate students, men have dominated economics throughout the timeframe of this analysis, though the number of women has recent spiked.
-fields: Economics (except agricultural)
+text: In mathematics fields, representation of women is quickly rising. In the last decade, statistics has reached and since maintained gender parity.
+fields: Statistics
 
-text: Other gender gaps have set more recently: In physics, female percentage has fallen from 28 percent in 2007 to just 10 percent in 2016.
+text: On the other hand, during this same timeframe, gender disparities have grown significantly in the physical sciences: in physics, female percentage fell from 28 percent in 2007 to just 10 percent in 2016.
 fields: Physics
 
 []
@@ -29,16 +28,29 @@ fields: Physics
 
 []
 
-[+engineering]
+[scatter]
 
-title: In many engineering fields, rapid growth leaves female students behind
+text: In 1994, there were 502 male and 70 female graduate students in engineering fields.
+field: Engineering
+maxYear: 1994
 
-scatter: Engineering
+text: Up until 2010, the engineering student population saw dramatic growth, nearly tripling in size.
+note: Columbia did not report data for several fields between 2001 and 2003. See the methodology at the end of this article for further details.
+field: Engineering
+maxYear: 2010
+guides: 0.5
 
-text: Each of the six engineering fields we analyzed saw a significant increase in their graduate student populations. Most exhibited a similar pattern during this growth: Male and female populations would grow together at first, often quite rapidly. Soon after, however, female population growth would slow, and the male population would continue to grow much faster.
+text: Due to the male student population’s consistently greater growth rate, the percent makeup of female students in engineering stayed mostly constant during this time period.
+field: Engineering
+maxYear: 2010
+guides: 0.25, 0.5, 0.75
 
-scatter: Civil engineering
+text: After 2010, however, female student growth accelerated, and the field began tending towards gender parity.
+field: Engineering
+maxYear: 2016
+showLine: true
+guides: 0.25, 0.5
 
-text: Yote
+[]
 
 `;

@@ -2,8 +2,9 @@ import React, { Component } from 'react';
 import { Scrollama, Step } from 'react-scrollama';
 import injectSheet from 'react-jss';
 import { FadeWrapper } from './svg';
-import { ScatterPlot } from './charts';
-import { START_YEAR } from '../constants';
+import { PercentGraph, ScatterPlot } from './charts';
+import { Subtitle } from './content';
+import { END_YEAR, START_YEAR } from '../constants';
 
 const styles = {
   Graphic: {
@@ -52,18 +53,9 @@ const styles = {
 
 class ScatterGraphic extends Component {
   state = {
+    title: 'Yo yo ma', // this.props.steps[0].title,
     stepIndex: -1,
   };
-
-  fields = this.props.steps.reduce(
-    (acc, step) => {
-      const { field } = step;
-      if (!field) return acc;
-      if (!acc.includes(field)) acc.push(field);
-      return acc;
-    },
-    ['TOTALS'],
-  );
 
   onStepEnter = ({ data: stepIndex, element }) => {
     this.setState({ stepIndex });
@@ -76,25 +68,30 @@ class ScatterGraphic extends Component {
   };
 
   render() {
-    const { stepIndex } = this.state;
+    const { stepIndex, title } = this.state;
     const { classes, steps } = this.props;
     let step = {
       maxYear: START_YEAR - 1,
-      showAxesIndicators: true,
+      field: 'Engineering',
     };
     if (stepIndex >= 0) {
       step = steps[stepIndex];
     }
-
-    let { maxYear, guides, showLine, field: stepField } = step;
-    if (!stepField) stepField = 'TOTALS';
-    let { showAxesIndicators } = step;
+    let {
+      field,
+      maxYear,
+      showAxesIndicators,
+      guides,
+      showLine,
+      showPercentGraph,
+    } = step;
     if (stepIndex <= 0) {
       showAxesIndicators = true;
     }
 
     return (
       <div>
+        <Subtitle text={title} />
         <div className={classes.Graphic}>
           <div className={classes.stepsContainer}>
             <Scrollama
@@ -116,22 +113,24 @@ class ScatterGraphic extends Component {
             </Scrollama>
           </div>
           <figure className={classes.stickyFigure}>
-            {this.fields.map((field, i) => (
-              <FadeWrapper
-                key={field}
-                isVisible={stepField === field}
-                positionAbsolute={i < this.fields.length - 1}
-                useDiv
-              >
-                <ScatterPlot
-                  dataName={field}
-                  maxYear={stepField === field ? maxYear : START_YEAR - 1}
-                  showLine={stepField === field && showLine}
-                  showAxesIndicators={showAxesIndicators}
-                  guides={guides}
-                />
-              </FadeWrapper>
-            ))}
+            <FadeWrapper isVisible={!showPercentGraph} useDiv>
+              <ScatterPlot
+                dataName={field}
+                maxYear={maxYear}
+                guides={guides}
+                showLine={showLine}
+                showAxesIndicators={showAxesIndicators}
+              />
+            </FadeWrapper>
+            <FadeWrapper isVisible={showPercentGraph} useDiv>
+              {/*<PercentGraph
+                dataName={discipline}
+                disciplines={disciplines}
+                fields={fields}
+                maxYear={showPercentGraph ? END_YEAR : START_YEAR}
+                isSquare
+              />*/}
+            </FadeWrapper>
           </figure>
         </div>
       </div>
