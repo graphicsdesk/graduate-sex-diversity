@@ -8,7 +8,7 @@ const styles = {
     margin: '3.5rem auto 2rem auto',
     lineHeight: 1.6,
     textAlign: 'center',
-    fontSize: '2.5rem',
+    fontSize: '2.4rem',
     fontFamily: 'Lato',
   },
 };

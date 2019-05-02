@@ -54,4 +54,9 @@ title: In many engineering fields, rapid growth leaves female students behind
 scatter: Engineering
 
 text: Each of the six engineering fields we analyzed saw a significant increase in their graduate student populations. Most exhibited a similar pattern during this growth: Male and female populations would grow together at first, often quite rapidly. Soon after, however, female population growth would slow, and the male population would continue to grow much faster.
+
+scatter: Civil engineering
+
+text: Yote
+
 `;
