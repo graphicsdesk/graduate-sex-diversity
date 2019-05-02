@@ -2,8 +2,9 @@ import React, { Component } from 'react';
 import { Scrollama, Step } from 'react-scrollama';
 import injectSheet from 'react-jss';
 import { FadeWrapper } from './svg';
-import { ScatterPlot } from './charts';
-import { START_YEAR } from '../constants';
+import { PercentGraph, ScatterPlot } from './charts';
+import { Subtitle } from './content';
+import { END_YEAR, START_YEAR } from '../constants';
 
 const styles = {
   Graphic: {
@@ -37,33 +38,13 @@ const styles = {
     margin: 0,
     lineHeight: '1.9rem',
   },
-  note: {
-    color: '#aaa',
-    fontSize: '0.9rem',
-    fontFamily: 'Open Sans',
-    fontWeight: 400,
-    lineHeight: 1.5,
-    margin: 0,
-    marginTop: '1rem',
-    paddingTop: '0.8rem',
-    borderTop: '0.8px solid #ddd',
-  },
 };
 
-class LedeGraphic extends Component {
+class ScatterPercentGraphic extends Component {
   state = {
+    title: this.props.steps[0].title,
     stepIndex: -1,
   };
-
-  fields = this.props.steps.reduce(
-    (acc, step) => {
-      const { field } = step;
-      if (!field) return acc;
-      if (!acc.includes(field)) acc.push(field);
-      return acc;
-    },
-    ['TOTALS'],
-  );
 
   onStepEnter = ({ data: stepIndex, element }) => {
     this.setState({ stepIndex });
@@ -76,25 +57,30 @@ class LedeGraphic extends Component {
   };
 
   render() {
-    const { stepIndex } = this.state;
+    const { stepIndex, title } = this.state;
     const { classes, steps } = this.props;
     let step = {
-      maxYear: START_YEAR - 1,
+      discipline: 'Engineering',
+      disciplines: [],
+      maxYear: 1993,
       showAxesIndicators: true,
     };
-    if (stepIndex >= 0) {
-      step = steps[stepIndex];
-    }
-
-    let { maxYear, guides, showLine, field: stepField } = step;
-    if (!stepField) stepField = 'TOTALS';
-    let { showAxesIndicators } = step;
-    if (stepIndex <= 0) {
-      showAxesIndicators = true;
-    }
+    if (stepIndex >= 0) step = steps[stepIndex];
+    const {
+      maxYear,
+      showAxesIndicators,
+      showGuides,
+      showLine,
+      showPercentGraph,
+      discipline, // discipline shown in connected scatter plot
+      disciplines, // disciplines shown in percent graph
+      field, // field shown in connected scatter plot
+      fields, // fields shown in percent graph
+    } = step;
 
     return (
       <div>
+        <Subtitle text={title} />
         <div className={classes.Graphic}>
           <div className={classes.stepsContainer}>
             <Scrollama
@@ -102,36 +88,39 @@ class LedeGraphic extends Component {
               onStepEnter={this.onStepEnter}
               onStepExit={this.onStepExit}
             >
-              {steps.map(({ text, note }, i) => (
+              {steps.map(({ text }, i) => (
                 <Step data={i} key={text}>
                   <div className={classes.step}>
                     <p
                       className={classes.stepText}
                       dangerouslySetInnerHTML={{ __html: text }}
                     />
-                    {note && <p className={classes.note}>{note}</p>}
                   </div>
                 </Step>
               ))}
             </Scrollama>
           </div>
           <figure className={classes.stickyFigure}>
-            {this.fields.map((field, i) => (
-              <FadeWrapper
-                key={field}
-                isVisible={stepField === field}
-                positionAbsolute={i < this.fields.length - 1}
-                useDiv
-              >
-                <ScatterPlot
-                  dataName={field}
-                  maxYear={stepField === field ? maxYear : START_YEAR - 1}
-                  showLine={stepField === field && showLine}
-                  showAxesIndicators={showAxesIndicators}
-                  guides={guides}
-                />
-              </FadeWrapper>
-            ))}
+            <FadeWrapper isVisible={!showPercentGraph} positionAbsolute useDiv>
+              <ScatterPlot
+                discipline={discipline}
+                field={field}
+                dataName={discipline ? discipline + ' fields' : field}
+                maxYear={maxYear}
+                showLine={showLine}
+                showAxesIndicators={showAxesIndicators}
+                showGuides={showGuides}
+              />
+            </FadeWrapper>
+            <FadeWrapper isVisible={showPercentGraph} useDiv>
+              <PercentGraph
+                dataName={discipline}
+                disciplines={disciplines}
+                fields={fields}
+                maxYear={showPercentGraph ? END_YEAR : START_YEAR}
+                isSquare
+              />
+            </FadeWrapper>
           </figure>
         </div>
       </div>
@@ -139,4 +128,4 @@ class LedeGraphic extends Component {
   }
 }
 
-export default injectSheet(styles)(LedeGraphic);
+export default injectSheet(styles)(ScatterPercentGraphic);
