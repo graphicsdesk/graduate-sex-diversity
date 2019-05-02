@@ -206,7 +206,7 @@ class PercentGraph extends Component {
                 showEndpoint
                 endpoint={[xScale(END_YEAR), yScale(data[data.length - 1])]}
                 endpointLabel={
-                  field /*Math.round(data[data.length - 1] * 100) + '%'*/
+                  field === 'TOTALS' ? Math.round(data[data.length - 1] * 100) + '%' : field
                 }
               />
             );

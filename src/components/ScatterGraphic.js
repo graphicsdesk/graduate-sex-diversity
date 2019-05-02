@@ -53,7 +53,7 @@ const styles = {
 
 class ScatterGraphic extends Component {
   state = {
-    title: 'Yo yo ma', // this.props.steps[0].title,
+    title: 'Engineering', // this.props.steps[0].title,
     stepIndex: -1,
   };
 

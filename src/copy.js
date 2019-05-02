@@ -20,17 +20,22 @@ fields: Physics
 
 [nutgraf]
 
-* Sex diversity among graduate students in science and engineering is virtually unchanged since 1998. The Eye analysis includes thirty one fields in seven broad areas. It extends from 1994, the earliest year that such institution-level, field-specific data was available from the National Science Foundation, to 2016, the most recent.
+* Nut (in pieces):
 
-* The University’s only Arts and Sciences pipeline program, the Bridge to the Ph.D. in Natural Sciences, will be expanding next year to include all fields in science, technology, engineering, and mathematics. “We do need our leading scholars in the nation to have the ability to assess or reassess themselves and we hope reports and having transparency in data can help us do those things,” Dennis Mitchell, Vice Provost for Faculty Advancement, said in an interview with Spectator last fall.
+* Overall, sex diversity has stagnated among graduate students in science and engineering.
+
+* The Eye analysis includes thirty fields in seven broad areas. It extends from 1994, the earliest year that such institution- and field-specific data was available from the National Science Foundation, to 2016, the most recent.
+
+* Moving forward, the University remains committed to the expansion of the Bridge to the Ph.D. pipeline program, which encourages undergraduates from underrepresented groups to apply to Ph.D. programs in science, technology, engineering, and mathematics.
 
 * The NSF data does not point to particular causes of the trends presented.
+
 
 []
 
 [scatter]
 
-text: In 1994, there were 502 male and 70 female graduate students in engineering fields.
+text: In 1994, there were 426 male and 57 female graduate students in engineering fields.
 field: Engineering
 maxYear: 1994
 
@@ -40,7 +45,7 @@ field: Engineering
 maxYear: 2010
 guides: 0.5
 
-text: Due to the male student population’s consistently greater growth rate, the percent makeup of female students in engineering stayed mostly constant during this time period.
+text: Due to the male student population’s consistently greater growth rate, the percent makeup of female students in engineering had stayed mostly constant during this growth.
 field: Engineering
 maxYear: 2010
 guides: 0.25, 0.5, 0.75
