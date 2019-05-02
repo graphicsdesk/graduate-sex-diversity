@@ -2,8 +2,6 @@ import React, { Component } from 'react';
 import { Scrollama, Step } from 'react-scrollama';
 import injectSheet from 'react-jss';
 import { ScatterPlot } from './charts';
-import { Subtitle } from './content';
-import { END_YEAR, START_YEAR } from '../constants';
 
 const styles = {
   Graphic: {
@@ -65,7 +63,7 @@ class LedeGraphic extends Component {
       step = steps[stepIndex];
     }
 
-    const { maxYear, guides, showLine } = step;
+    const { maxYear, guides, showLine, field = 'TOTALS' } = step;
     let { showAxesIndicators } = step;
     if (stepIndex <= 0) {
       showAxesIndicators = true;
@@ -94,7 +92,7 @@ class LedeGraphic extends Component {
           </div>
           <figure className={classes.stickyFigure}>
             <ScatterPlot
-              dataName="TOTALS"
+              dataName={field}
               title="Graduate students in science and engineering"
               maxYear={maxYear}
               guides={guides}

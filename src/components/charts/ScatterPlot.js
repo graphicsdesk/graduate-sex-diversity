@@ -7,7 +7,12 @@ import { select as d3Select } from 'd3-selection';
 
 import DATA from '../../data';
 import { maxCoord, colorScale } from '../../utils';
-import { END_YEAR, POSSIBLE_GUIDES, START_YEAR } from '../../constants';
+import {
+  COLUMBIA_NAME,
+  END_YEAR,
+  POSSIBLE_GUIDES,
+  START_YEAR,
+} from '../../constants';
 import {
   Point,
   Line,
@@ -62,19 +67,27 @@ const margin = { top: 40, right: 20, bottom: 50, left: 70 };
 class ScatterPlot extends Component {
   constructor(props) {
     super(props);
-
-    this.data = DATA[props.dataName];
-
     this.state = this.resetState();
   }
 
-  resetState = () => ({
-    ...this.calculateSVGDimensions(),
+  componentDidUpdate(prevProps) {
+    if (prevProps.dataName !== this.props.dataName) {
+      this.setState(this.resetState());
+    }
+  }
 
-    maxYear: this.props.maxYear,
-    previousMaxYear: START_YEAR,
-    markedYears: [START_YEAR, END_YEAR],
-  });
+  resetState = () => {
+    const { dataName } = this.props;
+    if (dataName === 'TOTALS') this.data = DATA[dataName];
+    else this.data = DATA[dataName][COLUMBIA_NAME];
+    return {
+      ...this.calculateSVGDimensions(),
+
+      maxYear: this.props.maxYear,
+      previousMaxYear: START_YEAR,
+      markedYears: [START_YEAR, END_YEAR],
+    };
+  };
 
   calculateSVGDimensions = () => {
     let NUM_TICKS = 8;
@@ -174,6 +187,7 @@ class ScatterPlot extends Component {
     const lineGenerator = d3Line()
       .x(d => xScale(d[0]))
       .y(d => yScale(d[1]));
+    // patched line generator connects all defined points, skipping null values
     const patchedLineGenerator = data =>
       lineGenerator(data.filter(d => d[0] !== null && d[1] !== null));
 

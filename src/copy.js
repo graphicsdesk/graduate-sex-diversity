@@ -21,5 +21,17 @@ maxYear: 2016
 guides: 0.4, 0.5
 showLine: true
 
+text: But, this stagnation hides extremely disparate trendlines in gender representations among fields in science and engineering.
+
+text: During the timeframe of this analysis, despite a tenfold increase in size, the graduate students in statistics have maintained parity.
+field: Statistics
+guides: 0.5
+maxYear: 2016
+
+text: Yet in mechanical engineering, field has strayed further and further from parity.
+field: Mechanical engineering
+guides: 0.5
+maxYear: 2016
+
 []
 `;
