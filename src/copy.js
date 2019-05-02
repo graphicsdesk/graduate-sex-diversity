@@ -31,9 +31,27 @@ showLine: true
 
 text: Yet in mechanical engineering, field has strayed further and further from parity.
 field: Mechanical engineering
-guides: 0.5
+guides: 0.2,0.5
 maxYear: 2016
 showLine: true
 
 []
+
+[nutgraf]
+
+* Sex diversity among graduate students in science and engineering is virtually unchanged since 1998. The Eye analysis includes thirty one fields in seven broad areas. It extends from 1994, the earliest year that such institution-level, field-specific data was available from the National Science Foundation, to 2016, the most recent.
+
+* The University’s only Arts and Sciences pipeline program, the Bridge to the Ph.D. in Natural Sciences, will be expanding next year to include all fields in science, technology, engineering, and mathematics. “We do need our leading scholars in the nation to have the ability to assess or reassess themselves and we hope reports and having transparency in data can help us do those things,” Dennis Mitchell, Vice Provost for Faculty Advancement, said in an interview with Spectator last fall.
+
+* The NSF data does not point to particular causes of the trends presented.
+
+[]
+
+[+engineering]
+
+title: In many engineering fields, rapid growth leaves female students behind
+
+scatter: Engineering
+
+text: Each of the six engineering fields we analyzed saw a significant increase in their graduate student populations. Most exhibited a similar pattern during this growth: Male and female populations would grow together at first, often quite rapidly. Soon after, however, female population growth would slow, and the male population would continue to grow much faster.
 `;

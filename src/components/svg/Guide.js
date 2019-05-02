@@ -1,5 +1,6 @@
 import React from 'react';
 import injectSheet from 'react-jss';
+import nanoid from 'nanoid';
 import fade from './fade';
 
 const styles = {
@@ -18,11 +19,13 @@ const styles = {
 };
 
 // proportion = proportion female
-const Guide = ({ classes, line, upperLimit, proportion, id, small }) => {
+const Guide = ({ classes, line, upperLimit, proportion }) => {
   const slope = (1 - proportion) / proportion;
   let text = `${(proportion * 100).toFixed(proportion < 0.1 ? 1 : 0)}% FEMALE`;
   let x2 = upperLimit;
   let y2 = upperLimit;
+
+  const isEquality = proportion === 0.5;
 
   if (proportion < 0.5) {
     x2 = y2 / slope;
@@ -30,21 +33,23 @@ const Guide = ({ classes, line, upperLimit, proportion, id, small }) => {
     y2 = x2 * slope;
   } else text = 'EQUAL NUMBER OF MEN AND WOMEN';
 
+  const id = nanoid();
+
   return (
     <g>
       <path
         d={line([[0, 0], [x2, y2]])}
-        className={proportion === 0.5 ? classes.strongLine : classes.line}
+        className={isEquality ? classes.strongLine : classes.line}
         id={id}
         fill="none"
-        strokeDasharray={proportion === 0.5 ? '5 4' : '4 4'}
+        strokeDasharray={isEquality ? '5 4' : '4 4'}
       />
-      <text
-        className={classes.label}
-        transform={small ? 'translate(-150, -150)' : 'translate(14, 14)'}
-        fill="#111"
-      >
-        <textPath href={`#${id}`} startOffset="60%" textAnchor="middle">
+      <text className={classes.label} transform="translate(14, 14)" fill="#111">
+        <textPath
+          xlinkHref={`#${id}`}
+          startOffset={isEquality ? '50%' : '65%'}
+          textAnchor="middle"
+        >
           {text}
         </textPath>
       </text>

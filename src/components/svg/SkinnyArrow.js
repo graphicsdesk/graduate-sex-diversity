@@ -16,8 +16,8 @@ const SkinnyArrow = ({ classes, x, y, gHeight, orient, label, dataName }) => {
   let labelPadding = 7;
   if (orient < 0) labelPadding += 8;
 
-  const x1 = x + orient * gHeight / 7;
-  const y1 = y + orient * gHeight / 7;
+  const x1 = x + orient * gHeight / 5;
+  const y1 = y + orient * gHeight / 5;
   const lineCoords = {
     x1,
     y1,

@@ -125,7 +125,6 @@ class LedeGraphic extends Component {
               >
                 <ScatterPlot
                   dataName={field}
-                  title={'Graduate students in ' + field.toLowerCase()}
                   maxYear={stepField === field ? maxYear : START_YEAR - 1}
                   showLine={stepField === field && showLine}
                   showAxesIndicators={showAxesIndicators}

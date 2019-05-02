@@ -10,7 +10,7 @@
 
 ## Component design
 
-`<App/>` reads the copy. It sends content into `content/` components and sends graphics instructions into `src/` level components (e.g. `<LedeGraphic>`, `<ScatterGraphic>`).
+`<App/>` reads the copy. It sends content into `content/` components and sends graphics instructions into `src/` level components (e.g. `<AreaGraphic>`, `<ScatterGraphic>`).
 
 `<ScatterGraphic/>` implements `react-scrollama` and controls whether `<PercentGraph/>` or `<ScatterPlot/>` is visible. It sends numerical data and high-level instructions to these graphs.
 

@@ -82,7 +82,7 @@ const Point = ({
   if (direction < -quartPi) direction += 2 * Math.PI;
 
   if (label === 1994 || label === 2016) labelX -= HORI_SPACING;
-  else if (label === 2000) labelY += VERT_SPACING;
+  else if (label === 2000 || label === 2004) labelY += VERT_SPACING;
   else if (
     -quartPi <= direction &&
     direction < quartPi // place left

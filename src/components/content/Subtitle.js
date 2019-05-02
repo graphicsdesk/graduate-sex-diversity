@@ -4,12 +4,12 @@ import injectSheet from 'react-jss';
 const styles = {
   Subtitle: {
     padding: '0 20px',
-    maxWidth: '550px',
+    maxWidth: '690px',
     margin: '3.5rem auto 2rem auto',
-    lineHeight: 1.9,
+    lineHeight: 1.6,
     textAlign: 'center',
     fontSize: '2.5rem',
-    fontFamily: 'Roboto',
+    fontFamily: 'Lato',
   },
 };
 

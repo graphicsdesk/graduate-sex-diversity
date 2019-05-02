@@ -90,11 +90,16 @@ class ScatterPlot extends Component {
   };
 
   calculateSVGDimensions = () => {
+    const { dataName, individual } = this.props;
+
     let NUM_TICKS = 8;
 
     let width = window.innerWidth * 0.5;
+    if (individual) {
+      width = 600;
+    }
     if (width < 576) {
-      NUM_TICKS = 4;
+      NUM_TICKS = 5;
     }
 
     // Calculate svg and root group's dimensions
@@ -105,7 +110,9 @@ class ScatterPlot extends Component {
 
     // Construct scales and axes from data
 
-    const upperLimit = maxCoord(this.data) * 1.02;
+    let upperLimit = maxCoord(this.data);
+    if (dataName === 'Mechanical engineering') upperLimit *= 1.2;
+    else upperLimit *= 1.1;
     const xScale = scaleLinear()
       .domain([0, upperLimit])
       .range([0, gWidth]);
@@ -172,14 +179,11 @@ class ScatterPlot extends Component {
     } = this.state;
     const {
       classes,
-      title,
-
       dataName,
       guides,
       showLine,
       showAxesIndicators,
     } = this.props;
-    console.log(previousMaxYear, maxYear);
 
     let AX_LABEL_SPACING = 35;
     if (upperLimit >= 100) {
@@ -202,7 +206,12 @@ class ScatterPlot extends Component {
 
         <g transform={`translate(${margin.left}, ${margin.top})`}>
           <text className={classes.graphTitle} x={xScale(0)} y={-20}>
-            {title}
+            Graduate students in{' '}
+            {dataName === 'TOTALS' ? (
+              'science and engineering'
+            ) : (
+              dataName.toLowerCase()
+            )}
           </text>
 
           {/* X-axis and axis label */}
@@ -247,16 +256,16 @@ class ScatterPlot extends Component {
           {/* MORE MEN and MORE MEN direction indicators */}
           <FadeWrapper isVisible={guides.length > 0}>
             <SkinnyArrow
-              x={xScale(upperLimit * 0.65)}
-              y={yScale(upperLimit * 0.65)}
+              x={xScale(upperLimit * 0.55)}
+              y={yScale(upperLimit * 0.55)}
               gHeight={gHeight}
               orient={-1}
               dataName={dataName}
               label="MORE MEN"
             />
             <SkinnyArrow
-              x={xScale(upperLimit * 0.65)}
-              y={yScale(upperLimit * 0.65)}
+              x={xScale(upperLimit * 0.55)}
+              y={yScale(upperLimit * 0.55)}
               gHeight={gHeight}
               orient={1}
               dataName={dataName}
@@ -316,7 +325,10 @@ class ScatterPlot extends Component {
                 fill={colorScale[i]}
                 isPulsing={year === maxYear}
                 label={year}
-                isLabelVisible={markedYears.includes(year)}
+                isLabelVisible={
+                  markedYears.includes(year) ||
+                  (year === 2004 && dataName === 'TOTALS')
+                }
                 avoidX={xScale(avoidPoint[0])}
                 avoidY={yScale(avoidPoint[1])}
                 isVisible={START_YEAR + i <= maxYear}
