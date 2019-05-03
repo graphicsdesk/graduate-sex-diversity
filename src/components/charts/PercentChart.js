@@ -4,9 +4,10 @@ import { scaleLinear } from 'd3-scale';
 import { line as d3Line, curveCardinal } from 'd3-shape';
 import { axisBottom, axisLeft } from 'd3-axis';
 import { select as d3Select } from 'd3-selection';
+import { format as d3Format } from 'd3-format';
 
-import COUNTS from '../../counts';
-import { capitalizeWords, maxCoord } from '../../utils';
+import PROPORTIONS from '../../proportions';
+import { capitalizeWords } from '../../utils';
 import { COLUMBIA_NAME, END_YEAR, START_YEAR } from '../../constants';
 import { Line } from '../svg';
 
@@ -14,7 +15,7 @@ const axisStyles = {
   '& path.domain': { display: 'none' },
   '& text': {
     fontFamily: 'Roboto',
-    fontSize: ({ small }) => (small ? '0.85rem' : '0.93rem'),
+    fontSize: '0.93rem',
     color: '#999',
   },
   '& > g.tick line': {
@@ -26,7 +27,7 @@ const axisStyles = {
 const styles = {
   graphTitle: {
     fontFamily: 'Roboto',
-    fontSize: ({ small }) => (small ? '0.9rem' : '1.15rem'),
+    fontSize: '1.15rem',
     fill: '#111',
     textAnchor: 'middle',
     fontWeight: 600,
@@ -55,7 +56,7 @@ const styles = {
 const TICK_PADDING = 9;
 const margin = { top: 40, right: 20, bottom: 50, left: 70 };
 
-class LineChart extends Component {
+class PercentChart extends Component {
   constructor(props) {
     super(props);
     this.state = this.resetState();
@@ -80,23 +81,18 @@ class LineChart extends Component {
   resetState = () => {
     const { dataName } = this.props;
     if (dataName === 'TOTALS') {
-      this.data = COUNTS[dataName];
+      this.data = PROPORTIONS[dataName];
     } else {
-      this.data = COUNTS[dataName][COLUMBIA_NAME];
+      this.data = PROPORTIONS[dataName][COLUMBIA_NAME];
     }
     return this.calculateSize();
   };
 
   calculateSize = () => {
-    const { small } = this.props;
-
     let NUM_TICKS = 8;
 
     let width = window.innerWidth * 0.5;
     width = 400;
-    if (small) {
-      width = 300;
-    }
     if (width < 576) {
       NUM_TICKS = 5;
     }
@@ -109,12 +105,11 @@ class LineChart extends Component {
 
     // Construct scales and axes from data
 
-    let upperLimit = maxCoord(this.data) * 1.1;
     const xScale = scaleLinear()
       .domain([START_YEAR, END_YEAR])
       .range([0, gWidth]);
     const yScale = scaleLinear()
-      .domain([0, upperLimit])
+      .domain([0, 1])
       .range([gHeight, 0]);
 
     const xAxis = axisBottom(xScale)
@@ -123,8 +118,9 @@ class LineChart extends Component {
       .ticks(NUM_TICKS);
     const yAxis = axisLeft(yScale)
       .tickSize(-gWidth)
+      .ticks(NUM_TICKS)
       .tickPadding(TICK_PADDING)
-      .ticks(NUM_TICKS);
+      .tickFormat(d3Format('.0%'));
 
     return {
       width,
@@ -132,7 +128,6 @@ class LineChart extends Component {
       gWidth,
       gHeight,
 
-      upperLimit,
       xScale,
       yScale,
       xAxis,
@@ -146,7 +141,6 @@ class LineChart extends Component {
       height,
       gHeight,
 
-      upperLimit,
       xScale,
       yScale,
       xAxis,
@@ -154,18 +148,12 @@ class LineChart extends Component {
     } = this.state;
     const { classes, dataName } = this.props;
     let AX_LABEL_SPACING = 35;
-    if (upperLimit >= 100) {
-      AX_LABEL_SPACING += 10;
-    }
 
     const lineGenerator = d3Line()
       .x((_, i) => xScale(START_YEAR + i))
       .y(yScale)
       .curve(curveCardinal.tension(0.5))
       .defined(d => d);
-
-    const females = this.data.map(d => d[0]);
-    const males = this.data.map(d => d[1]);
 
     return (
       <svg width={width} height={height}>
@@ -195,50 +183,20 @@ class LineChart extends Component {
             transform={`translate(${-AX_LABEL_SPACING - 13}, ${gHeight /
               2}) rotate(-90)`}
           >
-            Number of people
+            Percent female
           </text>
-
-          {/* Male data line */}
-          <Line
-            d={lineGenerator(males)}
-            className={classes.line}
-            isVisible
-            color={'#ff9d13'}
-            strokeWidth={2}
-            labels={[
-              {
-                x: xScale(END_YEAR - 1),
-                y: yScale(males[END_YEAR - 1 - START_YEAR]),
-                r: 0,
-                label: 'Male',
-              },
-              {
-                x: xScale(END_YEAR),
-                y: yScale(males[END_YEAR - START_YEAR]),
-                r: 4,
-                isPulsing: false,
-                label: '',
-              },
-            ]}
-          />
 
           {/* Female data line */}
           <Line
-            d={lineGenerator(females)}
+            d={lineGenerator(this.data)}
             className={classes.line}
             isVisible
             color={'#5e98ff'}
             strokeWidth={2}
             labels={[
               {
-                x: xScale(END_YEAR - 1),
-                y: yScale(females[END_YEAR - 1 - START_YEAR]),
-                r: 0,
-                label: 'Female',
-              },
-              {
                 x: xScale(END_YEAR),
-                y: yScale(females[END_YEAR - START_YEAR]),
+                y: yScale(this.data[END_YEAR - START_YEAR]),
                 r: 4,
                 isPulsing: false,
                 label: '',
@@ -251,8 +209,8 @@ class LineChart extends Component {
   }
 }
 
-LineChart.defaultProps = {
+PercentChart.defaultProps = {
   guides: [],
 };
 
-export default injectSheet(styles)(LineChart);
+export default injectSheet(styles)(PercentChart);

@@ -43,8 +43,6 @@ const styles = {
   },
 };
 
-// TODO/WISH LIST: PARTITIONS (for physics, maybe?)
-
 class LedeGraphic extends Component {
   state = { stepIndex: -1 };
 

@@ -13,7 +13,6 @@ import {
   START_YEAR,
   years,
   primaryColor,
-  secondaryColor,
 } from '../../constants';
 import { writeTitleFromFields } from '../../utils';
 import { FadeWrapper, Line } from '../svg';
@@ -218,8 +217,12 @@ class PercentGraph extends Component {
           {Object.keys(PROPORTIONS).map(field => {
             let data = PROPORTIONS[field];
 
-            if (field !== 'TOTALS' && field !== 'Engineering') {
+            if (field !== 'TOTALS') {
               data = data[COLUMBIA_NAME];
+            }
+            if (!data) {
+              console.log(field);
+              console.log(PROPORTIONS['Biochemistry']);
             }
             return (
               <Line

@@ -4,8 +4,8 @@ import injectSheet from 'react-jss';
 const styles = {
   Paragraph: {
     padding: '0 20px',
-    maxWidth: '460px',
-    margin: '0 auto 1.6rem auto',
+    maxWidth: '500px',
+    margin: '0 auto 2rem auto',
     lineHeight: 1.9,
     fontSize: '1.03rem',
     fontFamily: 'Merriweather',
@@ -13,7 +13,7 @@ const styles = {
 };
 
 const Paragraph = ({ classes, text }) => (
-  <p className={classes.Paragraph}>{text}</p>
+  <p className={classes.Paragraph} dangerouslySetInnerHTML={{ __html: text }} />
 );
 
 export default injectSheet(styles)(Paragraph);

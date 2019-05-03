@@ -6,8 +6,20 @@ import { Header, Paragraph, Subtitle } from './content';
 import LedeGraphic from './LedeGraphic';
 import ScatterGraphic from './ScatterGraphic';
 import CountsGraphs from './charts/CountsGraphs';
+import GraphPair from './charts/GraphPair';
 
-const { headline, lede, nutgraf, engineering, computer_sciences } = archieml.load(COPY);
+const {
+  headline,
+  lede,
+  nutgraf,
+  engineering,
+  computer_sciences,
+  physical_sciences,
+  mathematics_statistics,
+  psychology_socialsciences,
+  biological_sciences,
+  earth_atmospheric_ocean,
+} = archieml.load(COPY);
 
 // IMPORTANT: DON'T OVER COMPLICATE SETTINGS. e.g. BY DEFAULT, ADD AXES
 // INDICATORS TO FIRST FRAME of connected scatters
@@ -32,24 +44,144 @@ const App = () => (
       if (type === 'title') {
         return <Subtitle key={value} text={value} />;
       } else if (type === 'scatter') {
-        return <ScatterGraphic key={value.length} steps={processSteps(value)} />;
+        return (
+          <ScatterGraphic key={value.length} steps={processSteps(value)} />
+        );
       } else if (type === 'text') {
         return <Paragraph key={value} text={value} />;
       } else if (type === 'counts_graphs') {
-        return <CountsGraphs key={value} names={value.split(';').map(s => s.trim())} />;
+        return (
+          <CountsGraphs
+            key={value}
+            names={value.split(';').map(s => s.trim())}
+          />
+        );
       }
     })}
     {computer_sciences.map(({ type, value }) => {
       if (type === 'title') {
         return <Subtitle key={value} text={value} />;
       } else if (type === 'scatter') {
-        return <ScatterGraphic key={value.length} steps={processSteps(value)} />;
+        return (
+          <ScatterGraphic key={value.length} steps={processSteps(value)} />
+        );
       } else if (type === 'text') {
         return <Paragraph key={value} text={value} />;
       } else if (type === 'counts_graphs') {
-        return <CountsGraphs key={value} names={value.split(';').map(s => s.trim())} />;
+        return (
+          <CountsGraphs
+            key={value}
+            names={value.split(';').map(s => s.trim())}
+          />
+        );
       }
     })}
+    {physical_sciences.map(({ type, value }) => {
+      if (type === 'title') {
+        return <Subtitle key={value} text={value} />;
+      } else if (type === 'scatter') {
+        return (
+          <ScatterGraphic key={value.length} steps={processSteps(value)} />
+        );
+      } else if (type === 'text') {
+        return <Paragraph key={value} text={value} />;
+      } else if (type === 'counts_graphs') {
+        return (
+          <CountsGraphs
+            key={value}
+            names={value.split(';').map(s => s.trim())}
+          />
+        );
+      } else if (type === 'graph_pair') {
+        return <GraphPair key={value} name={value.trim()} />;
+      }
+    })}
+    {mathematics_statistics.map(({ type, value }) => {
+      if (type === 'title') {
+        return <Subtitle key={value} text={value} />;
+      } else if (type === 'scatter') {
+        return (
+          <ScatterGraphic key={value.length} steps={processSteps(value)} />
+        );
+      } else if (type === 'text') {
+        return <Paragraph key={value} text={value} />;
+      } else if (type === 'counts_graphs') {
+        return (
+          <CountsGraphs
+            key={value}
+            names={value.split(';').map(s => s.trim())}
+          />
+        );
+      } else if (type === 'graph_pair') {
+        return <GraphPair key={value} name={value.trim()} />;
+      }
+    })}
+    {psychology_socialsciences.map(({ type, value }) => {
+      if (type === 'title') {
+        return <Subtitle key={value} text={value} />;
+      } else if (type === 'scatter') {
+        return (
+          <ScatterGraphic key={value.length} steps={processSteps(value)} />
+        );
+      } else if (type === 'text') {
+        return <Paragraph key={value} text={value} />;
+      } else if (type === 'counts_graphs') {
+        return (
+          <CountsGraphs
+            key={value}
+            names={value.split(';').map(s => s.trim())}
+          />
+        );
+      } else if (type === 'graph_pair') {
+        return <GraphPair key={value} name={value.trim()} />;
+      }
+    })}
+    {biological_sciences.map(({ type, value }) => {
+      if (type === 'title') {
+        return <Subtitle key={value} text={value} />;
+      } else if (type === 'scatter') {
+        return (
+          <ScatterGraphic key={value.length} steps={processSteps(value)} />
+        );
+      } else if (type === 'text') {
+        return <Paragraph key={value} text={value} />;
+      } else if (type === 'counts_graphs') {
+        return (
+          <CountsGraphs
+            key={value}
+            names={value.split(';').map(s => s.trim())}
+          />
+        );
+      } else if (type === 'graph_pair') {
+        return <GraphPair key={value} name={value.trim()} />;
+      }
+    })}
+    {earth_atmospheric_ocean.map(({ type, value }) => {
+      if (type === 'title') {
+        return <Subtitle key={value} text={value} />;
+      } else if (type === 'scatter') {
+        return (
+          <ScatterGraphic key={value.length} steps={processSteps(value)} />
+        );
+      } else if (type === 'text') {
+        return <Paragraph key={value} text={value} />;
+      } else if (type === 'counts_graphs') {
+        return (
+          <CountsGraphs
+            key={value}
+            names={value.split(';').map(s => s.trim())}
+          />
+        );
+      } else if (type === 'graph_pair') {
+        return <GraphPair key={value} name={value.trim()} />;
+      }
+    })}
+
+    <Paragraph
+      text={
+        'The steady line of stagnation among female representation in the graduate sciences, this closer look at the National Science Foundation shows, masks significant shifts and troubling declines in certain fields.'
+      }
+    />
   </div>
 );
 

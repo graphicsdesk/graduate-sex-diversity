@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import injectSheet from 'react-jss';
 import LineChart from './LineChart';
+import PercentChart from './PercentChart';
 
 const styles = {
   container: {
@@ -14,17 +15,16 @@ const styles = {
   },
 };
 
-class CountsGraphs extends Component {
+class GraphPair extends Component {
   render() {
-    const { classes, names } = this.props;
+    const { classes, name } = this.props;
     return (
       <div className={classes.container}>
-        {names.map(name => (
-          <LineChart key={name} dataName={name} small={names.length > 2} />
-        ))}
+        <LineChart dataName={name} />
+        <PercentChart dataName={name} />
       </div>
     );
   }
 }
 
-export default injectSheet(styles)(CountsGraphs);
+export default injectSheet(styles)(GraphPair);
