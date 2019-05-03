@@ -55,6 +55,8 @@ const styles = {
 const TICK_PADDING = 9;
 const margin = { top: 40, right: 20, bottom: 50, left: 62 };
 
+const SMALL_LEFT = 35;
+
 class LineChart extends Component {
   constructor(props) {
     super(props);
@@ -88,12 +90,11 @@ class LineChart extends Component {
   };
 
   calculateSize = () => {
-    const { small, big } = this.props;
+    const { small, big, noYlabel } = this.props;
 
     let NUM_TICKS = 8;
 
-    let width = window.innerWidth * 0.5;
-    width = 400;
+    let width = 400;
     if (small) {
       width = 300;
     } else if (big) {
@@ -108,7 +109,9 @@ class LineChart extends Component {
     // Calculate svg and root group's dimensions
 
     const height = width;
-    const gWidth = width - margin.left - margin.right;
+    let gWidth = width - margin.right;
+    if (noYlabel) gWidth -= SMALL_LEFT;
+    else gWidth -= margin.left;
     const gHeight = height - margin.top - margin.bottom;
 
     // Construct scales and axes from data
@@ -156,7 +159,7 @@ class LineChart extends Component {
       xAxis,
       yAxis,
     } = this.state;
-    const { classes, dataName, noTitle } = this.props;
+    const { classes, dataName, noTitle, noYlabel } = this.props;
     let AX_LABEL_SPACING = 35;
     if (upperLimit >= 100) {
       AX_LABEL_SPACING += 10;
@@ -173,7 +176,11 @@ class LineChart extends Component {
 
     return (
       <svg width={width} height={height}>
-        <g transform={`translate(${margin.left}, ${margin.top})`}>
+        <g
+          transform={`translate(${noYlabel
+            ? SMALL_LEFT
+            : margin.left}, ${margin.top})`}
+        >
           {!noTitle && (
             <text
               className={classes.graphTitle}
@@ -196,13 +203,15 @@ class LineChart extends Component {
             ref={node => d3Select(node).call(yAxis)}
             className={classes.yAxis}
           />
-          <text
-            className={classes.axisLabel}
-            transform={`translate(${-AX_LABEL_SPACING - 5}, ${gHeight /
-              2}) rotate(-90)`}
-          >
-            Number of graduate students
-          </text>
+          {!noYlabel && (
+            <text
+              className={classes.axisLabel}
+              transform={`translate(${-AX_LABEL_SPACING - 5}, ${gHeight /
+                2}) rotate(-90)`}
+            >
+              Number of graduate students
+            </text>
+          )}
 
           {/* Male data line */}
           <Line

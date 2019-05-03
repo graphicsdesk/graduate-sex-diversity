@@ -2,6 +2,7 @@ import React from 'react';
 import injectSheet from 'react-jss';
 import nanoid from 'nanoid';
 import fade from './fade';
+import { SCATTER_BREAK } from '../../constants';
 
 const styles = {
   strongLine: {
@@ -14,7 +15,10 @@ const styles = {
   },
   label: {
     fontFamily: 'Roboto',
-    fontSize: props => (props.small ? '.75rem' : '.85rem'),
+    fontSize: props =>
+      window.innerWidth < SCATTER_BREAK
+        ? '.72rem'
+        : props.small ? '.75rem' : '.85rem',
   },
 };
 
@@ -35,6 +39,8 @@ const Guide = ({ classes, line, upperLimit, proportion }) => {
 
   const id = nanoid();
 
+  const SHIFT = window.innerWidth < SCATTER_BREAK ? 12 : 14;
+
   return (
     <g>
       <path
@@ -44,7 +50,11 @@ const Guide = ({ classes, line, upperLimit, proportion }) => {
         fill="none"
         strokeDasharray={isEquality ? '5 4' : '4 4'}
       />
-      <text className={classes.label} transform="translate(14, 14)" fill="#111">
+      <text
+        className={classes.label}
+        transform={`translate(${SHIFT}, ${SHIFT})`}
+        fill="#111"
+      >
         <textPath xlinkHref={`#${id}`} startOffset="50%" textAnchor="middle">
           {text}
         </textPath>

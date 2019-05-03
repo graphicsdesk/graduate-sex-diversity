@@ -9,14 +9,11 @@ const styles = {
     alignItems: 'center',
     flexDirection: 'column',
     fontFamily: 'Lato',
-    '& span': {
-      padding: '6px 7px',
-    },
   },
   headline: {
-    margin: '0 0 1.7rem 0',
-    width: '65vw',
-    maxWidth: '825px',
+    margin: '0 0 1rem 0',
+    width: '85vw',
+    maxWidth: '810px',
     display: 'inline-block',
     textAlign: 'center',
     fontSize: '2.7rem',
@@ -32,25 +29,30 @@ const styles = {
     fontWeight: 700,
     textTransform: 'uppercase',
   },
-  color1: {
-    background: '#5c86ff',
-    color: '#fff',
+  color: {
+    color: '#ff9033',
+    fontWeight: 700,
   },
-  color2: {
-    background: '#ff9b26',
-    color: '#fff',
+  '@media (max-width: 768px)': {
+    Header: {
+      padding: '0 15px',
+    },
+    headline: {
+      width: '100%',
+      fontSize: '7vw',
+    },
   },
 };
 
 const Header = ({ classes, headline }) => (
   <div className={classes.Header}>
     <p className={classes.headline}>
-      In Certain <span className={classes.color1}>
+      In Certain <span className={classes.color}>
         Science and Engineering
       </span>{' '}
-      Fields, <span className={classes.color2}>Sex Diversity</span> Among
-      Graduate Students Is Stagnating. In Others,{' '}
-      <span className={classes.color2}>It’s Getting Worse</span>.
+      Fields, <span className={classes.color}>Sex Diversity</span> Among
+      Graduate Students Is <span className={classes.color}>Stagnating</span>. In
+      Others, It’s <span className={classes.color}>Getting Worse</span>.
     </p>
     <p className={classes.meta}>
       <span className={classes.byline}>By Jason Kao</span> | May 3, 2019

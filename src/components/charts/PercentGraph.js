@@ -73,10 +73,15 @@ const styles = {
     fontSize: '.78rem',
     textAnchor: 'middle',
   },
+  '@media (max-width: 767px)': {
+    graphTitle: {
+      fontSize: '1.2rem',
+    },
+  },
 };
 
 const TICK_PADDING = 9;
-const margin = { top: 60, right: 20, bottom: 50, left: 70 };
+const margin = { top: 70, right: 20, bottom: 50, left: 70 };
 
 // Arbitrarily labelling different years for different fields
 const labels = {
@@ -176,13 +181,9 @@ class PercentGraph extends Component {
           {/* Graph title */}
           <FadeWrapper isVisible={fields.length > 0 || forceTitle}>
             <text className={classes.graphTitle} x={0} y={-20}>
-              Female percentage{' '}
+              {window.innerWidth > 760 && 'Female representation in '}
               <tspan className={classes.bold}>
-                {forceTitle ? (
-                  'in science and engineering'
-                ) : (
-                  writeTitleFromFields(fields)
-                )}
+                {writeTitleFromFields(fields)}
               </tspan>
             </text>
           </FadeWrapper>

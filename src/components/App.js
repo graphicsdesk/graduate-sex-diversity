@@ -50,7 +50,6 @@ const styles = {
     background: '#aaa',
   },
 };
-
 const App = ({ classes }) => (
   <div>
     <Header headline={headline} />

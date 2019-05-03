@@ -1,5 +1,6 @@
 export default `
 This document is written in the markup language ArchieML (AML). AML makes it a lot easier to write and edit structured text that can be directly put into code.
+
 headline: In Certain Science and Engineering Fields, Sex Diversity Among Graduate Students Is Stagnating. In Others, It’s Getting Worse.
 
 [lede]
@@ -17,9 +18,11 @@ fields: Physics
 
 [nutgraf]
 
-* Despite this stagnation, <i>The Eye</i>’s analysis, which includes 30 fields in seven broad areas, found that the balance between the sexes in individual fields tended to align with their larger areas of study, and that the push toward parity in certain fields has been masking other fields’ trouble in narrowing their sex gap. Our analysis extends from 1994, the earliest year that such institution- and field-specific data was available from the National Science Foundation, to 2016, the most recent. (Columbia did not report data for several fields between 2001 and 2003. See the methodology at the end of this article for further details.) In particular, we looked at the sex field, which offered the options “female” and “male” in the survey.
+* Despite this stagnation, <i>The Eye</i>’s analysis, which includes 30 fields in seven broad areas, found that the balance between the sexes in individual fields tended to align with their larger areas of study, and that the push toward parity in certain fields has been masking other fields’ trouble in narrowing their sex gap.
 
-* While some numbers are troubling, the University has expressed its commitment to the expansion of its Bridge to the Ph.D. pipeline program, which encourages undergraduates from underrepresented groups to apply to Ph.D. programs in science, technology, engineering, and mathematics.
+* Our analysis extends from 1994, the earliest year that such institution- and field-specific data was available from the <a href="https://nsf.gov/statistics/srvygradpostdoc/">National Science Foundation</a>, to 2016, the most recent. (Columbia did not report data for several fields between 2001 and 2003. See the methodology at the end of this article for further details.) In particular, we looked at the sex field, which offered the options “female” and “male” in the survey.
+
+* While some numbers are troubling, the University has expressed its commitment to <a href="https://www.columbiaspectator.com/news/2018/09/13/new-faculty-diversity-data-shows-stagnation-in-percentage-of-black-latinx-faculty/">the expansion</a> of its <a href="https://bridgetophd.facultydiversity.columbia.edu/">Bridge to the Ph.D.</a> pipeline program, which encourages undergraduates from underrepresented groups to apply to Ph.D. programs in science, technology, engineering, and mathematics.
 
 [+engineering]
 title: Engineering
@@ -65,7 +68,7 @@ title: Computer Sciences
 
 counts_graphs: Computer sciences
 
-Women remain underrepresented in the computer sciences. In 1994, 19 percent of graduate students in the computer sciences were female. By 2016, this number had only risen to 22 percent. Rapid overall growth in the computer sciences has left women behind.
+Women remain underrepresented in the computer sciences. In 1994, 19 percent of graduate students in the computer sciences were female. By 2016, this number had only risen to 22 percent.
 
 The number of female graduate students stagnated in 2004, and did not start rising again until several years later. Between 1994 and 2016, the male population saw a significant net increase, though it saw a steady decline from 2002 until 2009, when it began rising with the female population.
 
@@ -142,7 +145,7 @@ All other fields in the biological sciences maintained or reached parity in the 
 
 counts_graphs: Biochemistry; Biology; Biophysics; Genetics; Microbiology, immunology, and virology; Nutrition; Pharmacology and toxicology; Physiology
 
-The gaps between the sexes in biometry and epidemiology and “biosciences not elsewhere classified” are most clearly pronounced in the overall biological sciences.
+The gaps between the sexes in biometry and epidemiology and “biosciences not elsewhere classified” are clearly pronounced in the biological sciences overall.
 
 graph_pair: Biological sciences
 

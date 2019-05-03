@@ -1,6 +1,6 @@
 import React from 'react';
 import injectSheet from 'react-jss';
-import { fullArrowId } from '../../constants';
+import { fullArrowId, SCATTER_BREAK } from '../../constants';
 
 const styles = {
   label: {
@@ -8,6 +8,11 @@ const styles = {
     fontSize: '.97rem',
     fontWeight: 700,
     textAnchor: 'middle',
+  },
+  [`@media (max-width: ${SCATTER_BREAK}px)`]: {
+    label: {
+      fontSize: '.85rem',
+    },
   },
 };
 
@@ -43,7 +48,8 @@ const FullArrow = ({
     y2: y1 + dy,
   };
 
-  const lineHeight = 21;
+  let lineHeight = 21;
+  if (window.innerWidth < SCATTER_BREAK) lineHeight = 17;
   return (
     <g>
       <line

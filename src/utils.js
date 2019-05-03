@@ -22,14 +22,12 @@ export const maxCoord = array => {
 
 export const writeTitleFromFields = fields => {
   const field = fields[0];
-  if (field === 'ALL') {
-    return 'in all fields';
-  } else if (field === 'TOTALS') {
-    return 'in science and engineering';
+  if (field === 'TOTALS') {
+    return 'Science and engineering';
   } else if (field) {
-    return 'in ' + field.toLowerCase();
+    return capitalizeWords(field.toLowerCase());
   }
-  return 'in science and engineering';
+  return 'Science and engineering';
 };
 
 const HIGHLIGHTER_PATTERN = /<h>([^<]*)<\/h>/gi;

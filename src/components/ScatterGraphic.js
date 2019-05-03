@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { Scrollama, Step } from 'react-scrollama';
 import injectSheet from 'react-jss';
-import { FadeWrapper } from './svg';
 import { ScatterPlot } from './charts';
 import { START_YEAR, SCATTER_BREAK } from '../constants';
 
@@ -133,24 +132,13 @@ class ScatterGraphic extends Component {
           </Scrollama>
         </div>
         <figure className={classes.stickyFigure}>
-          <FadeWrapper isVisible={!showPercentGraph} useDiv>
-            <ScatterPlot
-              dataName={field}
-              maxYear={maxYear}
-              guides={guides}
-              showLine={showLine}
-              showAxesIndicators={showAxesIndicators}
-            />
-          </FadeWrapper>
-          <FadeWrapper isVisible={showPercentGraph} useDiv>
-            {/*<PercentGraph
-                dataName={discipline}
-                disciplines={disciplines}
-                fields={fields}
-                maxYear={showPercentGraph ? END_YEAR : START_YEAR}
-                isSquare
-              />*/}
-          </FadeWrapper>
+          <ScatterPlot
+            dataName={field}
+            maxYear={maxYear}
+            guides={guides}
+            showLine={showLine}
+            showAxesIndicators={showAxesIndicators}
+          />
         </figure>
       </div>
     );

@@ -53,6 +53,11 @@ const styles = {
     fill: '#999',
     textAnchor: 'middle',
   },
+  [`@media (max-width: ${SCATTER_BREAK}px)`]: {
+    axisLabel: {
+      fontSize: '.9rem',
+    },
+  },
 };
 
 const TICK_PADDING = 9;
@@ -192,6 +197,7 @@ class ScatterPlot extends Component {
       showAxesIndicators,
     } = this.props;
     let AX_LABEL_SPACING = 45;
+    if (window.innerWidth < SCATTER_BREAK) AX_LABEL_SPACING = 40;
 
     const lineGenerator = d3Line()
       .x(d => xScale(d[0]))

@@ -1,6 +1,6 @@
 import React from 'react';
 import injectSheet from 'react-jss';
-import { skinnyArrowId } from '../../constants';
+import { SCATTER_BREAK, skinnyArrowId } from '../../constants';
 
 const styles = {
   label: {
@@ -8,6 +8,11 @@ const styles = {
     fontSize: '.97rem',
     fontWeight: 700,
     textAnchor: 'middle',
+  },
+  [`@media (max-width: ${SCATTER_BREAK}px)`]: {
+    label: {
+      fontSize: '.85rem',
+    },
   },
 };
 

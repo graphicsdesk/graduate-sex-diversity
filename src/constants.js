@@ -36,7 +36,7 @@ export const skinnyArrowId = createIdStore();
 
 /* Values */
 
-export const POSSIBLE_GUIDES = [0.2, 0.25, 0.4, 0.5, 0.75];
+export const POSSIBLE_GUIDES = [0.25, 0.5, 0.75];
 
 /* Colors */
 
