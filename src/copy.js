@@ -5,15 +5,15 @@ headline: National Science Foundation Data Reveals Disparities in _____  Graduat
 
 [lede]
 
-text: The percentage of women among graduate students in science and engineering fields is virtually unchanged since 1998.
+text: The percentage of women among graduate students in <h>science and engineering</h> fields is virtually unchanged since 1998.
 fields: TOTALS
 
-text: But active perpetuation, dismantling, or even widening of certain gender gaps underlie this apparent immobility, and these behaviors vary significantly by subject area.
+text: The general stagnation in the representation of female graduate students in science and engineering shrouds a more complicated picture underneath, however.
 
-text: In mathematics fields, representation of women is quickly rising. In the last decade, statistics has reached and since maintained gender parity.
-fields: Statistics
+text: Some fields have seen a large increase in the representation of female graduate students. In the last decade, <h>mathematics and statistics</h> quickly reached and maintained gender parity.
+fields: Mathematics and statistics
 
-text: On the other hand, during this same timeframe, gender disparities have grown significantly in the physical sciences: in physics, female percentage fell from 28 percent in 2007 to just 10 percent in 2016.
+text: But other fields have seen the reverse trend, a widening gap. During that same timeframe, gender disparities have grown significantly in the physical sciences, especially in <h>physics</h>.
 fields: Physics
 
 []

@@ -37,20 +37,27 @@ export const POSSIBLE_GUIDES = [0.2, 0.25, 0.4, 0.5, 0.75];
 /* Colors */
 
 const COLORS = {
-  TOTALS: {
+  totals: {
     primary: '#007291',
     secondary: '#a1c5d2',
   },
-  'Statistics': {
+  'mathematics and statistics': {
     primary: '#1E7D68',
     secondary: '#99D9C9',
   },
-  'Physics': {
+  physics: {
     primary: '#BA3063',
     secondary: '#FEABC5',
   },
 };
 
-export const primaryColor = disc => COLORS[disc] ? COLORS[disc].primary : 'red';
+
+
+export const primaryColor = str => {
+  let field = str.toLowerCase();
+  if (field === 'science and engineering')
+    field = 'totals';
+  return COLORS[field] ? COLORS[field].primary : 'red';
+};
 
 export const secondaryColor = disc => COLORS[disc] ? COLORS[disc].secondary : 'red';

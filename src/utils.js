@@ -1,5 +1,5 @@
 import chroma from 'chroma-js';
-import { START_YEAR, END_YEAR } from './constants';
+import { primaryColor, START_YEAR, END_YEAR } from './constants';
 
 export const colorScale = chroma
   .scale(['#2A4858', '#F8E800'])
@@ -26,3 +26,14 @@ export const writeTitleFromFields = fields => {
   }
   return 'in science and engineering';
 };
+
+const HIGHLIGHTER_PATTERN = /<h>([^<]*)<\/h>/gi;
+
+export const insertHighlighters = str =>
+  str.replace(
+    HIGHLIGHTER_PATTERN,
+    (match, p1) =>
+      `<span style="background-color: ${primaryColor(
+        p1,
+      )}; color: white; padding: 4px 7px; border-radius: 2.5px;">${p1}</span>`,
+  );

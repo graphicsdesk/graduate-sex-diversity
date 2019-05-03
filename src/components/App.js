@@ -1,10 +1,12 @@
 import React from 'react';
 import archieml from 'archieml';
 import COPY from '../copy';
+import { insertHighlighters } from '../utils';
 import { POSSIBLE_GUIDES } from '../constants';
 import { Header, Paragraph } from './content';
 import LedeGraphic from './LedeGraphic';
 import ScatterGraphic from './ScatterGraphic';
+import LineChart from './charts/LineChart';
 
 const { headline, lede, nutgraf, scatter } = archieml.load(COPY);
 
@@ -12,7 +14,11 @@ const { headline, lede, nutgraf, scatter } = archieml.load(COPY);
 // INDICATORS TO FIRST FRAME of connected scatters
 
 const ledeSteps = lede.map(step => {
-  if (step.fields) step.fields = step.fields.split(',');
+  if (step.fields) {
+    step.fields = step.fields.split(',');
+  }
+  console.log(step.text, insertHighlighters(step.text));
+  step.text = insertHighlighters(step.text);
   return step;
 });
 
@@ -35,6 +41,8 @@ const App = () => (
     <LedeGraphic steps={ledeSteps} />
     {nutgraf.map(text => <Paragraph key={text} text={text} />)}
     <ScatterGraphic steps={scatterSteps} />
+
+    <LineChart dataName={'Computer sciences'} />
   </div>
 );
 

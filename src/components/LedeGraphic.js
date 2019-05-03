@@ -81,7 +81,10 @@ class LedeGraphic extends Component {
             {steps.map(({ text }, i) => (
               <Step data={i} key={text}>
                 <div className={classes.step}>
-                  <p className={classes.stepText}>{text}</p>
+                  <p
+                    className={classes.stepText}
+                    dangerouslySetInnerHTML={{ __html: text }}
+                  />
                 </div>
               </Step>
             ))}

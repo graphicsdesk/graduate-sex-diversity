@@ -589,7 +589,7 @@ export default {
       0.4185022026431718,
     ],
   },
-  Statistics: {
+  'Mathematics and statistics': {
     'Columbia University in the City of New York': [
       0.3392857142857143,
       0.3125,
