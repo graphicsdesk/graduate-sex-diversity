@@ -103,13 +103,7 @@ class ScatterGraphic extends Component {
     if (stepIndex >= 0) {
       step = steps[stepIndex];
     }
-    let {
-      field,
-      maxYear,
-      showAxesIndicators,
-      guides,
-      showLine,
-    } = step;
+    let { field, maxYear, showAxesIndicators, guides, showLine } = step;
     if (stepIndex <= 0) {
       showAxesIndicators = true;
     }

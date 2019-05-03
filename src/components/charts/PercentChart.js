@@ -27,7 +27,7 @@ const axisStyles = {
 const styles = {
   graphTitle: {
     fontFamily: 'Roboto',
-    fontSize: '1.15rem',
+    fontSize: '1.1rem',
     fill: '#111',
     textAnchor: 'middle',
     fontWeight: 600,
@@ -37,7 +37,19 @@ const styles = {
     stroke: '#333',
     strokeWidth: 1.5,
   },
-  xAxis: axisStyles,
+  xAxis: {
+    ...axisStyles,
+    /*
+    '& g': {
+      visibility: 'hidden',
+    },
+    '& g:nth-child(2)': {
+      visibility: 'visible',
+    },
+    '& g:last-child': {
+      visibility: 'visible',
+    },*/
+  },
   yAxis: {
     ...axisStyles,
     '& g:nth-child(2) > text': {
@@ -67,6 +79,7 @@ const styles = {
 
 const TICK_PADDING = 9;
 const margin = { top: 40, right: 20, bottom: 50, left: 70 };
+const SMALL_MARGIN = 45;
 
 class PercentChart extends Component {
   constructor(props) {
@@ -104,7 +117,7 @@ class PercentChart extends Component {
     let NUM_TICKS = 8;
 
     let width = window.innerWidth * 0.5;
-    width = 400;
+    width = 360;
     if (width < 576) {
       NUM_TICKS = 5;
     }
@@ -114,7 +127,13 @@ class PercentChart extends Component {
     // Calculate svg and root group's dimensions
 
     const height = width;
-    const gWidth = width - margin.left - margin.right;
+
+    let gWidth = width - margin.right;
+    if (this.props.showYlabel) {
+      gWidth -= margin.left;
+    } else {
+      gWidth -= SMALL_MARGIN;
+    }
     const gHeight = height - margin.top - margin.bottom;
 
     // Construct scales and axes from data
@@ -129,10 +148,10 @@ class PercentChart extends Component {
     const xAxis = axisBottom(xScale)
       .tickPadding(TICK_PADDING)
       .tickFormat(x => x) // remove thousands commas
-      .ticks(NUM_TICKS);
+      .ticks(6);
     const yAxis = axisLeft(yScale)
       .tickSize(-gWidth)
-      .ticks(NUM_TICKS)
+      .ticks(4)
       .tickPadding(TICK_PADDING)
       .tickFormat(d3Format('.0%'));
 
@@ -160,7 +179,13 @@ class PercentChart extends Component {
       xAxis,
       yAxis,
     } = this.state;
-    const { classes, dataName, noTitle } = this.props;
+    const {
+      classes,
+      dataName,
+      noTitle,
+      colors,
+      showYlabel = false,
+    } = this.props;
     let AX_LABEL_SPACING = 35;
 
     const lineGenerator = d3Line()
@@ -174,12 +199,16 @@ class PercentChart extends Component {
 
     return (
       <svg width={width} height={height}>
-        <g transform={`translate(${margin.left}, ${margin.top})`}>
+        <g
+          transform={`translate(${showYlabel
+            ? margin.left
+            : SMALL_MARGIN}, ${margin.top})`}
+        >
           {!noTitle && (
             <text
               className={classes.graphTitle}
               x={xScale((START_YEAR + END_YEAR) / 2)}
-              y={-10}
+              y={-18}
             >
               {capitalizeWords(dataName)}
             </text>
@@ -197,13 +226,15 @@ class PercentChart extends Component {
             ref={node => d3Select(node).call(yAxis)}
             className={classes.yAxis}
           />
-          <text
-            className={classes.axisLabel}
-            transform={`translate(${-AX_LABEL_SPACING - 13}, ${gHeight /
-              2}) rotate(-90)`}
-          >
-            Percent female
-          </text>
+          {showYlabel && (
+            <text
+              className={classes.axisLabel}
+              transform={`translate(${-AX_LABEL_SPACING - 13}, ${gHeight /
+                2}) rotate(-90)`}
+            >
+              Percent female
+            </text>
+          )}
 
           {/* Equality line */}
           <path
@@ -215,7 +246,7 @@ class PercentChart extends Component {
             x={xScale((START_YEAR + END_YEAR) / 2)}
             y={yScale(0.5) - 7}
           >
-            EQUAL NUMBER OF MEN AND WOMEN
+            SEX PARITY
           </text>
           <text
             className={classes.equalityLabel}
@@ -236,7 +267,7 @@ class PercentChart extends Component {
                 key={dataName + inst}
                 className={classes.line}
                 isVisible
-                color={'#b1d0ff'}
+                color={colors.secondary}
                 strokeWidth={0.7}
               />
             );
@@ -247,13 +278,13 @@ class PercentChart extends Component {
             d={lineGenerator(this.data)}
             className={classes.line}
             isVisible
-            color={'#5e98ff'}
-            strokeWidth={2}
+            color={colors.primary}
+            strokeWidth={2.5}
             labels={[
               {
                 x: xScale(END_YEAR),
                 y: yScale(this.data[END_YEAR - START_YEAR]),
-                r: 4,
+                r: 5,
                 isPulsing: false,
                 label: '',
               },

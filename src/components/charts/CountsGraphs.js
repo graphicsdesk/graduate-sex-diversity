@@ -6,7 +6,6 @@ const styles = {
   container: {
     display: 'flex',
     justifyContent: 'center',
-    flexWrap: 'wrap',
     marginBottom: '2rem',
     '& > svg': {
       margin: '0 15px',
