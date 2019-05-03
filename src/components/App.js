@@ -7,6 +7,7 @@ import LedeGraphic from './LedeGraphic';
 import ScatterGraphic from './ScatterGraphic';
 import CountsGraphs from './charts/CountsGraphs';
 import GraphPair from './charts/GraphPair';
+import injectSheet from 'react-jss';
 
 const {
   headline,
@@ -32,7 +33,20 @@ const ledeSteps = lede.map(step => {
   return step;
 });
 
-const App = () => (
+const styles = {
+  nerdBox: {
+    padding: '0 20px',
+    maxWidth: '500px',
+    margin: '0 auto 2rem auto',
+    lineHeight: 1.6,
+    fontSize: '0.9rem',
+    fontFamily: 'Lato',
+    paddingTop: '15px',
+    color: '#aaa',
+  },
+};
+
+const App = ({ classes }) => (
   <div>
     <Header headline={headline} />
 
@@ -203,8 +217,31 @@ const App = () => (
       }
     />
 
-    {/*<Paragraph text=/>*/}
+    {/*<Paragraph textMMETHODOLOGY=/>*/}
+    <div className={classes.nerdBox}>
+      <p>
+        Student populations by demographic are reported by universities to the
+        National Science Foundation. They may contain mistakes or missing data.
+      </p>
+
+      <p>
+        Peer institutions included the seven other Ivies, MIT, Stanford, and the
+        University of Chicago.
+      </p>
+
+      <p>
+        Anatomy, cell and molecular biology, ecology, neurobiology and
+        neuroscience, chemical engineering, “engineering not elsewhere
+        classified,” and mining engineering were excluded from individual
+        analysis because they had data missing for more than half of the years
+        of this analysis. Some empty data was assumed to be zero due to
+        historical factors, notably the creation, destruction, or renaming of
+        certain departments. Columbia did not report data for several other
+        fields between 2001 and 2003; broader trends in this timeframe were
+        ignored.
+      </p>
+    </div>
   </div>
 );
 
-export default App;
+export default injectSheet(styles)(App);
