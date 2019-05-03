@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/3.6.3/workbox-sw.js");
 
 importScripts(
-  "/graduate-diversity/precache-manifest.94ab5213fcaa00efb3ba1f28d4d141ed.js"
+  "/graduate-diversity/precache-manifest.59c80c5703d69f46b84f9ed8709c02ef.js"
 );
 
 workbox.clientsClaim();
