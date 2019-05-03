@@ -1,7 +1,5 @@
 export default `
 This document is written in the markup language ArchieML (AML). AML makes it a lot easier to write and edit structured text that can be directly put into code.
-
-
 headline: In Certain Science and Engineering Fields, Sex Diversity Among Graduate Students Is Stagnating. In Others, It’s Getting Worse.
 
 [lede]
@@ -19,7 +17,7 @@ fields: Physics
 
 [nutgraf]
 
-* Despite this stagnation, <i>The Eye’s</i> analysis, which includes 30 fields in seven broad areas, found that the balance between the sexes in individual fields tended to align with their larger areas of study, and that the push toward parity in certain fields has been masking other fields’ trouble in narrowing their sex gap. Our analysis extends from 1994, the earliest year that such institution- and field-specific data was available from the National Science Foundation, to 2016, the most recent. (Columbia did not report data for several fields between 2001 and 2003. See the methodology at the end of this article for further details.) In particular, we looked at the sex field, which offered the options “female” and “male” in the survey.
+* Despite this stagnation, <i>The Eye</i>’s analysis, which includes 30 fields in seven broad areas, found that the balance between the sexes in individual fields tended to align with their larger areas of study, and that the push toward parity in certain fields has been masking other fields’ trouble in narrowing their sex gap. Our analysis extends from 1994, the earliest year that such institution- and field-specific data was available from the National Science Foundation, to 2016, the most recent. (Columbia did not report data for several fields between 2001 and 2003. See the methodology at the end of this article for further details.) In particular, we looked at the sex field, which offered the options “female” and “male” in the survey.
 
 * While some numbers are troubling, the University has expressed its commitment to the expansion of its Bridge to the Ph.D. pipeline program, which encourages undergraduates from underrepresented groups to apply to Ph.D. programs in science, technology, engineering, and mathematics.
 
@@ -75,8 +73,8 @@ From 2015 to 2016, the number of graduate students in the computer sciences fell
 
 [+physical_sciences]
 
-title: The Physical Sciences
-subtitle: The physical sciences include physics, chemistry, and astronomy and astrophysics.
+title: Physical Sciences
+subtitle: Physical sciences include the following fields: physics; chemistry; astronomy; and astrophysics.
 
 graph_pair: Physical sciences
 
@@ -98,7 +96,7 @@ In the following years, however, with the male population slowly increasing and 
 
 [+mathematics_statistics]
 title: Mathematics and Statistics
-subtitle: This broad field contains statistics, and mathematics and applied mathematics.
+subtitle: Mathematics and statistics includes the following fields: mathematics and applied mathematics; statistics.
 
 graph_pair: Mathematics and statistics
 
@@ -119,7 +117,8 @@ Mathematics and applied mathematics have seen a strong push toward parity as wel
 [+psychology_socialsciences]
 
 title: Psychology and the Social Sciences
-subtitle: These broad fields contain anthropology, psychology, economics, political science and government, sociology, and social sciences not elsewhere classified.
+subtitle: Psychology and the social sciences includes the following fields: anthropology; psychology, general; economics; political science and government; sociology; and social sciences not elsewhere classified.
+
 With a few exceptions, fields in psychology and the social sciences that have been male-dominated have remained male-dominated, and those that have been female-dominated have remained female-dominated.
 
 
@@ -132,7 +131,8 @@ counts_graphs: Political science and government; Sociology
 
 [+biological_sciences]
 title: Biological Sciences
-subtitle: The biological sciences contain ten fields.
+subtitle: Biological sciences includes the following fields: biometry and epidemiology; biosciences not elsewhere classified; biochemistry; biology; biophysics; genetics; microbiology, immunology, and virology; nutrition; pharmacology and toxicology; and physiology.
+
 Two of the largest fields in the biological sciences, biometry and epidemiology and “biosciences not elsewhere classified” (which includes evolutionary and environmental biology) have seen an expanding disparity between the sexes.
 
 

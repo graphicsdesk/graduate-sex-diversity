@@ -111,11 +111,17 @@ const App = ({ classes }) => (
           <CountsGraphs
             key={value}
             names={value.split(';').map(s => s.trim())}
-            noTitle={i === 1}
+            noTitle={i === 1 || i === 2}
           />
         );
       } else if (type === 'graph_pair') {
-        return <GraphPair key={value} name={value.trim()} />;
+        return (
+          <GraphPair
+            key={value}
+            name={value.trim()}
+            noTitle={i === 1 || i === 2}
+          />
+        );
       }
     })}
     {mathematics_statistics.map(({ type, value }, i) => {
@@ -138,7 +144,13 @@ const App = ({ classes }) => (
           />
         );
       } else if (type === 'graph_pair') {
-        return <GraphPair key={value} name={value.trim()} />;
+        return (
+          <GraphPair
+            key={value}
+            name={value.trim()}
+            noTitle={i === 1 || i === 2}
+          />
+        );
       }
     })}
     {psychology_socialsciences.map(({ type, value }) => {
@@ -214,6 +226,13 @@ const App = ({ classes }) => (
     <Paragraph
       text={
         'The steady line of stagnation among female representation in the graduate sciences, this closer look at the National Science Foundation shows, masks significant shifts and troubling declines in certain fields.'
+      }
+    />
+
+    <Paragraph text={'<i>Enjoy leafing through our eleventh issue!</i>'} />
+    <Paragraph
+      text={
+        '<a href="https://www.columbiaspectator.com/eye/issue/n/XXVI/10/">Previous Issue</a> | <a href="https://www.columbiaspectator.com/eye/issue/n/XXVI/11/">More In This Issue</a>'
       }
     />
 

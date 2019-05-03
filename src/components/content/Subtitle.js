@@ -10,6 +10,7 @@ const styles = {
     fontSize: '0.97rem',
     color: '#888',
     fontFamily: 'Open Sans',
+    textAlign: 'center',
   },
 };
 

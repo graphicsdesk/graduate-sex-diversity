@@ -42,15 +42,15 @@ export const POSSIBLE_GUIDES = [0.2, 0.25, 0.4, 0.5, 0.75];
 
 const COLORS = {
   totals: {
-    primary: '#007291',
+    primary: '#5c86ff',
     secondary: '#a1c5d2',
   },
   'mathematics and statistics': {
-    primary: '#1E7D68',
+    primary: '#4cd3a1',
     secondary: '#99D9C9',
   },
   physics: {
-    primary: '#BA3063',
+    primary: '#f03c6a',
     secondary: '#FEABC5',
   },
 };
