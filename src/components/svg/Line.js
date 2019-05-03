@@ -79,7 +79,7 @@ class Line extends Component {
   }
 
   componentDidUpdate(prevProps) {
-    const { isVisible, queuePosition, d } = this.props;
+    const { isVisible, queuePosition, d, name } = this.props;
     const { current: node } = this.ref;
     if (!node) return;
 
@@ -96,8 +96,11 @@ class Line extends Component {
         .transition()
         .delay(queuePosition * QUEUE_DELAY)
         .duration(LINE_ANIM_TIME)
-        .attr('stroke-dashoffset', 0)
-        .on('end', () => this.setState({ isEndpointVisible: true }));
+        .attr('stroke-dashoffset', 0);
+      setTimeout(
+        () => this.setState({ isEndpointVisible: true }),
+        name === 'TOTALS' ? LINE_ANIM_TIME * 0.6 : LINE_ANIM_TIME,
+      );
     } else if (prevProps.isVisible && !isVisible) {
       // Animate out
       this.setState({ isEndpointVisible: false });

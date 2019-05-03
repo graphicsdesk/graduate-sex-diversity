@@ -26,6 +26,7 @@ const styles = {
   meta: {
     fontSize: '1.1rem',
     fontFamily: 'Roboto',
+    marginBottom: 0,
   },
   byline: {
     fontWeight: 700,

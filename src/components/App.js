@@ -41,8 +41,13 @@ const styles = {
     lineHeight: 1.6,
     fontSize: '0.9rem',
     fontFamily: 'Lato',
-    paddingTop: '15px',
     color: '#aaa',
+  },
+  shortLine: {
+    marginBottom: '.7rem',
+    width: '3rem',
+    height: '1px',
+    background: '#aaa',
   },
 };
 
@@ -232,15 +237,21 @@ const App = ({ classes }) => (
     <Paragraph text={'<i>Enjoy leafing through our eleventh issue!</i>'} />
     <Paragraph
       text={
-        '<a href="https://www.columbiaspectator.com/eye/issue/n/XXVI/10/">Previous Issue</a> | <a href="https://www.columbiaspectator.com/eye/issue/n/XXVI/11/">More In This Issue</a>'
+        '<a href="https://www.columbiaspectator.com/eye/issue/n/XXVI/10/" target="_blank">Previous Issue</a> | <a target="_blank" href="https://www.columbiaspectator.com/eye/issue/n/XXVI/11/">More In This Issue</a>'
       }
     />
 
     {/*<Paragraph textMMETHODOLOGY=/>*/}
     <div className={classes.nerdBox}>
+      <div className={classes.shortLine} />
       <p>
-        Student populations by demographic are reported by universities to the
-        National Science Foundation. They may contain mistakes or missing data.
+        Sources: National Science Foundation Survey of Graduate Students and
+        Postdoctorates in Science and Engineering
+      </p>
+      <p>
+        Notes: Student populations by demographic are reported by universities
+        to the National Science Foundation. They may contain mistakes or missing
+        data.
       </p>
 
       <p>

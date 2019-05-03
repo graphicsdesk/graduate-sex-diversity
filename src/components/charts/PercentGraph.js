@@ -158,7 +158,7 @@ class PercentGraph extends Component {
       xAxis,
       yAxis,
     } = this.state;
-    const { classes, fields } = this.props;
+    const { classes, fields, forceTitle } = this.props;
 
     const lineGenerator = d3Line()
       .x((_, i) => xScale(START_YEAR + i))
@@ -174,11 +174,15 @@ class PercentGraph extends Component {
       <svg width={width} height={height}>
         <g transform={`translate(${margin.left}, ${margin.top})`}>
           {/* Graph title */}
-          <FadeWrapper isVisible={fields.length > 0}>
+          <FadeWrapper isVisible={fields.length > 0 || forceTitle}>
             <text className={classes.graphTitle} x={0} y={-20}>
               Female percentage{' '}
               <tspan className={classes.bold}>
-                {writeTitleFromFields(fields)}
+                {forceTitle ? (
+                  'in science and engineering'
+                ) : (
+                  writeTitleFromFields(fields)
+                )}
               </tspan>
             </text>
           </FadeWrapper>
@@ -214,15 +218,11 @@ class PercentGraph extends Component {
           </text>
 
           {/* Columbia field lines */}
-          {Object.keys(PROPORTIONS).map(field => {
+          {['TOTALS', 'Mathematics and statistics', 'Physics'].map(field => {
             let data = PROPORTIONS[field];
 
             if (field !== 'TOTALS') {
               data = data[COLUMBIA_NAME];
-            }
-            if (!data) {
-              console.log(field);
-              console.log(PROPORTIONS['Biochemistry']);
             }
             return (
               <Line
@@ -231,7 +231,7 @@ class PercentGraph extends Component {
                 isVisible={fields.includes(field)}
                 name={field}
                 color={primaryColor(field)}
-                strokeWidth={2.2}
+                strokeWidth={3}
                 showEndpoint
                 labels={(labels[field]
                   ? labels[field]

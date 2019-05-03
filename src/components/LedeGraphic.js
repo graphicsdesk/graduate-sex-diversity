@@ -68,7 +68,7 @@ class LedeGraphic extends Component {
     return (
       <div className={classes.Graphic}>
         <figure className={classes.stickyFigure}>
-          <PercentGraph fields={fields} />
+          <PercentGraph fields={fields} forceTitle={stepIndex === -1} />
         </figure>
         <div className={classes.stepsContainer}>
           <Scrollama
