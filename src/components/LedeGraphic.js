@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Scrollama, Step } from 'react-scrollama';
 import injectSheet from 'react-jss';
+import stickybits from 'stickybits';
 import { PercentGraph } from './charts';
 
 const styles = {
@@ -43,6 +44,10 @@ const styles = {
   },
 };
 
+const STICKY_ID = 'sticky-lede-graphic';
+
+stickybits(STICKY_ID);
+
 class LedeGraphic extends Component {
   state = { stepIndex: -1 };
 
@@ -67,7 +72,7 @@ class LedeGraphic extends Component {
 
     return (
       <div className={classes.Graphic}>
-        <figure className={classes.stickyFigure}>
+        <figure className={classes.stickyFigure} id={STICKY_ID}>
           <PercentGraph fields={fields} forceTitle={stepIndex === -1} />
         </figure>
         <div className={classes.stepsContainer}>

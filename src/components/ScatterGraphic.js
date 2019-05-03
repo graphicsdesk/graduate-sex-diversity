@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Scrollama, Step } from 'react-scrollama';
+import stickybits from 'stickybits';
 import injectSheet from 'react-jss';
 import { ScatterPlot } from './charts';
 import { START_YEAR, SCATTER_BREAK } from '../constants';
@@ -72,6 +73,10 @@ const styles = {
   },
 };
 
+const STICKY_ID = 'sticky-lede-graphic';
+
+stickybits(STICKY_ID);
+
 class ScatterGraphic extends Component {
   state = {
     title: 'Engineering', // this.props.steps[0].title,
@@ -130,7 +135,7 @@ class ScatterGraphic extends Component {
             ))}
           </Scrollama>
         </div>
-        <figure className={classes.stickyFigure}>
+        <figure className={classes.stickyFigure} id={STICKY_ID}>
           <ScatterPlot
             dataName={field}
             maxYear={maxYear}
