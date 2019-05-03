@@ -28,6 +28,14 @@ const styles = {
   byline: {
     fontWeight: 700,
     textTransform: 'uppercase',
+    color: '#111',
+    '& a': {
+      color: '#111',
+      textDecoration: 'none',
+    },
+    '& a:hover': {
+      textDecoration: 'underline',
+    },
   },
   color: {
     color: '#ff9033',
@@ -55,7 +63,7 @@ const Header = ({ classes, headline }) => (
       Others, It’s <span className={classes.color}>Getting Worse</span>.
     </p>
     <p className={classes.meta}>
-      <span className={classes.byline}>By Jason Kao</span> | May 3, 2019
+      <span className={classes.byline}>By <a href="https://www.columbiaspectator.com/contributors/Jason-Kao">Jason Kao</a></span> | May 3, 2019
     </p>
   </div>
 );
