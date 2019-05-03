@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/3.6.3/workbox-sw.js");
 
 importScripts(
-  "/graduate-sex-diversity/precache-manifest.0e1e34002ac676f5b5b8481d5ef442e4.js"
+  "/graduate-sex-diversity/precache-manifest.8ad61162a1766099865435f8768cfc7b.js"
 );
 
 workbox.clientsClaim();
