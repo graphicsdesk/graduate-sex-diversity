@@ -3,7 +3,7 @@ import injectSheet from 'react-jss';
 
 const styles = {
   Header: {
-    marginTop: '4rem',
+    marginTop: '208px',
     marginBottom: '0',
     display: 'flex',
     alignItems: 'center',

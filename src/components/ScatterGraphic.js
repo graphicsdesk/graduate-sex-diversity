@@ -104,7 +104,6 @@ class ScatterGraphic extends Component {
       showAxesIndicators,
       guides,
       showLine,
-      showPercentGraph,
     } = step;
     if (stepIndex <= 0) {
       showAxesIndicators = true;
