@@ -21,7 +21,7 @@ const styles = {
     color: '#333',
   },
   meta: {
-    fontSize: '1.2rem',
+    fontSize: '1.1rem',
     fontFamily: 'Roboto',
   },
   byline: {
