@@ -2,9 +2,8 @@ import React, { Component } from 'react';
 import { Scrollama, Step } from 'react-scrollama';
 import injectSheet from 'react-jss';
 import { FadeWrapper } from './svg';
-import { PercentGraph, ScatterPlot } from './charts';
-import { Subtitle } from './content';
-import { END_YEAR, START_YEAR } from '../constants';
+import { ScatterPlot } from './charts';
+import { START_YEAR } from '../constants';
 
 const styles = {
   Graphic: {
@@ -90,49 +89,46 @@ class ScatterGraphic extends Component {
     }
 
     return (
-      <div>
-        <Subtitle text={title} />
-        <div className={classes.Graphic}>
-          <div className={classes.stepsContainer}>
-            <Scrollama
-              offset={0.45}
-              onStepEnter={this.onStepEnter}
-              onStepExit={this.onStepExit}
-            >
-              {steps.map(({ text, note }, i) => (
-                <Step data={i} key={text}>
-                  <div className={classes.step}>
-                    <p
-                      className={classes.stepText}
-                      dangerouslySetInnerHTML={{ __html: text }}
-                    />
-                    {note && <p className={classes.note}>{note}</p>}
-                  </div>
-                </Step>
-              ))}
-            </Scrollama>
-          </div>
-          <figure className={classes.stickyFigure}>
-            <FadeWrapper isVisible={!showPercentGraph} useDiv>
-              <ScatterPlot
-                dataName={field}
-                maxYear={maxYear}
-                guides={guides}
-                showLine={showLine}
-                showAxesIndicators={showAxesIndicators}
-              />
-            </FadeWrapper>
-            <FadeWrapper isVisible={showPercentGraph} useDiv>
-              {/*<PercentGraph
+      <div className={classes.Graphic}>
+        <div className={classes.stepsContainer}>
+          <Scrollama
+            offset={0.45}
+            onStepEnter={this.onStepEnter}
+            onStepExit={this.onStepExit}
+          >
+            {steps.map(({ text, note }, i) => (
+              <Step data={i} key={text}>
+                <div className={classes.step}>
+                  <p
+                    className={classes.stepText}
+                    dangerouslySetInnerHTML={{ __html: text }}
+                  />
+                  {note && <p className={classes.note}>{note}</p>}
+                </div>
+              </Step>
+            ))}
+          </Scrollama>
+        </div>
+        <figure className={classes.stickyFigure}>
+          <FadeWrapper isVisible={!showPercentGraph} useDiv>
+            <ScatterPlot
+              dataName={field}
+              maxYear={maxYear}
+              guides={guides}
+              showLine={showLine}
+              showAxesIndicators={showAxesIndicators}
+            />
+          </FadeWrapper>
+          <FadeWrapper isVisible={showPercentGraph} useDiv>
+            {/*<PercentGraph
                 dataName={discipline}
                 disciplines={disciplines}
                 fields={fields}
                 maxYear={showPercentGraph ? END_YEAR : START_YEAR}
                 isSquare
               />*/}
-            </FadeWrapper>
-          </figure>
-        </div>
+          </FadeWrapper>
+        </figure>
       </div>
     );
   }

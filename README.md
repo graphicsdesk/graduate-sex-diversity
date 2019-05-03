@@ -12,7 +12,7 @@
 
 `<App/>` reads the copy. It sends content into `content/` components and sends graphics instructions into `src/` level components (e.g. `<AreaGraphic>`, `<ScatterGraphic>`).
 
-`<ScatterGraphic/>` implements `react-scrollama` and controls whether `<PercentGraph/>` or `<LineChart/>` is visible. It sends numerical data and high-level instructions to these graphs.
+`<ScatterGraphic/>` implements `react-scrollama` and controls whether `<PercentGraph/>` or `<CountsGraphs/>` is visible. It sends numerical data and high-level instructions to these graphs.
 
 `<PercentGraph/>` contains the graph framework and animates in data. It controls the placement of `<Line/>`'s and `<Point/>`'s.
 

@@ -79,7 +79,7 @@ const styles = {
 const TICK_PADDING = 9;
 const margin = { top: 40, right: 20, bottom: 50, left: 70 };
 
-// Arbitrary labels I don't know how else better to implement
+// Arbitrarily labelling different years for different fields
 const labels = {
   Statistics: [2003, 2016],
   Physics: [1994, 2007, 2016],

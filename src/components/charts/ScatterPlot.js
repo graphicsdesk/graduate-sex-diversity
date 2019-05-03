@@ -88,7 +88,7 @@ class ScatterPlot extends Component {
 
   resetState = () => {
     const { dataName } = this.props;
-    if (dataName === 'TOTALS' || dataName === 'Engineering') {
+    if (dataName === 'TOTALS') {
       this.data = COUNTS[dataName];
     } else {
       this.data = COUNTS[dataName][COLUMBIA_NAME];

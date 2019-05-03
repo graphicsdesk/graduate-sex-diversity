@@ -1,35 +1,34 @@
 import React, { Component } from 'react';
 import injectSheet from 'react-jss';
 import { scaleLinear } from 'd3-scale';
-import { line as d3Line } from 'd3-shape';
+import { line as d3Line, curveCardinal } from 'd3-shape';
 import { axisBottom, axisLeft } from 'd3-axis';
 import { select as d3Select } from 'd3-selection';
 
 import COUNTS from '../../counts';
-import { maxCoord, colorScale } from '../../utils';
-import {
-  COLUMBIA_NAME,
-  END_YEAR,
-  POSSIBLE_GUIDES,
-  START_YEAR,
-} from '../../constants';
-import {
-  Point,
-  Line,
-  Guide,
-  FadeWrapper,
-  FullArrowHead,
-  SkinnyArrowHead,
-  FullArrow,
-  SkinnyArrow,
-} from '../svg';
+import { capitalizeWords, maxCoord } from '../../utils';
+import { COLUMBIA_NAME, END_YEAR, START_YEAR } from '../../constants';
+import { Line } from '../svg';
+
+const axisStyles = {
+  '& path.domain': { display: 'none' },
+  '& text': {
+    fontFamily: 'Roboto',
+    fontSize: '0.93rem',
+    color: '#999',
+  },
+  '& > g.tick line': {
+    stroke: '#ccc',
+    strokeWidth: 0.6,
+  },
+};
 
 const styles = {
   graphTitle: {
     fontFamily: 'Roboto',
-    fontSize: '1.1rem',
+    fontSize: '1.15rem',
     fill: '#111',
-    textAnchor: 'start',
+    textAnchor: 'middle',
     fontWeight: 600,
   },
   line: {
@@ -37,20 +36,12 @@ const styles = {
     stroke: '#333',
     strokeWidth: 1.5,
   },
-  axis: {
-    '& path.domain': { display: 'none' },
+  xAxis: axisStyles,
+  yAxis: {
+    ...axisStyles,
     '& g:nth-child(2) > text': {
       // first tick
       display: 'none',
-    },
-    '& text': {
-      fontFamily: 'Roboto',
-      fontSize: '0.93rem',
-      color: '#999',
-    },
-    '& > g.tick line': {
-      stroke: '#ccc',
-      strokeWidth: 0.6,
     },
   },
   axisLabel: {
@@ -88,7 +79,7 @@ class LineChart extends Component {
 
   resetState = () => {
     const { dataName } = this.props;
-    if (dataName === 'TOTALS' || dataName === 'Engineering') {
+    if (dataName === 'TOTALS') {
       this.data = COUNTS[dataName];
     } else {
       this.data = COUNTS[dataName][COLUMBIA_NAME];
@@ -102,6 +93,7 @@ class LineChart extends Component {
     let NUM_TICKS = 8;
 
     let width = window.innerWidth * 0.5;
+    width = 400;
     if (width < 576) {
       NUM_TICKS = 5;
     }
@@ -123,7 +115,6 @@ class LineChart extends Component {
       .range([gHeight, 0]);
 
     const xAxis = axisBottom(xScale)
-      .tickSize(-gHeight)
       .tickPadding(TICK_PADDING)
       .tickFormat(x => x) // remove thousands commas
       .ticks(NUM_TICKS);
@@ -150,7 +141,6 @@ class LineChart extends Component {
     const {
       width,
       height,
-      gWidth,
       gHeight,
 
       upperLimit,
@@ -158,67 +148,49 @@ class LineChart extends Component {
       yScale,
       xAxis,
       yAxis,
-
-      maxYear,
-      previousMaxYear,
-      markedYears,
     } = this.state;
-    const {
-      classes,
-      dataName,
-    } = this.props;
+    const { classes, dataName } = this.props;
     let AX_LABEL_SPACING = 35;
     if (upperLimit >= 100) {
       AX_LABEL_SPACING += 10;
     }
 
     const lineGenerator = d3Line()
-      .x(d => xScale(d[0]))
-      .y(d => yScale(d[1]));
+      .x((_, i) => xScale(START_YEAR + i))
+      .y(yScale)
+      .curve(curveCardinal.tension(0.5))
+      .defined(d => d);
 
     const females = this.data.map(d => d[0]);
     const males = this.data.map(d => d[1]);
 
     return (
       <svg width={width} height={height}>
-        <defs>
-          <FullArrowHead dataName={dataName} />
-          <SkinnyArrowHead dataName={dataName} />
-        </defs>
-
         <g transform={`translate(${margin.left}, ${margin.top})`}>
-          <text className={classes.graphTitle} x={xScale(0)} y={-20}>
-            Graduate students in{' '}
-            {dataName === 'TOTALS' ? (
-              'science and engineering'
-            ) : (
-              dataName.toLowerCase()
-            )}
+          <text
+            className={classes.graphTitle}
+            x={xScale((START_YEAR + END_YEAR) / 2)}
+            y={-10}
+          >
+            {capitalizeWords(dataName)}
           </text>
 
-          {/* X-axis and axis label */}
+          {/* X-axis */}
           <g
             ref={node => d3Select(node).call(xAxis)}
-            className={classes.axis}
+            className={classes.xAxis}
             transform={`translate(0, ${gHeight})`}
           />
-          <text
-            className={classes.axisLabel}
-            transform={`translate(${gWidth / 2}, ${gHeight +
-            AX_LABEL_SPACING})`}
-          >
-            Year
-          </text>
 
           {/* Y-axis and axis label */}
           <g
             ref={node => d3Select(node).call(yAxis)}
-            className={classes.axis}
+            className={classes.yAxis}
           />
           <text
             className={classes.axisLabel}
             transform={`translate(${-AX_LABEL_SPACING - 13}, ${gHeight /
-            2}) rotate(-90)`}
+              2}) rotate(-90)`}
           >
             Number of people
           </text>
@@ -228,12 +200,23 @@ class LineChart extends Component {
             d={lineGenerator(females)}
             className={classes.line}
             isVisible
-            queuePosition={
-              maxYear -
-              (previousMaxYear < START_YEAR ? START_YEAR : previousMaxYear)
-            }
-            color={'blue'}
-            strokeWidth={1.2}
+            color={'#5e98ff'}
+            strokeWidth={2}
+            labels={[
+              {
+                x: xScale(END_YEAR - 1),
+                y: yScale(females[END_YEAR - 1 - START_YEAR]),
+                r: 0,
+                label: 'Female',
+              },
+              {
+                x: xScale(END_YEAR),
+                y: yScale(females[END_YEAR - START_YEAR]),
+                r: 4,
+                isPulsing: false,
+                label: '',
+              },
+            ]}
           />
 
           {/* Male data line */}
@@ -241,12 +224,23 @@ class LineChart extends Component {
             d={lineGenerator(males)}
             className={classes.line}
             isVisible
-            queuePosition={
-              maxYear -
-              (previousMaxYear < START_YEAR ? START_YEAR : previousMaxYear)
-            }
-            color={'orange'}
-            strokeWidth={1.2}
+            color={'#ff9d13'}
+            strokeWidth={2}
+            labels={[
+              {
+                x: xScale(END_YEAR - 1),
+                y: yScale(males[END_YEAR - 1 - START_YEAR]),
+                r: 0,
+                label: 'Male',
+              },
+              {
+                x: xScale(END_YEAR),
+                y: yScale(males[END_YEAR - START_YEAR]),
+                r: 4,
+                isPulsing: false,
+                label: '',
+              },
+            ]}
           />
         </g>
       </svg>

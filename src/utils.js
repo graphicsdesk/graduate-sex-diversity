@@ -1,5 +1,10 @@
 import chroma from 'chroma-js';
-import { primaryColor, START_YEAR, END_YEAR } from './constants';
+import {
+  primaryColor,
+  START_YEAR,
+  END_YEAR,
+  POSSIBLE_GUIDES,
+} from './constants';
 
 export const colorScale = chroma
   .scale(['#2A4858', '#F8E800'])
@@ -37,3 +42,24 @@ export const insertHighlighters = str =>
         p1,
       )}; color: white; padding: 4px 7px; border-radius: 2.5px;">${p1}</span>`,
   );
+
+export const capitalizeWords = text =>
+  text
+    .toLowerCase()
+    .split(' ')
+    .map(s => s.charAt(0).toUpperCase() + s.substring(1))
+    .join(' ');
+
+export const processSteps = steps =>
+  steps.map(step => {
+    const { guides, maxYear } = step;
+    if (guides) {
+      step.guides = step.guides.split(',').map(s => {
+        if (!POSSIBLE_GUIDES.includes(+s))
+          console.error(s + ' is not included in the possible guides.');
+        return +s;
+      });
+    }
+    if (maxYear) step.maxYear = +step.maxYear;
+    return step;
+  });

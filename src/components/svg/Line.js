@@ -139,16 +139,22 @@ class Line extends Component {
           </text>
         )}
         {labels.length > 0 &&
-          labels.map(({ x, y, label }, i) => (
+          labels.map(({ x, y, r = 7, label, isPulsing = true }, i) => (
             <FadeWrapper
               key={x + '-' + y + '-' + label}
               isVisible={isVisible && isEndpointVisible}
             >
               <circle
-                className={i === labels.length - 1 ? classes.pulse : undefined}
+                className={
+                  i === labels.length - 1 && isPulsing ? (
+                    classes.pulse
+                  ) : (
+                    undefined
+                  )
+                }
                 cx={x}
                 cy={y}
-                r={7}
+                r={r}
                 fill={color}
                 stroke={color}
               />
