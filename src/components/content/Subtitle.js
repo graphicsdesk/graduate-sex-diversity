@@ -4,17 +4,17 @@ import injectSheet from 'react-jss';
 const styles = {
   Subtitle: {
     padding: '0 20px',
-    maxWidth: '690px',
-    margin: '3.5rem auto 2rem auto',
+    maxWidth: '540px',
+    margin: '0 auto 2rem auto',
     lineHeight: 1.6,
-    textAlign: 'center',
-    fontSize: '2.4rem',
-    fontFamily: 'Lato',
+    fontSize: '0.97rem',
+    color: '#888',
+    fontFamily: 'Open Sans',
   },
 };
 
 const Subtitle = ({ classes, text }) => (
-  <p className={classes.Subtitle}>{text}</p>
+  <p className={classes.Subtitle} dangerouslySetInnerHTML={{ __html: text }} />
 );
 
 export default injectSheet(styles)(Subtitle);

@@ -51,6 +51,18 @@ const styles = {
     fill: '#999',
     textAnchor: 'middle',
   },
+  equalityLine: {
+    fill: 'none',
+    strokeDasharray: '5 4',
+    stroke: '#555',
+    strokeWidth: 1.8,
+  },
+  equalityLabel: {
+    fontFamily: 'Roboto',
+    fontWeight: 30,
+    fontSize: '.7rem',
+    textAnchor: 'middle',
+  },
 };
 
 const TICK_PADDING = 9;
@@ -96,6 +108,8 @@ class PercentChart extends Component {
     if (width < 576) {
       NUM_TICKS = 5;
     }
+
+    if (width > window.innerWidth) width = window.innerWidth * 0.9;
 
     // Calculate svg and root group's dimensions
 
@@ -146,7 +160,7 @@ class PercentChart extends Component {
       xAxis,
       yAxis,
     } = this.state;
-    const { classes, dataName } = this.props;
+    const { classes, dataName, noTitle } = this.props;
     let AX_LABEL_SPACING = 35;
 
     const lineGenerator = d3Line()
@@ -154,17 +168,22 @@ class PercentChart extends Component {
       .y(yScale)
       .curve(curveCardinal.tension(0.5))
       .defined(d => d);
+    const yearLineGenerator = d3Line()
+      .x(d => xScale(d[0]))
+      .y(d => yScale(d[1]));
 
     return (
       <svg width={width} height={height}>
         <g transform={`translate(${margin.left}, ${margin.top})`}>
-          <text
-            className={classes.graphTitle}
-            x={xScale((START_YEAR + END_YEAR) / 2)}
-            y={-10}
-          >
-            {capitalizeWords(dataName)}
-          </text>
+          {!noTitle && (
+            <text
+              className={classes.graphTitle}
+              x={xScale((START_YEAR + END_YEAR) / 2)}
+              y={-10}
+            >
+              {capitalizeWords(dataName)}
+            </text>
+          )}
 
           {/* X-axis */}
           <g
@@ -186,7 +205,44 @@ class PercentChart extends Component {
             Percent female
           </text>
 
-          {/* Female data line */}
+          {/* Equality line */}
+          <path
+            className={classes.equalityLine}
+            d={yearLineGenerator([[START_YEAR, 0.5], [END_YEAR, 0.5]])}
+          />
+          <text
+            className={classes.equalityLabel}
+            x={xScale((START_YEAR + END_YEAR) / 2)}
+            y={yScale(0.5) - 7}
+          >
+            EQUAL NUMBER OF MEN AND WOMEN
+          </text>
+          <text
+            className={classes.equalityLabel}
+            x={xScale((START_YEAR + END_YEAR) / 2)}
+            y={yScale(0.5) + 16}
+          >
+            LIGHT LINES = PEER INSTITUTIONS
+          </text>
+
+          {/* Peer data lines */}
+          {Object.keys(PROPORTIONS[dataName]).map(inst => {
+            if (inst === COLUMBIA_NAME) {
+              return null;
+            }
+            return (
+              <Line
+                d={lineGenerator(PROPORTIONS[dataName][inst])}
+                key={dataName + inst}
+                className={classes.line}
+                isVisible
+                color={'#b1d0ff'}
+                strokeWidth={0.7}
+              />
+            );
+          })}
+
+          {/* Percentage data line */}
           <Line
             d={lineGenerator(this.data)}
             className={classes.line}

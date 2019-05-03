@@ -3,7 +3,7 @@ import { Scrollama, Step } from 'react-scrollama';
 import injectSheet from 'react-jss';
 import { FadeWrapper } from './svg';
 import { ScatterPlot } from './charts';
-import { START_YEAR } from '../constants';
+import { START_YEAR, SCATTER_BREAK } from '../constants';
 
 const styles = {
   Graphic: {
@@ -19,8 +19,10 @@ const styles = {
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
+    zIndex: -1,
   },
   stepsContainer: {
+    zIndex: 1,
     margin: '50vh 0 ',
   },
   step: {
@@ -48,6 +50,27 @@ const styles = {
     paddingTop: '0.8rem',
     borderTop: '0.8px solid #ddd',
   },
+
+  [`@media (max-width: ${SCATTER_BREAK}px)`]: {
+    Graphic: {
+      flexDirection: 'column-reverse',
+      justifyContent: 'flex-start',
+    },
+    stepsContainer: {
+      margin: '10vh 0 ',
+    },
+    step: {
+      maxWidth: '350px',
+      margin: '0 auto',
+      background: 'rgba(255, 255, 255, 0.9)',
+      color: '#222',
+      padding: '15px',
+      marginBottom: '80vh',
+    },
+    stepText: {
+      color: '#222',
+    },
+  },
 };
 
 class ScatterGraphic extends Component {
@@ -58,16 +81,16 @@ class ScatterGraphic extends Component {
 
   onStepEnter = ({ data: stepIndex, element }) => {
     this.setState({ stepIndex });
-    element.style.color = '#222';
+    if (window.innerWidth >= SCATTER_BREAK) element.style.color = '#222';
   };
 
   onStepExit = ({ data: stepIndex, direction, element }) => {
     if (direction === 'up' && stepIndex === 0) this.setState({ stepIndex: -1 });
-    element.style.color = '#aaa';
+    if (window.innerWidth >= SCATTER_BREAK) element.style.color = '#aaa';
   };
 
   render() {
-    const { stepIndex, title } = this.state;
+    const { stepIndex } = this.state;
     const { classes, steps } = this.props;
     let step = {
       maxYear: START_YEAR - 1,

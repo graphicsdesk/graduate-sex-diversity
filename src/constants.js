@@ -1,5 +1,9 @@
 import nanoid from 'nanoid';
 
+/* Dimensions */
+
+export const SCATTER_BREAK = 768;
+
 /* Names */
 
 export const COLUMBIA_NAME = 'Columbia University in the City of New York';
@@ -50,8 +54,6 @@ const COLORS = {
     secondary: '#FEABC5',
   },
 };
-
-
 
 export const primaryColor = str => {
   let field = str.toLowerCase();

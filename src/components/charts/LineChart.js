@@ -53,7 +53,7 @@ const styles = {
 };
 
 const TICK_PADDING = 9;
-const margin = { top: 40, right: 20, bottom: 50, left: 70 };
+const margin = { top: 40, right: 20, bottom: 50, left: 62 };
 
 class LineChart extends Component {
   constructor(props) {
@@ -88,7 +88,7 @@ class LineChart extends Component {
   };
 
   calculateSize = () => {
-    const { small } = this.props;
+    const { small, big } = this.props;
 
     let NUM_TICKS = 8;
 
@@ -96,10 +96,14 @@ class LineChart extends Component {
     width = 400;
     if (small) {
       width = 300;
+    } else if (big) {
+      width = 500;
     }
     if (width < 576) {
       NUM_TICKS = 5;
     }
+
+    if (width > window.innerWidth) width = window.innerWidth * 0.9;
 
     // Calculate svg and root group's dimensions
 
@@ -152,7 +156,7 @@ class LineChart extends Component {
       xAxis,
       yAxis,
     } = this.state;
-    const { classes, dataName } = this.props;
+    const { classes, dataName, noTitle } = this.props;
     let AX_LABEL_SPACING = 35;
     if (upperLimit >= 100) {
       AX_LABEL_SPACING += 10;
@@ -170,13 +174,15 @@ class LineChart extends Component {
     return (
       <svg width={width} height={height}>
         <g transform={`translate(${margin.left}, ${margin.top})`}>
-          <text
-            className={classes.graphTitle}
-            x={xScale((START_YEAR + END_YEAR) / 2)}
-            y={-10}
-          >
-            {capitalizeWords(dataName)}
-          </text>
+          {!noTitle && (
+            <text
+              className={classes.graphTitle}
+              x={xScale((START_YEAR + END_YEAR) / 2)}
+              y={-10}
+            >
+              {capitalizeWords(dataName)}
+            </text>
+          )}
 
           {/* X-axis */}
           <g
@@ -192,10 +198,10 @@ class LineChart extends Component {
           />
           <text
             className={classes.axisLabel}
-            transform={`translate(${-AX_LABEL_SPACING - 13}, ${gHeight /
+            transform={`translate(${-AX_LABEL_SPACING - 5}, ${gHeight /
               2}) rotate(-90)`}
           >
-            Number of people
+            Number of graduate students
           </text>
 
           {/* Male data line */}

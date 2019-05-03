@@ -2,7 +2,7 @@ import React from 'react';
 import archieml from 'archieml';
 import COPY from '../copy';
 import { insertHighlighters, processSteps } from '../utils';
-import { Header, Paragraph, Subtitle } from './content';
+import { Header, Paragraph, Break, Subtitle, Title } from './content';
 import LedeGraphic from './LedeGraphic';
 import ScatterGraphic from './ScatterGraphic';
 import CountsGraphs from './charts/CountsGraphs';
@@ -42,6 +42,8 @@ const App = () => (
 
     {engineering.map(({ type, value }) => {
       if (type === 'title') {
+        return <Title key={value} text={value} />;
+      } else if (type === 'subtitle') {
         return <Subtitle key={value} text={value} />;
       } else if (type === 'scatter') {
         return (
@@ -58,8 +60,10 @@ const App = () => (
         );
       }
     })}
-    {computer_sciences.map(({ type, value }) => {
+    {computer_sciences.map(({ type, value }, i) => {
       if (type === 'title') {
+        return <Title key={value} text={value} />;
+      } else if (type === 'subtitle') {
         return <Subtitle key={value} text={value} />;
       } else if (type === 'scatter') {
         return (
@@ -72,12 +76,15 @@ const App = () => (
           <CountsGraphs
             key={value}
             names={value.split(';').map(s => s.trim())}
+            noTitle={i === 1}
           />
         );
       }
     })}
-    {physical_sciences.map(({ type, value }) => {
+    {physical_sciences.map(({ type, value }, i) => {
       if (type === 'title') {
+        return <Title key={value} text={value} />;
+      } else if (type === 'subtitle') {
         return <Subtitle key={value} text={value} />;
       } else if (type === 'scatter') {
         return (
@@ -90,14 +97,17 @@ const App = () => (
           <CountsGraphs
             key={value}
             names={value.split(';').map(s => s.trim())}
+            noTitle={i === 1}
           />
         );
       } else if (type === 'graph_pair') {
         return <GraphPair key={value} name={value.trim()} />;
       }
     })}
-    {mathematics_statistics.map(({ type, value }) => {
+    {mathematics_statistics.map(({ type, value }, i) => {
       if (type === 'title') {
+        return <Title key={value} text={value} />;
+      } else if (type === 'subtitle') {
         return <Subtitle key={value} text={value} />;
       } else if (type === 'scatter') {
         return (
@@ -110,6 +120,7 @@ const App = () => (
           <CountsGraphs
             key={value}
             names={value.split(';').map(s => s.trim())}
+            noTitle={i === 1}
           />
         );
       } else if (type === 'graph_pair') {
@@ -118,6 +129,8 @@ const App = () => (
     })}
     {psychology_socialsciences.map(({ type, value }) => {
       if (type === 'title') {
+        return <Title key={value} text={value} />;
+      } else if (type === 'subtitle') {
         return <Subtitle key={value} text={value} />;
       } else if (type === 'scatter') {
         return (
@@ -138,6 +151,8 @@ const App = () => (
     })}
     {biological_sciences.map(({ type, value }) => {
       if (type === 'title') {
+        return <Title key={value} text={value} />;
+      } else if (type === 'subtitle') {
         return <Subtitle key={value} text={value} />;
       } else if (type === 'scatter') {
         return (
@@ -156,8 +171,10 @@ const App = () => (
         return <GraphPair key={value} name={value.trim()} />;
       }
     })}
-    {earth_atmospheric_ocean.map(({ type, value }) => {
+    {earth_atmospheric_ocean.map(({ type, value }, i) => {
       if (type === 'title') {
+        return <Title key={value} text={value} />;
+      } else if (type === 'subtitle') {
         return <Subtitle key={value} text={value} />;
       } else if (type === 'scatter') {
         return (
@@ -170,18 +187,23 @@ const App = () => (
           <CountsGraphs
             key={value}
             names={value.split(';').map(s => s.trim())}
+            noTitle={i === 1}
           />
         );
       } else if (type === 'graph_pair') {
-        return <GraphPair key={value} name={value.trim()} />;
+        return <GraphPair key={value} name={value.trim()} noTitle={i === 1} />;
       }
     })}
+
+    <Break />
 
     <Paragraph
       text={
         'The steady line of stagnation among female representation in the graduate sciences, this closer look at the National Science Foundation shows, masks significant shifts and troubling declines in certain fields.'
       }
     />
+
+    {/*<Paragraph text=/>*/}
   </div>
 );
 

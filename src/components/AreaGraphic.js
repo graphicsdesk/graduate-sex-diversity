@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import injectSheet from 'react-jss';
-import { Paragraph, Subtitle } from './content';
+import { Paragraph, Title } from './content';
 import { ScatterPlot } from './charts';
 import { END_YEAR, START_YEAR } from '../constants';
 
@@ -23,7 +23,7 @@ class AreaGraphic extends Component {
       <div className={classes.Graphic}>
         {steps.map(step => {
           const { type, value } = step;
-          if (type === 'title') return <Subtitle text={value} />;
+          if (type === 'title') return <Title text={value} />;
           else if (type === 'text') return <Paragraph text={value} />;
           else if (type === 'scatter')
             return (

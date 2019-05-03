@@ -76,7 +76,7 @@ const styles = {
 };
 
 const TICK_PADDING = 9;
-const margin = { top: 40, right: 20, bottom: 50, left: 70 };
+const margin = { top: 60, right: 20, bottom: 50, left: 70 };
 
 // Arbitrarily labelling different years for different fields
 const labels = {

@@ -16,11 +16,17 @@ const styles = {
 
 class CountsGraphs extends Component {
   render() {
-    const { classes, names } = this.props;
+    const { classes, names, noTitle } = this.props;
     return (
       <div className={classes.container}>
         {names.map(name => (
-          <LineChart key={name} dataName={name} small={names.length > 2} />
+          <LineChart
+            key={name}
+            dataName={name}
+            big={names.length === 1}
+            small={names.length > 2}
+            noTitle={noTitle}
+          />
         ))}
       </div>
     );

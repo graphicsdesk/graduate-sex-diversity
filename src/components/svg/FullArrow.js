@@ -11,7 +11,16 @@ const styles = {
   },
 };
 
-const FullArrow = ({ classes, x, y, orient, line1, line2, dataName }) => {
+const FullArrow = ({
+  classes,
+  x,
+  y,
+  orient,
+  line1,
+  line2,
+  line3,
+  dataName,
+}) => {
   const arrowLength = 55;
 
   let labelPadding = null;
@@ -42,6 +51,7 @@ const FullArrow = ({ classes, x, y, orient, line1, line2, dataName }) => {
         stroke="#111"
         fill="none"
         strokeWidth={1.8}
+        transform={dx ? `translate(8, ${lineHeight - 4})` : ''}
         markerEnd={`url(#${fullArrowId(dataName)})`}
       />
       <text
@@ -56,6 +66,9 @@ const FullArrow = ({ classes, x, y, orient, line1, line2, dataName }) => {
         </tspan>
         <tspan x={0} y={lineHeight}>
           {line2}
+        </tspan>
+        <tspan x={0} y={lineHeight * 2}>
+          {line3}
         </tspan>
       </text>
     </g>

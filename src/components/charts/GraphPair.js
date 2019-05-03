@@ -17,11 +17,11 @@ const styles = {
 
 class GraphPair extends Component {
   render() {
-    const { classes, name } = this.props;
+    const { classes, name, noTitle } = this.props;
     return (
       <div className={classes.container}>
-        <LineChart dataName={name} />
-        <PercentChart dataName={name} />
+        <LineChart dataName={name} noTitle={noTitle} />
+        <PercentChart dataName={name} noTitle={noTitle} />
       </div>
     );
   }

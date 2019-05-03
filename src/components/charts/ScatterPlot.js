@@ -12,6 +12,7 @@ import {
   END_YEAR,
   POSSIBLE_GUIDES,
   START_YEAR,
+  SCATTER_BREAK,
 } from '../../constants';
 import {
   Point,
@@ -25,13 +26,6 @@ import {
 } from '../svg';
 
 const styles = {
-  graphTitle: {
-    fontFamily: 'Roboto',
-    fontSize: '1.1rem',
-    fill: '#111',
-    textAnchor: 'start',
-    fontWeight: 600,
-  },
   line: {
     fill: 'none',
     stroke: '#333',
@@ -103,13 +97,13 @@ class ScatterPlot extends Component {
   };
 
   calculateSize = () => {
-    const { dataName, individual } = this.props;
+    const { dataName } = this.props;
 
     let NUM_TICKS = 8;
 
     let width = window.innerWidth * 0.5;
-    if (individual) {
-      width = 600;
+    if (window.innerWidth < SCATTER_BREAK) {
+      width = Math.min(window.innerWidth * 0.9, window.innerHeight * 0.9);
     }
     if (width < 576) {
       NUM_TICKS = 5;
@@ -197,10 +191,7 @@ class ScatterPlot extends Component {
       showLine,
       showAxesIndicators,
     } = this.props;
-    let AX_LABEL_SPACING = 35;
-    if (upperLimit >= 100) {
-      AX_LABEL_SPACING += 10;
-    }
+    let AX_LABEL_SPACING = 45;
 
     const lineGenerator = d3Line()
       .x(d => xScale(d[0]))
@@ -217,15 +208,6 @@ class ScatterPlot extends Component {
         </defs>
 
         <g transform={`translate(${margin.left}, ${margin.top})`}>
-          <text className={classes.graphTitle} x={xScale(0)} y={-20}>
-            Graduate students in{' '}
-            {dataName === 'TOTALS' ? (
-              'science and engineering'
-            ) : (
-              dataName.toLowerCase()
-            )}
-          </text>
-
           {/* X-axis and axis label */}
           <g
             ref={node => d3Select(node).call(xAxis)}
@@ -237,7 +219,7 @@ class ScatterPlot extends Component {
             transform={`translate(${gWidth / 2}, ${gHeight +
               AX_LABEL_SPACING})`}
           >
-            Number of women
+            Number of female students
           </text>
 
           {/* Y-axis and axis label */}
@@ -250,7 +232,7 @@ class ScatterPlot extends Component {
             transform={`translate(${-AX_LABEL_SPACING - 13}, ${gHeight /
               2}) rotate(-90)`}
           >
-            Number of men
+            Number of male students
           </text>
 
           {/* Proportion guides */}
@@ -272,7 +254,7 @@ class ScatterPlot extends Component {
               gHeight={gHeight}
               orient={-1}
               dataName={dataName}
-              label="MORE MEN"
+              label="MORE MALE STUDENTS"
             />
             <SkinnyArrow
               x={xScale(upperLimit * 0.65)}
@@ -280,28 +262,30 @@ class ScatterPlot extends Component {
               gHeight={gHeight}
               orient={1}
               dataName={dataName}
-              label="MORE WOMEN"
+              label="MORE FEMALE STUDENTS"
             />
           </FadeWrapper>
 
           {/* Axes indicators */}
           <FadeWrapper isVisible={showAxesIndicators}>
             <FullArrow
-              x={xScale(upperLimit / 15)}
-              y={yScale(this.data[0][1] + upperLimit / 6)}
+              x={xScale(upperLimit / 10)}
+              y={yScale(this.data[0][1] + upperLimit / 4)}
               gHeight={gHeight}
               orient="up"
               line1="NUMBER"
-              line2="OF MEN"
+              line2="OF MALE"
+              line3="STUDENTS"
               dataName={dataName}
             />
             <FullArrow
-              x={xScale(upperLimit * 0.3)}
+              x={xScale(upperLimit * 0.4)}
               y={yScale(this.data[0][1])}
               gHeight={gHeight}
               orient="right"
               line1="NUMBER"
-              line2="OF WOMEN"
+              line2="OF FEMALE"
+              line3="STUDENTS"
               dataName={dataName}
             />
           </FadeWrapper>
