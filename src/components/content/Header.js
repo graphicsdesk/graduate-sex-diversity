@@ -4,7 +4,7 @@ import injectSheet from 'react-jss';
 const styles = {
   Header: {
     marginTop: '4rem',
-    marginBottom: 0,
+    marginBottom: '0',
     display: 'flex',
     alignItems: 'center',
     flexDirection: 'column',
@@ -17,11 +17,11 @@ const styles = {
     display: 'inline-block',
     textAlign: 'center',
     fontSize: '2.7rem',
-    lineHeight: 1.6,
+    lineHeight: '1.6',
     color: '#333',
   },
   meta: {
-    fontSize: '1.1rem',
+    fontSize: '1.05rem',
     fontFamily: 'Roboto',
     marginBottom: 0,
   },
@@ -55,10 +55,7 @@ const styles = {
 const Header = ({ classes, headline }) => (
   <div className={classes.Header}>
     <p className={classes.headline}>
-      In Certain <span className={classes.color}>
-        Science and Engineering
-      </span>{' '}
-      Fields, <span className={classes.color}>Sex Diversity</span> Among
+      In Certain Science and Engineering Fields, <span className={classes.color}>Sex Diversity</span> Among
       Graduate Students Is <span className={classes.color}>Stagnating</span>. In
       Others, It’s <span className={classes.color}>Getting Worse</span>.
     </p>
