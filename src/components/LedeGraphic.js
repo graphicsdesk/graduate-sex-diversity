@@ -80,18 +80,7 @@ class LedeGraphic extends Component {
             offset={0.4}
             onStepEnter={this.onStepEnter}
             onStepExit={this.onStepExit}
-          >
-            {steps.map(({ text }, i) => (
-              <Step data={i} key={text}>
-                <div className={classes.step}>
-                  <p
-                    className={classes.stepText}
-                    dangerouslySetInnerHTML={{ __html: text }}
-                  />
-                </div>
-              </Step>
-            ))}
-          </Scrollama>
+          />
         </div>
       </div>
     );

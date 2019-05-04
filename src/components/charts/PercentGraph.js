@@ -13,6 +13,7 @@ import {
   START_YEAR,
   years,
   primaryColor,
+  secondaryColor,
 } from '../../constants';
 import { writeTitleFromFields } from '../../utils';
 import { FadeWrapper, Line } from '../svg';
@@ -37,7 +38,7 @@ const styles = {
     },
     '& > g.tick line': {
       stroke: '#ccc',
-      strokeWidth: 0.6,
+      strokeWidth: 0,
     },
   },
   yAxis: {
@@ -53,7 +54,7 @@ const styles = {
     },
     '& > g.tick line': {
       stroke: '#ccc',
-      strokeWidth: 0.6,
+      strokeWidth: 0,
     },
   },
   axisLabel: {
@@ -101,8 +102,8 @@ class PercentGraph extends Component {
 
   calculateSize = () => {
     const fullWidth = window.innerWidth;
-    let height = window.innerHeight * 0.93;
-    let width = fullWidth * 0.9;
+    let height = window.innerHeight;
+    let width = fullWidth * 0.6;
     let numTicks = years.length / 2;
     if (fullWidth < 768) {
       width = fullWidth * 0.95;
@@ -212,8 +213,26 @@ class PercentGraph extends Component {
             EQUAL NUMBER OF MEN AND WOMEN
           </text>
 
+          {/* Peer field lines */}
+          {Object.keys(PROPORTIONS['Physics']).map(inst => {
+            if (inst === COLUMBIA_NAME) {
+              return null;
+            }
+            let dataName = 'Physics';
+            return (
+              <Line
+                d={lineGenerator(PROPORTIONS[dataName][inst])}
+                key={dataName + inst}
+                className={classes.line}
+                isVisible
+                color={secondaryColor(dataName)}
+                strokeWidth={1}
+              />
+            );
+          })}
+
           {/* Columbia field lines */}
-          {Object.keys(PROPORTIONS).map(field => {
+          {['Physics'].map(field => {
             let data = PROPORTIONS[field];
 
             const overall = field === 'TOTALS';
@@ -225,16 +244,11 @@ class PercentGraph extends Component {
               <Line
                 key={field}
                 d={lineGenerator(data)}
-                isVisible={fields.includes(field)}
+                isVisible
                 name={field}
                 color={primaryColor(field)}
-                strokeWidth={overall ? 3 : 2}
+                strokeWidth={3}
                 showEndpoint
-                labels={[END_YEAR].map(year => ({
-                  x: xScale(year),
-                  y: yScale(data[year - START_YEAR]),
-                  label: overall ? 'All of science and engineering' : field,
-                }))}
               />
             );
           })}

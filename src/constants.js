@@ -59,7 +59,7 @@ const COLORS = {
   anthropology: {
     primary: '#4cd3a1',
   },
-  physics: {
+  'Physics': {
     primary: '#f03c6a',
     secondary: '#FEABC5',
   },
