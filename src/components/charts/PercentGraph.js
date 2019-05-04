@@ -230,7 +230,7 @@ class PercentGraph extends Component {
                 color={primaryColor(field)}
                 strokeWidth={overall ? 3 : 2}
                 showEndpoint
-                labels={([END_YEAR]).map(year => ({
+                labels={[END_YEAR].map(year => ({
                   x: xScale(year),
                   y: yScale(data[year - START_YEAR]),
                   label: overall ? 'All of science and engineering' : field,
