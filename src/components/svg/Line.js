@@ -31,13 +31,13 @@ const styles = {
     fontSize: '1rem',
     fontFamily: 'Roboto',
     fontWeight: 500,
-    textAnchor: 'middle',
+    textAnchor: 'end',
   },
   text: {
     fontSize: '1rem',
     fontFamily: 'Roboto',
     fontWeight: 500,
-    textAnchor: 'middle',
+    textAnchor: 'end',
   },
   '@keyframes pulse': {
     from: {
@@ -142,7 +142,7 @@ class Line extends Component {
           </text>
         )}
         {labels.length > 0 &&
-          labels.map(({ x, y, r = 7, label, isPulsing = true }, i) => (
+          labels.map(({ x, y, r = 7, label, isPulsing = false }, i) => (
             <FadeWrapper
               key={x + '-' + y + '-' + label}
               isVisible={isVisible && isEndpointVisible}

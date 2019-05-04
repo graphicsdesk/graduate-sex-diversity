@@ -40,6 +40,9 @@ export const POSSIBLE_GUIDES = [0.25, 0.5, 0.75];
 
 /* Colors */
 
+const primary = '#5c86ff';
+const secondary = '#f03c6a';
+
 const COLORS = {
   totals: {
     primary: '#5c86ff',
@@ -48,6 +51,13 @@ const COLORS = {
   'mathematics and statistics': {
     primary: '#4cd3a1',
     secondary: '#99D9C9',
+  },
+  'mathematics and applied mathematics': {
+    primary: '#4cd3a1',
+    secondary: '#99D9C9',
+  },
+  anthropology: {
+    primary: '#4cd3a1',
   },
   physics: {
     primary: '#f03c6a',

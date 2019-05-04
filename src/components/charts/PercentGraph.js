@@ -83,12 +83,6 @@ const styles = {
 const TICK_PADDING = 9;
 const margin = { top: 70, right: 20, bottom: 50, left: 70 };
 
-// Arbitrarily labelling different years for different fields
-const labels = {
-  Statistics: [2003, 2016],
-  Physics: [1994, 2007, 2016],
-};
-
 class PercentGraph extends Component {
   constructor(props) {
     super(props);
@@ -107,8 +101,8 @@ class PercentGraph extends Component {
 
   calculateSize = () => {
     const fullWidth = window.innerWidth;
-    let height = window.innerHeight * 0.85;
-    let width = fullWidth * 0.7;
+    let height = window.innerHeight * 0.93;
+    let width = fullWidth * 0.9;
     let numTicks = years.length / 2;
     if (fullWidth < 768) {
       width = fullWidth * 0.95;
@@ -219,10 +213,12 @@ class PercentGraph extends Component {
           </text>
 
           {/* Columbia field lines */}
-          {['TOTALS', 'Mathematics and statistics', 'Physics'].map(field => {
+          {Object.keys(PROPORTIONS).map(field => {
             let data = PROPORTIONS[field];
 
-            if (field !== 'TOTALS') {
+            const overall = field === 'TOTALS';
+
+            if (!overall) {
               data = data[COLUMBIA_NAME];
             }
             return (
@@ -232,14 +228,12 @@ class PercentGraph extends Component {
                 isVisible={fields.includes(field)}
                 name={field}
                 color={primaryColor(field)}
-                strokeWidth={3}
+                strokeWidth={overall ? 3 : 2}
                 showEndpoint
-                labels={(labels[field]
-                  ? labels[field]
-                  : [END_YEAR]).map(year => ({
+                labels={([END_YEAR]).map(year => ({
                   x: xScale(year),
                   y: yScale(data[year - START_YEAR]),
-                  label: Math.round(data[year - START_YEAR] * 100) + '%',
+                  label: overall ? 'All of science and engineering' : field,
                 }))}
               />
             );

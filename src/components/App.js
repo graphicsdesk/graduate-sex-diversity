@@ -27,7 +27,7 @@ const {
 
 const ledeSteps = lede.map(step => {
   if (step.fields) {
-    step.fields = step.fields.split(',');
+    step.fields = step.fields.split(',').map(f => f.trim());
   }
   step.text = insertHighlighters(step.text);
   return step;

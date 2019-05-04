@@ -6,7 +6,7 @@ headline: In Certain Science and Engineering Fields, Sex Diversity Among Graduat
 [lede]
 
 text: The percentage of female graduate students in <h>science and engineering</h> fields at Columbia has remained virtually unchanged since 1998.
-fields: TOTALS
+fields: TOTALS, Anthropology, Physics
 
 text: However, the overall stagnation in the representation of female graduate students in science and engineering shrouds a more complicated picture underneath.
 
