@@ -11,7 +11,7 @@ const styles = {
     display: 'flex',
     margin: '0 auto',
     marginTop: '5rem',
-    width: '100vw',
+    width: '1280px',
     justifyContent: 'space-between',
   },
 };

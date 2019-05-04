@@ -236,6 +236,23 @@ class PercentChart extends Component {
             </text>
           )}
 
+          {/* Peer data lines */}
+          {Object.keys(PROPORTIONS[dataName]).map(inst => {
+            if (inst === COLUMBIA_NAME) {
+              return null;
+            }
+            return (
+              <Line
+                d={lineGenerator(PROPORTIONS[dataName][inst])}
+                key={dataName + inst}
+                className={classes.line}
+                isVisible
+                color={colors.secondary}
+                strokeWidth={0.7}
+              />
+            );
+          })}
+
           {/* Equality line */}
           <path
             className={classes.equalityLine}
@@ -255,23 +272,6 @@ class PercentChart extends Component {
           >
             LIGHT LINES = PEER INSTITUTIONS
           </text>
-
-          {/* Peer data lines */}
-          {Object.keys(PROPORTIONS[dataName]).map(inst => {
-            if (inst === COLUMBIA_NAME) {
-              return null;
-            }
-            return (
-              <Line
-                d={lineGenerator(PROPORTIONS[dataName][inst])}
-                key={dataName + inst}
-                className={classes.line}
-                isVisible
-                color={colors.secondary}
-                strokeWidth={0.7}
-              />
-            );
-          })}
 
           {/* Percentage data line */}
           <Line

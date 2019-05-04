@@ -9,7 +9,7 @@ const styles = {
     justifyContent: 'flex-start',
     marginBottom: '2rem',
     '& > svg': {
-      marginBottom: '2rem',
+      marginBottom: '24px',
     },
   },
 };
@@ -24,7 +24,7 @@ class PercentsCharts extends Component {
             key={name}
             dataName={name}
             colors={colors}
-            showYlabel={firstColumn && i === 0}
+            showYlabel //={firstColumn && i === 0}
           />
         ))}
       </div>
