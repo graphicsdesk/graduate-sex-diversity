@@ -63,6 +63,10 @@ const COLORS = {
     primary: '#f03c6a',
     secondary: '#FEABC5',
   },
+  'physics': {
+    primary: '#f03c6a',
+    secondary: '#FEABC5',
+  },
 };
 
 export const primaryColor = str => {

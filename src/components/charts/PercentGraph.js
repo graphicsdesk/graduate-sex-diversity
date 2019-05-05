@@ -247,7 +247,7 @@ class PercentGraph extends Component {
                 isVisible
                 name={field}
                 color={primaryColor(field)}
-                strokeWidth={3}
+                strokeWidth={4}
                 showEndpoint
               />
             );
