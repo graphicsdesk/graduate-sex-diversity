@@ -1,9 +1,5 @@
-# Graduate Diversity
+**HED: In Certain Science and Engineering Fields, Sex Diversity Among Graduate Students Is Stagnating. In Others, It’s Getting Worse.**
 
-## Notes
+The analysis behind this article is in [@spec-journalism/gss-diversity](https://github.com/spec-journalism/gss-diversity).
 
-* Add little arrows to the connected scatter plot (see `notebooks/README.md`)
-
-* When designing the connected scatter plot interactive, reference [this research](http://steveharoz.com/research/connected_scatterplot/) regarding the UX and intelligibility of connected scatter plots.
-
-* If there's extra time, annotate differences in each time interval like this [Times graphic](http://4.bp.blogspot.com/-hKr9ETXwdj4/UFjJWm7daEI/AAAAAAAAAxI/O5EMLZTu5Zw/s1600/02metrics-popup-v3.jpg)
+This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
